@@ -1,7 +1,7 @@
 {
-  "name": "tradenova-admin",
+  "name": "tradenova",
   "version": "1.0.0",
-  "description": "Premium Pixel-Perfect Trading Platform Admin Panel (Node.js & MySQL)",
+  "description": "Comprehensive trading platform and brokerage management system featuring real-time risk controls, ledger balances, P&L analytics, and client governance built with Node.js, Express, and MySQL.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
