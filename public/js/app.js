@@ -1,6 +1,6 @@
 /**
- * TradeNova Administration Frontend Application
- * Pixel-Perfect Replica & REST Client
+ * TradeNova Pro Administration Frontend Application
+ * Institutional Dark Trading Terminal & Free TradingView Charting Engine
  */
 
 const API_BASE = '/api';
@@ -21,6 +21,18 @@ let state = {
   usersData: []
 };
 
+// TradingView & Terminal Global State
+let soundEnabled = true;
+let audioCtx = null;
+let activeTvSymbol = 'NSE:NIFTY';
+let activeTvScriptName = 'NIFTY 50';
+let activeTvInterval = '15';
+let activeSplitSymbol = 'NSE:NIFTY';
+let activeSplitScriptName = 'NIFTY 50';
+let activeSplitInterval = '15';
+let mwViewMode = 'table';
+let currentTvLots = 1;
+
 // Initialize Application
 document.addEventListener('DOMContentLoaded', () => {
   setupNavigation();
@@ -28,8 +40,31 @@ document.addEventListener('DOMContentLoaded', () => {
   handleRoute();
   window.addEventListener('hashchange', handleRoute);
 
-  // Live market price ticker interval
-  setInterval(simulateMarketTicks, 2500);
+  // Live IST Market Clock
+  updateLiveClock();
+  setInterval(updateLiveClock, 1000);
+
+  // Live market price ticker simulation with glowing tick flashes
+  setInterval(simulateMarketTicks, 2200);
+
+  // Global Keyboard Shortcuts (Ctrl+K or '/' to focus search)
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey && e.key.toLowerCase() === 'k') || (e.key === '/' && document.activeElement.tagName !== 'INPUT')) {
+      e.preventDefault();
+      const searchInput = document.getElementById('market-watch-search');
+      if (searchInput) {
+        if (currentPage !== 'market-watch') {
+          window.location.hash = '#market-watch';
+        }
+        searchInput.focus();
+        searchInput.select();
+      }
+    }
+    if (e.key === 'Escape') {
+      closeModal('tradingview-modal');
+      closeModal('order-pad-modal');
+    }
+  });
 });
 
 // ---------------- Navigation & Routing ----------------
@@ -268,6 +303,92 @@ function renderMarketWatchTable(list) {
   });
 }
 
+// TradingView Symbol Registry
+const TV_SYMBOL_MAP = {
+  'NIFTY 50': 'NSE:NIFTY',
+  'NIFTY_FUT': 'NSE:NIFTY',
+  'NIFTY 25100 CE': 'NSE:NIFTY',
+  'NIFTY 25100 PE': 'NSE:NIFTY',
+  'NIFTY 25200 CE': 'NSE:NIFTY',
+  'NIFTY 25000 PE': 'NSE:NIFTY',
+  'BANKNIFTY': 'NSE:BANKNIFTY',
+  'BANKNIFTY_FUT': 'NSE:BANKNIFTY',
+  'BANKNIFTY 51500 CE': 'NSE:BANKNIFTY',
+  'BANKNIFTY 51500 PE': 'NSE:BANKNIFTY',
+  'FINNIFTY': 'NSE:CNXFINANCE',
+  'MIDCPNIFTY': 'NSE:NIFTY',
+  'SENSEX': 'BSE:SENSEX',
+  'RELIANCE': 'NSE:RELIANCE',
+  'HDFCBANK': 'NSE:HDFCBANK',
+  'TCS': 'NSE:TCS',
+  'INFY': 'NSE:INFY',
+  'ICICIBANK': 'NSE:ICICIBANK',
+  'SBIN': 'NSE:SBIN',
+  'BHARTIARTL': 'NSE:BHARTIARTL',
+  'ITC': 'NSE:ITC',
+  'LT': 'NSE:LT',
+  'GOLD': 'TVC:GOLD',
+  'SILVER': 'TVC:SILVER',
+  'CRUDEOIL': 'TVC:USOIL',
+  'NATURALGAS': 'NYMEX:NG1!'
+};
+
+function getTvSymbol(script) {
+  if (TV_SYMBOL_MAP[script]) return TV_SYMBOL_MAP[script];
+  const clean = script.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
+  if (clean.includes('NIFTY')) return 'NSE:NIFTY';
+  if (clean.includes('BANK')) return 'NSE:BANKNIFTY';
+  return `NSE:${clean}`;
+}
+
+function renderMarketWatchTable(list) {
+  const body = document.getElementById('market-watch-body');
+  if (!body) return;
+  body.innerHTML = '';
+
+  list.forEach(item => {
+    const tr = document.createElement('tr');
+    tr.id = `mw-row-${item.script.replace(/[^a-zA-Z0-9]/g, '_')}`;
+    tr.style.cursor = 'pointer';
+    tr.onclick = (e) => {
+      // If clicking button, don't trigger row selection
+      if (e.target.closest('button')) return;
+      if (mwViewMode === 'split') {
+        loadSplitTradingViewChart(item.script);
+      }
+    };
+
+    const changeClass = item.change >= 0 ? 'val-green' : 'val-red';
+    
+    // Segment badge color
+    let segColor = '#3b82f6';
+    if (item.segment === 'MCX') segColor = '#f59e0b';
+    if (item.segment === 'Indices') segColor = '#10b981';
+    if (item.segment === 'F&O') segColor = '#8b5cf6';
+
+    tr.innerHTML = `
+      <td><strong>${item.script}</strong></td>
+      <td><span class="badge-tag" style="background:${segColor}22; color:${segColor};">${item.segment}</span></td>
+      <td class="mw-bid">${item.bid.toFixed(2)}</td>
+      <td class="mw-ask">${item.ask.toFixed(2)}</td>
+      <td class="mw-ltp" style="font-weight:700;">${item.ltp.toFixed(2)}</td>
+      <td class="${changeClass} mw-change">${item.change > 0 ? '+' : ''}${item.change.toFixed(2)}</td>
+      <td>${item.high.toFixed(2)}</td>
+      <td>${item.low.toFixed(2)}</td>
+      <td style="text-align: center;">
+        <div style="display:inline-flex; gap:5px; align-items:center;">
+          <button class="btn-buy-quick" onclick="openOrderPadModal('${item.script}', 'BUY')">BUY</button>
+          <button class="btn-sell-quick" onclick="openOrderPadModal('${item.script}', 'SELL')">SELL</button>
+          <button class="btn-chart-quick" onclick="openTradingViewModal('${item.script}')" title="Open TradingView Candlestick Chart">
+            <i class="fa-solid fa-chart-candlestick"></i> CHART
+          </button>
+        </div>
+      </td>
+    `;
+    body.appendChild(tr);
+  });
+}
+
 function filterMarketWatch() {
   const q = (document.getElementById('market-watch-search')?.value || '').toLowerCase().trim();
   let filtered = state.marketWatchData;
@@ -283,6 +404,208 @@ function filterMarketWatch() {
   }
 
   renderMarketWatchTable(filtered);
+}
+
+// ---------------- TRADINGVIEW PRO CHART LOGIC ----------------
+
+function renderTvChart(containerId, tvSymbol, interval = '15') {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = '';
+
+  if (typeof TradingView !== 'undefined' && TradingView.widget) {
+    new TradingView.widget({
+      "autosize": true,
+      "symbol": tvSymbol,
+      "interval": interval,
+      "timezone": "Asia/Kolkata",
+      "theme": "dark",
+      "style": "1",
+      "locale": "en",
+      "toolbar_bg": "#09101e",
+      "enable_publishing": false,
+      "allow_symbol_change": true,
+      "container_id": containerId,
+      "hide_side_toolbar": false,
+      "withdateranges": true,
+      "save_image": true,
+      "studies": [
+        "RSI@tv-basicstudies",
+        "MASimple@tv-basicstudies",
+        "Volume@tv-basicstudies"
+      ]
+    });
+  } else {
+    // Fallback if external tv.js is loading: render TradingView embed iframe
+    container.innerHTML = `
+      <iframe src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_widget&symbol=${encodeURIComponent(tvSymbol)}&interval=${interval}&theme=dark&style=1&timezone=Asia%2FKolkata&studies=%5B%22RSI%40tv-basicstudies%22%2C%22MASimple%40tv-basicstudies%22%5D" 
+              style="width:100%; height:100%; border:none;" 
+              allowtransparency="true" 
+              scrolling="no">
+      </iframe>
+    `;
+  }
+}
+
+function renderTvTechnicalAnalysis(containerId, tvSymbol) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = `
+    <iframe src="https://s.tradingview.com/embed-widget/technical-analysis/?locale=en#%7B%22interval%22%3A%2215m%22%2C%22width%22%3A%22100%25%22%2C%22isTransparent%22%3Atrue%2C%22height%22%3A%22100%25%22%2C%22symbol%22%3A%22${encodeURIComponent(tvSymbol)}%22%2C%22showIntervalTabs%22%3Atrue%2C%22displayMode%22%3A%22single%22%2C%22colorTheme%22%3A%22dark%22%7D"
+            style="width:100%; height:100%; border:none;"
+            allowtransparency="true"
+            scrolling="no">
+    </iframe>
+  `;
+}
+
+function openTradingViewModal(scriptSymbol, scriptName) {
+  let tvSymbol = scriptSymbol;
+  let displayName = scriptName || scriptSymbol;
+
+  // Check if it's already a TradingView ticker or a script name from Market Watch
+  if (!scriptSymbol.includes(':')) {
+    tvSymbol = getTvSymbol(scriptSymbol);
+    displayName = scriptSymbol;
+  }
+
+  activeTvSymbol = tvSymbol;
+  activeTvScriptName = displayName;
+
+  // Set selector dropdown value
+  const select = document.getElementById('tv-modal-symbol-select');
+  if (select) {
+    let found = false;
+    for (let opt of select.options) {
+      if (opt.value === tvSymbol) {
+        select.value = tvSymbol;
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      const newOpt = document.createElement('option');
+      newOpt.value = tvSymbol;
+      newOpt.textContent = displayName;
+      select.appendChild(newOpt);
+      select.value = tvSymbol;
+    }
+  }
+
+  // Update LTP badge
+  const scriptObj = (state.marketWatchData || []).find(s => s.script === displayName);
+  const ltpBadge = document.getElementById('tv-modal-ltp-badge');
+  if (ltpBadge) {
+    if (scriptObj) {
+      const changeClass = scriptObj.change >= 0 ? 'val-green' : 'val-red';
+      ltpBadge.className = `mw-chart-ltp-badge ${changeClass}`;
+      ltpBadge.textContent = `₹${scriptObj.ltp.toFixed(2)} (${scriptObj.change > 0 ? '+' : ''}${scriptObj.change.toFixed(2)})`;
+    } else {
+      ltpBadge.className = 'mw-chart-ltp-badge val-green';
+      ltpBadge.textContent = displayName;
+    }
+  }
+
+  openModal('tradingview-modal');
+
+  // Render chart inside modal
+  setTimeout(() => {
+    renderTvChart('tv-modal-chart-container', activeTvSymbol, activeTvInterval);
+    renderTvTechnicalAnalysis('tv-tech-analysis-container', activeTvSymbol);
+  }, 100);
+}
+
+function onTvModalSymbolSelectChange(newSymbol) {
+  activeTvSymbol = newSymbol;
+  const select = document.getElementById('tv-modal-symbol-select');
+  activeTvScriptName = select ? select.options[select.selectedIndex].text : newSymbol;
+
+  renderTvChart('tv-modal-chart-container', activeTvSymbol, activeTvInterval);
+  renderTvTechnicalAnalysis('tv-tech-analysis-container', activeTvSymbol);
+}
+
+function changeTvModalTimeframe(interval) {
+  activeTvInterval = interval;
+  document.querySelectorAll('#tradingview-modal .btn-tf').forEach(b => {
+    b.classList.remove('active');
+    if (b.textContent.trim().toLowerCase() === (interval === '60' ? '1h' : (interval === 'D' ? '1d' : (interval === 'W' ? '1w' : `${interval}m`)))) {
+      b.classList.add('active');
+    }
+  });
+  renderTvChart('tv-modal-chart-container', activeTvSymbol, activeTvInterval);
+}
+
+function orderFromTvModal(action) {
+  const scriptSymbol = activeTvScriptName.split(' ')[0] || 'NIFTY 50';
+  openOrderPadModal(scriptSymbol, action);
+}
+
+function setTvQuickLots(lots) {
+  currentTvLots = lots;
+  const label = document.getElementById('tv-quick-lots-label');
+  if (label) {
+    label.textContent = `${lots} Lot${lots > 1 ? 's' : ''} (${lots * 25} Qty)`;
+  }
+}
+
+// Split View Mode Management
+function setMwViewMode(mode) {
+  mwViewMode = mode;
+  const splitWrapper = document.getElementById('mw-split-wrapper');
+  const chartCard = document.getElementById('mw-split-chart-card');
+  const btnTable = document.getElementById('btn-mode-table');
+  const btnSplit = document.getElementById('btn-mode-split');
+
+  if (mode === 'split') {
+    splitWrapper?.classList.add('split-mode');
+    if (chartCard) chartCard.style.display = 'flex';
+    btnTable?.classList.remove('active');
+    btnSplit?.classList.add('active');
+
+    loadSplitTradingViewChart(activeSplitScriptName);
+  } else {
+    splitWrapper?.classList.remove('split-mode');
+    if (chartCard) chartCard.style.display = 'none';
+    btnTable?.classList.add('active');
+    btnSplit?.classList.remove('active');
+  }
+}
+
+function loadSplitTradingViewChart(scriptName) {
+  activeSplitScriptName = scriptName;
+  activeSplitSymbol = getTvSymbol(scriptName);
+
+  const titleElem = document.getElementById('mw-active-symbol-title');
+  if (titleElem) titleElem.textContent = scriptName;
+
+  const scriptObj = (state.marketWatchData || []).find(s => s.script === scriptName);
+  const badgeElem = document.getElementById('mw-active-ltp-badge');
+  if (badgeElem && scriptObj) {
+    const changeClass = scriptObj.change >= 0 ? 'val-green' : 'val-red';
+    badgeElem.className = `mw-chart-ltp-badge ${changeClass}`;
+    badgeElem.textContent = `₹${scriptObj.ltp.toFixed(2)} (${scriptObj.change > 0 ? '+' : ''}${scriptObj.change.toFixed(2)})`;
+  }
+
+  renderTvChart('mw-split-chart-container', activeSplitSymbol, activeSplitInterval);
+}
+
+function changeSplitTimeframe(interval) {
+  activeSplitInterval = interval;
+  document.querySelectorAll('#mw-split-chart-card .btn-tf').forEach(b => {
+    b.classList.remove('active');
+    if (b.textContent.trim().toLowerCase() === (interval === '60' ? '1h' : (interval === 'D' ? '1d' : `${interval}m`))) {
+      b.classList.add('active');
+    }
+  });
+  renderTvChart('mw-split-chart-container', activeSplitSymbol, activeSplitInterval);
+}
+
+function quickTradeActiveSymbol(action) {
+  openOrderPadModal(activeSplitScriptName, action);
+}
+
+function maximizeCurrentChart() {
+  openTradingViewModal(activeSplitSymbol, activeSplitScriptName);
 }
 
 // ---------------- 1-CLICK ORDER PAD SYSTEM ----------------
@@ -381,7 +704,9 @@ async function handleOrderPadSubmit(e) {
 
     if (res.ok) {
       closeModal('order-pad-modal');
-      showToast(`Order Executed! ${action} ${qty} Qty of ${script} @ ₹${price.toFixed(2)}`);
+      closeModal('tradingview-modal');
+      playTradeChime(action);
+      showToast(`Order Executed! ${action} ${qty} Qty of ${script} @ ₹${price.toFixed(2)}`, action);
 
       // Refresh screens
       if (currentPage === 'trades') loadTrades();
@@ -1190,4 +1515,155 @@ function openModal(id) {
 function closeModal(id) {
   const modal = document.getElementById(id);
   if (modal) modal.classList.remove('show');
+}
+
+// ---------------- LIVE SIMULATOR & AUDIO SYNTHESIZER ----------------
+
+function simulateMarketTicks() {
+  if (!state.marketWatchData || state.marketWatchData.length === 0) return;
+
+  // Pick 3 to 6 random symbols to tick
+  const count = Math.min(state.marketWatchData.length, 5);
+  for (let i = 0; i < count; i++) {
+    const idx = Math.floor(Math.random() * state.marketWatchData.length);
+    const item = state.marketWatchData[idx];
+
+    // Micro fluctuation: between -0.15% and +0.18%
+    const pctChange = (Math.random() * 0.33 - 0.15) / 100;
+    const priceDelta = item.ltp * pctChange;
+    const isUp = priceDelta >= 0;
+
+    item.ltp = Math.max(0.05, item.ltp + priceDelta);
+    item.bid = Math.max(0.05, item.ltp - (item.ltp * 0.0002));
+    item.ask = Math.max(0.05, item.ltp + (item.ltp * 0.0002));
+    item.change += priceDelta;
+    if (item.ltp > item.high) item.high = item.ltp;
+    if (item.ltp < item.low) item.low = item.ltp;
+
+    // Update the DOM row if visible
+    const rowId = `mw-row-${item.script.replace(/[^a-zA-Z0-9]/g, '_')}`;
+    const tr = document.getElementById(rowId);
+    if (tr) {
+      const bidTd = tr.querySelector('.mw-bid');
+      const askTd = tr.querySelector('.mw-ask');
+      const ltpTd = tr.querySelector('.mw-ltp');
+      const changeTd = tr.querySelector('.mw-change');
+
+      if (bidTd) bidTd.textContent = item.bid.toFixed(2);
+      if (askTd) askTd.textContent = item.ask.toFixed(2);
+      if (ltpTd) {
+        ltpTd.textContent = item.ltp.toFixed(2);
+        // Apply glowing tick flash
+        ltpTd.classList.remove('tick-up', 'tick-down');
+        void ltpTd.offsetWidth; // Trigger reflow
+        ltpTd.classList.add(isUp ? 'tick-up' : 'tick-down');
+      }
+      if (changeTd) {
+        const changeClass = item.change >= 0 ? 'val-green' : 'val-red';
+        changeTd.className = `${changeClass} mw-change`;
+        changeTd.textContent = `${item.change > 0 ? '+' : ''}${item.change.toFixed(2)}`;
+      }
+    }
+
+    // Also update split header badge if active
+    if (item.script === activeSplitScriptName) {
+      const splitBadge = document.getElementById('mw-active-ltp-badge');
+      if (splitBadge) {
+        const changeClass = item.change >= 0 ? 'val-green' : 'val-red';
+        splitBadge.className = `mw-chart-ltp-badge ${changeClass}`;
+        splitBadge.textContent = `₹${item.ltp.toFixed(2)} (${item.change > 0 ? '+' : ''}${item.change.toFixed(2)})`;
+      }
+    }
+  }
+}
+
+// Institutional Audio Chime (Zero External Dependencies, Pure Web Audio API)
+function playTradeChime(type = 'BUY') {
+  if (!soundEnabled) return;
+  try {
+    if (!audioCtx) {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (AudioContext) audioCtx = new AudioContext();
+    }
+    if (!audioCtx) return;
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+
+    const now = audioCtx.currentTime;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    if (type === 'BUY') {
+      // Crisp 2-tone melodic upward chime (D5 -> A5)
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(587.33, now);
+      osc.frequency.exponentialRampToValueAtTime(880.00, now + 0.12);
+      gain.gain.setValueAtTime(0.15, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
+      osc.start(now);
+      osc.stop(now + 0.38);
+    } else {
+      // Warm downward tone (A4 -> E4)
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(440.00, now);
+      osc.frequency.exponentialRampToValueAtTime(329.63, now + 0.14);
+      gain.gain.setValueAtTime(0.15, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
+      osc.start(now);
+      osc.stop(now + 0.38);
+    }
+  } catch (err) {
+    console.warn('Web Audio synthesis not allowed yet by user gesture:', err);
+  }
+}
+
+function toggleAudio() {
+  soundEnabled = !soundEnabled;
+  const btn = document.getElementById('audio-toggle-btn');
+  if (btn) {
+    btn.innerHTML = soundEnabled ? '<i class="fa-solid fa-volume-high"></i>' : '<i class="fa-solid fa-volume-xmark" style="color:#ef4444;"></i>';
+    btn.title = soundEnabled ? 'Sound FX Enabled' : 'Sound FX Muted';
+  }
+  showToast(soundEnabled ? 'Terminal Audio Alerts: Enabled' : 'Terminal Audio Alerts: Muted');
+}
+
+function toggleFullScreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen().catch(() => {});
+    }
+  }
+}
+
+function updateLiveClock() {
+  const clockElem = document.getElementById('market-clock-time');
+  if (!clockElem) return;
+  const now = new Date();
+  clockElem.textContent = now.toLocaleTimeString('en-IN', { hour12: false }) + ' IST';
+}
+
+function showToast(message, action = 'INFO') {
+  const toast = document.getElementById('trade-toast');
+  const msgElem = document.getElementById('toast-message');
+  if (!toast || !msgElem) return;
+
+  msgElem.textContent = message;
+  toast.className = 'toast-notification show';
+  
+  if (action === 'BUY') {
+    toast.style.borderLeftColor = '#10b981';
+  } else if (action === 'SELL') {
+    toast.style.borderLeftColor = '#f43f5e';
+  } else {
+    toast.style.borderLeftColor = '#38bdf8';
+  }
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3800);
 }

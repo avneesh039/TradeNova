@@ -1,34 +1,46 @@
 /* ==========================================================
-   TradeNova - Pixel-Perfect Trading Administration Theme
-   Exact Color Palette & Typography from the Application Video
+   TradeNova Pro - Premium Institutional Trading Terminal
+   Dark Cyber-Fintech Aesthetics & TradingView Pro Integration
    ========================================================== */
 
 :root {
-  --bg-main: #0e1626;
-  --bg-card: #152238;
-  --bg-card-alt: #1c2b44;
-  --bg-darker: #0b111e;
-  --bg-input: #0f1828;
-  --border-color: #23344d;
-  --border-light: #2d4262;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
   
-  --primary-green: #388e3c;
-  --header-green: #2e7d32;
-  --bright-green: #22c55e;
-  --accent-teal: #0d9488;
-  --accent-blue: #2563eb;
-  --danger-red: #ef4444;
-  --btn-red: #d32f2f;
+  --bg-main: #070b13;
+  --bg-card: #0d1524;
+  --bg-card-alt: #131e33;
+  --bg-darker: #05080f;
+  --bg-input: #0a1120;
+  
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-light: rgba(255, 255, 255, 0.14);
+  --border-accent: rgba(56, 189, 248, 0.25);
+  
+  --primary-green: #10b981;
+  --header-green: #0a101d;
+  --bright-green: #34d399;
+  --accent-teal: #14b8a6;
+  --accent-blue: #3b82f6;
+  --accent-indigo: #6366f1;
+  --accent-cyan: #06b6d4;
+  --danger-red: #f43f5e;
+  --btn-red: #e11d48;
   --warning-yellow: #f59e0b;
   
   --text-white: #ffffff;
-  --text-light: #e2e8f0;
+  --text-light: #f1f5f9;
   --text-muted: #94a3b8;
   --text-dim: #64748b;
   
-  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --sidebar-width: 280px;
-  --header-height: 52px;
+  --sidebar-width: 290px;
+  --header-height: 56px;
+  
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.6);
+  --shadow-glow-green: 0 0 20px rgba(16, 185, 129, 0.25);
+  --shadow-glow-blue: 0 0 20px rgba(59, 130, 246, 0.25);
 }
 
 * {
@@ -38,13 +50,20 @@
 }
 
 body {
-  font-family: var(--font-family);
+  font-family: var(--font-sans);
   background-color: var(--bg-main);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.03) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.04) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(99, 102, 241, 0.03) 0px, transparent 50%);
+  background-attachment: fixed;
   color: var(--text-light);
   min-height: 100vh;
-  line-height: 1.4;
+  line-height: 1.45;
   font-size: 13px;
   overflow-x: hidden;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* Scrollbar styling */
@@ -65,67 +84,196 @@ body {
 
 /* ---------------- Top Navbar ---------------- */
 .top-header {
-  background: var(--header-green);
+  background: rgba(10, 16, 29, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
   color: var(--text-white);
   height: var(--header-height);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 16px;
+  padding: 0 20px;
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
 }
 
 .brand-section {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
+}
+
+.brand-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: white;
+}
+
+.brand-icon-box {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #10b981, #06b6d4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #060911;
+  font-weight: 900;
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
 }
 
 .brand-title {
-  font-size: 17px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 800;
   letter-spacing: 0.5px;
   text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge-pro {
+  background: linear-gradient(135deg, #3b82f6, #6366f1);
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.page-title-badge {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 500;
+  padding-left: 12px;
+  border-left: 1px solid var(--border-color);
+}
+
+.header-center-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.live-beacon {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #34d399;
+  font-weight: 600;
+}
+
+.beacon-pulse {
+  width: 7px;
+  height: 7px;
+  background: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: beaconPulse 2s infinite;
+}
+
+@keyframes beaconPulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+.live-market-clock {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .header-right {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
+}
+
+.btn-header-tool {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  color: var(--text-light);
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-header-tool:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.btn-header-tool.btn-pro-chart {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.25), rgba(99, 102, 241, 0.25));
+  border-color: rgba(99, 102, 241, 0.4);
+  color: #93c5fd;
+}
+.btn-header-tool.btn-pro-chart:hover {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.45), rgba(99, 102, 241, 0.45));
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+  color: #ffffff;
 }
 
 .hamburger-btn {
-  background: transparent;
-  border: none;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
   color: var(--text-white);
   cursor: pointer;
   display: flex;
   flex-direction: column;
   gap: 4px;
-  padding: 6px;
-  transition: transform 0.2s;
+  padding: 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
 }
 
 .hamburger-btn span {
   display: block;
-  width: 22px;
-  height: 2.5px;
+  width: 18px;
+  height: 2px;
   background-color: var(--text-white);
   border-radius: 2px;
+  transition: all 0.2s;
 }
 
 .hamburger-btn:hover {
-  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 /* ---------------- Subheader Strip ---------------- */
 .sub-header-strip {
-  background-color: #0b1424;
+  background: rgba(8, 13, 23, 0.9);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border-color);
-  padding: 7px 16px;
+  padding: 8px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -134,18 +282,38 @@ body {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.3px;
-  color: #8fa0b5;
+  color: #94a3b8;
 }
 
 .sub-header-strip .badge-info {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 20px;
   flex-wrap: wrap;
+}
+
+.sub-header-strip .badge-info span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .sub-header-strip .info-highlight {
   color: var(--bright-green);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ---------------- TradingView Ticker Tape Bar ---------------- */
+.tv-ticker-bar {
+  width: 100%;
+  height: 44px;
+  background: #060a12;
+  border-bottom: 1px solid var(--border-color);
+  overflow: hidden;
+  position: relative;
+  z-index: 100;
 }
 
 .user-profile-toggle {
@@ -891,7 +1059,7 @@ select.form-control {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  background: linear-gradient(135deg, #16a34a, #22c55e);
+  background: linear-gradient(135deg, #10b981, #059669);
   color: white;
   border: none;
   border-radius: 50px;
@@ -901,7 +1069,7 @@ select.form-control {
   display: flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 8px 25px rgba(34, 197, 94, 0.45);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.45);
   cursor: pointer;
   z-index: 1500;
   transition: transform 0.2s, box-shadow 0.2s;
@@ -909,35 +1077,447 @@ select.form-control {
 
 .floating-trade-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(34, 197, 94, 0.6);
+  box-shadow: 0 12px 30px rgba(16, 185, 129, 0.6);
 }
 
 /* Live Toast Notification */
 .toast-notification {
   position: fixed;
-  top: 65px;
-  right: 20px;
-  background: #0f172a;
-  border: 1px solid #22c55e;
-  border-left: 5px solid #22c55e;
+  top: 75px;
+  right: 24px;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  border-left: 5px solid #10b981;
   color: white;
-  padding: 12px 18px;
-  border-radius: 4px;
-  font-size: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.7);
   z-index: 3000;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   transform: translateX(120%);
-  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .toast-notification.show {
   transform: translateX(0);
 }
 
+/* ---------------- Real-time Tick Glow Animations ---------------- */
+@keyframes tickGlowUp {
+  0% {
+    background-color: rgba(16, 185, 129, 0.35);
+    color: #34d399;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+@keyframes tickGlowDown {
+  0% {
+    background-color: rgba(244, 63, 94, 0.35);
+    color: #fb7185;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.tick-up {
+  animation: tickGlowUp 1.2s ease-out;
+}
+
+.tick-down {
+  animation: tickGlowDown 1.2s ease-out;
+}
+
+/* ---------------- Quick Chart & Action Buttons ---------------- */
+.btn-chart-quick {
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  color: #60a5fa;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+
+.btn-chart-quick:hover {
+  background: rgba(59, 130, 246, 0.35);
+  border-color: #60a5fa;
+  color: #ffffff;
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+}
+
+.btn-buy-quick {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34d399;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 9px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-buy-quick:hover {
+  background: #10b981;
+  color: white;
+  border-color: #10b981;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+
+.btn-sell-quick {
+  background: rgba(244, 63, 94, 0.15);
+  border: 1px solid rgba(244, 63, 94, 0.35);
+  color: #fb7185;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 9px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-sell-quick:hover {
+  background: #f43f5e;
+  color: white;
+  border-color: #f43f5e;
+  box-shadow: 0 0 10px rgba(244, 63, 94, 0.4);
+}
+
+/* ---------------- View Mode Switcher Pills ---------------- */
+.view-mode-toggle {
+  display: inline-flex;
+  background: #0b1220;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.view-mode-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.view-mode-btn.active {
+  background: #1e293b;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+/* ---------------- Market Watch Split Pro Studio ---------------- */
+.mw-split-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 14px;
+}
+
+.mw-split-wrapper.split-mode {
+  grid-template-columns: 1fr 1.35fr;
+}
+
+.mw-pro-chart-card {
+  background: #0a1120;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.mw-chart-header {
+  padding: 10px 16px;
+  background: #0f182c;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.mw-chart-title-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mw-chart-symbol-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+}
+
+.mw-chart-ltp-badge {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.mw-timeframe-bar {
+  display: flex;
+  gap: 4px;
+}
+
+.btn-tf {
+  background: #162238;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-tf.active, .btn-tf:hover {
+  background: #2563eb;
+  color: white;
+}
+
+.mw-chart-iframe-box {
+  width: 100%;
+  height: 520px;
+  position: relative;
+  background: #080d18;
+}
+
+/* ---------------- Dashboard Split Hero Grid ---------------- */
+.dashboard-hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.dashboard-tv-card {
+  background: #0a1120;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 380px;
+}
+
+.dashboard-tv-card-header {
+  padding: 12px 16px;
+  background: #0f182c;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dashboard-tv-card-header h4 {
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dashboard-tv-container {
+  flex: 1;
+  min-height: 340px;
+  width: 100%;
+}
+
+/* ---------------- Fullscreen / Large TradingView Modal ---------------- */
+.modal-overlay.tv-modal {
+  z-index: 2500;
+}
+
+.modal-content.tv-modal-content {
+  max-width: 95vw;
+  width: 1380px;
+  height: 90vh;
+  max-height: 880px;
+  display: flex;
+  flex-direction: column;
+  background: #090f1d;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(56, 189, 248, 0.1);
+  border-radius: 10px;
+}
+
+.tv-modal-top-bar {
+  padding: 12px 20px;
+  background: #0f182c;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.tv-modal-symbol-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.tv-symbol-selector {
+  background: #17243c;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+}
+
+.tv-modal-body-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  overflow: hidden;
+  height: calc(100% - 60px);
+}
+
+.tv-main-chart-pane {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  border-right: 1px solid var(--border-color);
+}
+
+.tv-side-panel {
+  display: flex;
+  flex-direction: column;
+  background: #0b1220;
+  overflow-y: auto;
+  padding: 16px;
+  gap: 16px;
+}
+
+.tv-side-widget-box {
+  background: #0f182c;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.tv-side-widget-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tv-quick-order-ticket {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Metric Cards Enhancement */
+.metric-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.metric-card {
+  background: linear-gradient(180deg, #0e172a 0%, #09101e 100%);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  transition: all 0.25s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(56, 189, 248, 0.3);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5), 0 0 15px rgba(56, 189, 248, 0.08);
+}
+
+.metric-card-header {
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid var(--border-color);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.metric-stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+}
+
+.metric-stat-row:not(:last-child) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.metric-stat-row .stat-value {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+}
+
 /* Responsive tweaks */
+@media (max-width: 1024px) {
+  .dashboard-hero-grid {
+    grid-template-columns: 1fr;
+  }
+  .mw-split-wrapper.split-mode {
+    grid-template-columns: 1fr;
+  }
+  .tv-modal-body-layout {
+    grid-template-columns: 1fr;
+  }
+  .tv-side-panel {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
   .sub-header-strip {
     flex-direction: column;
@@ -952,4 +1532,8 @@ select.form-control {
     padding: 10px 16px;
     font-size: 12px;
   }
+  .header-center-info {
+    display: none;
+  }
 }
+

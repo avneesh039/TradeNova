@@ -3,18 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - DashBoard | TradeNova</title>
+  <title>TradeNova Pro - Institutional Trading Terminal & Brokerage Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Free TradingView Advanced Real-Time Charting Library -->
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 </head>
 <body>
 
   <!-- Top Navbar -->
   <header class="top-header">
     <div class="brand-section">
-      <span class="brand-title" id="page-header-title">ADMIN - DASHBOARD</span>
+      <div class="brand-logo-wrap">
+        <div class="brand-icon-box"><i class="fa-solid fa-chart-line"></i></div>
+        <div class="brand-title">
+          TRADENOVA <span class="badge-pro">PRO</span>
+        </div>
+      </div>
+      <span class="page-title-badge" id="page-header-title">ADMIN - DASHBOARD</span>
     </div>
+
+    <!-- Live Terminal Status & IST Clock -->
+    <div class="header-center-info">
+      <div class="live-beacon">
+        <span class="beacon-pulse"></span>
+        <span>NSE · MCX LIVE</span>
+        <span style="opacity: 0.65; font-size: 10px;">12ms</span>
+      </div>
+      <div class="live-market-clock" id="live-market-clock">
+        <i class="fa-regular fa-clock" style="color:#60a5fa;"></i>
+        <span id="market-clock-time">--:--:-- IST</span>
+      </div>
+    </div>
+
     <div class="header-right">
+      <button class="btn-header-tool btn-pro-chart" onclick="openTradingViewModal('NSE:NIFTY', 'NIFTY 50')" title="Launch Pro TradingView Studio">
+        <i class="fa-solid fa-chart-candlestick"></i>
+        <span>PRO CHARTS</span>
+      </button>
+      <button class="btn-header-tool" id="audio-toggle-btn" onclick="toggleAudio()" title="Sound FX Toggle">
+        <i class="fa-solid fa-volume-high"></i>
+      </button>
+      <button class="btn-header-tool" onclick="toggleFullScreen()" title="Fullscreen Mode">
+        <i class="fa-solid fa-expand"></i>
+      </button>
       <button class="hamburger-btn" id="sidebar-toggle" title="Toggle Navigation">
         <span></span>
         <span></span>
@@ -26,9 +61,9 @@
   <!-- Sub-header Information Strip -->
   <div class="sub-header-strip">
     <div class="badge-info">
-      <span>YOUR RENEWAL DATE IS <strong class="info-highlight" id="admin-renewal-date">2026-09-30</strong></span>
-      <span>CLIENTS <strong class="info-highlight" id="admin-clients-count">175/175</strong></span>
-      <span>USERS <strong class="info-highlight" id="admin-users-count">11/11</strong></span>
+      <span><i class="fa-regular fa-calendar-check" style="color:#60a5fa;"></i> RENEWAL DATE: <strong class="info-highlight" id="admin-renewal-date">2026-09-30</strong></span>
+      <span><i class="fa-solid fa-users" style="color:#34d399;"></i> CLIENTS: <strong class="info-highlight" id="admin-clients-count">175/175</strong></span>
+      <span><i class="fa-solid fa-user-shield" style="color:#f59e0b;"></i> USERS: <strong class="info-highlight" id="admin-users-count">11/11</strong></span>
     </div>
     
     <div class="user-profile-toggle" id="user-profile-btn">
@@ -44,6 +79,33 @@
         <button class="btn-profile btn-change-pwd" onclick="openModal('change-pwd-modal')">Change Password</button>
         <button class="btn-profile btn-logout" onclick="logoutSession()">Log out</button>
       </div>
+    </div>
+  </div>
+
+  <!-- Real-time Free TradingView Ticker Tape Bar -->
+  <div class="tv-ticker-bar">
+    <div class="tradingview-widget-container">
+      <div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+      {
+        "symbols": [
+          { "proName": "NSE:NIFTY", "title": "NIFTY 50" },
+          { "proName": "NSE:BANKNIFTY", "title": "BANK NIFTY" },
+          { "proName": "BSE:SENSEX", "title": "SENSEX" },
+          { "proName": "NSE:RELIANCE", "title": "RELIANCE" },
+          { "proName": "NSE:HDFCBANK", "title": "HDFC BANK" },
+          { "proName": "NSE:TCS", "title": "TCS" },
+          { "proName": "TVC:GOLD", "title": "GOLD" },
+          { "proName": "TVC:USOIL", "title": "CRUDE OIL" },
+          { "proName": "BINANCE:BTCUSDT", "title": "BTC / USDT" }
+        ],
+        "showSymbolLogo": true,
+        "isTransparent": true,
+        "displayMode": "adaptive",
+        "colorTheme": "dark",
+        "locale": "en"
+      }
+      </script>
     </div>
   </div>
 
@@ -77,25 +139,60 @@
     <!-- 1. DASHBOARD VIEW -->
     <section class="page-view active" id="view-dashboard">
       <div class="live-m2m-banner">
-        Live M2M under: <span id="m2m-admin-name">AmitR</span>
+        <i class="fa-solid fa-wave-pulse" style="color:#34d399;"></i>
+        <span>Live M2M under: <strong id="m2m-admin-name">AmitR</strong></span>
+        <span class="badge-tag" style="background:rgba(16,185,129,0.15); color:#34d399; margin-left:auto;">REALTIME P&amp;L STREAM</span>
       </div>
 
-      <!-- M2M User Table -->
-      <div class="m2m-table-wrap">
-        <div class="table-responsive">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>User ID</th>
-                <th>Active Profit/Loss</th>
-                <th>Active Trades</th>
-                <th>Margin Used</th>
-              </tr>
-            </thead>
-            <tbody id="dashboard-m2m-body">
-              <!-- Rendered via JS -->
-            </tbody>
-          </table>
+      <!-- Dashboard Hero Split: M2M Table + Live TradingView Overview -->
+      <div class="dashboard-hero-grid">
+        <!-- M2M User Table -->
+        <div class="m2m-table-wrap">
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>User ID</th>
+                  <th>Active Profit/Loss</th>
+                  <th>Active Trades</th>
+                  <th>Margin Used</th>
+                </tr>
+              </thead>
+              <tbody id="dashboard-m2m-body">
+                <!-- Rendered via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Live TradingView Market Overview Widget -->
+        <div class="dashboard-tv-card">
+          <div class="dashboard-tv-card-header">
+            <h4><i class="fa-solid fa-chart-area" style="color:#38bdf8;"></i> Market Pulse (TradingView)</h4>
+            <div style="display:flex; gap:6px;">
+              <button class="btn btn-primary-green" style="padding:4px 8px; font-size:11px;" onclick="openTradingViewModal('NSE:NIFTY', 'NIFTY 50')">
+                <i class="fa-solid fa-expand"></i> Chart Studio
+              </button>
+            </div>
+          </div>
+          <div class="dashboard-tv-container" id="dashboard-tv-container">
+            <div class="tradingview-widget-container" style="height:100%; width:100%;">
+              <div class="tradingview-widget-container__widget" style="height:100%; width:100%;"></div>
+              <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+              {
+                "symbol": "NSE:NIFTY",
+                "width": "100%",
+                "height": "100%",
+                "locale": "en",
+                "dateRange": "1D",
+                "colorTheme": "dark",
+                "isTransparent": true,
+                "autosize": true,
+                "largeChartUrl": ""
+              }
+              </script>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -169,45 +266,93 @@
 
     <!-- 2. MARKET WATCH VIEW -->
     <section class="page-view" id="view-market-watch">
-      <!-- Indian Market Segment Pills -->
-      <div class="segment-tabs">
-        <button class="seg-tab active" onclick="setMarketWatchSegment('ALL', this)">ALL INSTRUMENTS</button>
-        <button class="seg-tab" onclick="setMarketWatchSegment('Indices', this)">NIFTY &amp; INDICES</button>
-        <button class="seg-tab" onclick="setMarketWatchSegment('F&O', this)">F&amp;O (FUTURES &amp; OPTIONS)</button>
-        <button class="seg-tab" onclick="setMarketWatchSegment('Equity', this)">EQUITY (NIFTY 50)</button>
-        <button class="seg-tab" onclick="setMarketWatchSegment('MCX', this)">MCX COMMODITIES</button>
+      <!-- Indian Market Segment Pills & View Mode Switcher -->
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
+        <div class="segment-tabs" style="margin-bottom:0;">
+          <button class="seg-tab active" onclick="setMarketWatchSegment('ALL', this)">ALL INSTRUMENTS</button>
+          <button class="seg-tab" onclick="setMarketWatchSegment('Indices', this)">NIFTY &amp; INDICES</button>
+          <button class="seg-tab" onclick="setMarketWatchSegment('F&O', this)">F&amp;O (FUTURES &amp; OPTIONS)</button>
+          <button class="seg-tab" onclick="setMarketWatchSegment('Equity', this)">EQUITY (NIFTY 50)</button>
+          <button class="seg-tab" onclick="setMarketWatchSegment('MCX', this)">MCX COMMODITIES</button>
+        </div>
+
+        <div class="view-mode-toggle">
+          <button class="view-mode-btn active" id="btn-mode-table" onclick="setMwViewMode('table')">
+            <i class="fa-solid fa-table-list"></i> Watchlist Table
+          </button>
+          <button class="view-mode-btn" id="btn-mode-split" onclick="setMwViewMode('split')">
+            <i class="fa-solid fa-columns"></i> Split Pro Terminal
+          </button>
+        </div>
       </div>
 
       <div class="filter-card">
-        <div style="display:flex; gap:10px; align-items:center;">
-          <div class="form-group" style="flex:1;">
-            <input type="text" id="market-watch-search" class="form-control" placeholder="Search NIFTY, BANKNIFTY, RELIANCE, GOLD, CRUDEOIL, 25100 CE..." oninput="filterMarketWatch()">
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+          <div class="form-group" style="flex:1; min-width:260px; margin-bottom:0;">
+            <div style="position:relative;">
+              <input type="text" id="market-watch-search" class="form-control" placeholder="Search NIFTY, BANKNIFTY, RELIANCE, GOLD, CRUDEOIL, 25100 CE... (Ctrl+K)" oninput="filterMarketWatch()" style="padding-left:36px;">
+              <i class="fa-solid fa-magnifying-glass" style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:#64748b; font-size:13px;"></i>
+            </div>
           </div>
+          <button class="btn btn-header-tool btn-pro-chart" onclick="openTradingViewModal('NSE:NIFTY', 'NIFTY 50')">
+            <i class="fa-solid fa-chart-candlestick"></i> OPEN CHART STUDIO
+          </button>
           <button class="btn btn-primary-green" onclick="openOrderPadModal('NIFTY 50', 'BUY')"><i class="fa-solid fa-bolt"></i> FAST BUY</button>
           <button class="btn btn-red" onclick="openOrderPadModal('NIFTY 50', 'SELL')"><i class="fa-solid fa-bolt"></i> FAST SELL</button>
         </div>
       </div>
 
-      <div class="table-card">
-        <div class="table-responsive">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Script</th>
-                <th>Segment</th>
-                <th>Bid</th>
-                <th>Ask</th>
-                <th>Ltp</th>
-                <th>Change</th>
-                <th>High</th>
-                <th>Low</th>
-                <th style="text-align: center;">Quick Trade</th>
-              </tr>
-            </thead>
-            <tbody id="market-watch-body">
-              <!-- Rendered via JS -->
-            </tbody>
-          </table>
+      <!-- Split Layout Container: Table + Live Embedded Chart Studio -->
+      <div class="mw-split-wrapper" id="mw-split-wrapper">
+        <!-- Watchlist Table Card -->
+        <div class="table-card" id="mw-table-card" style="margin-bottom:0;">
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Script</th>
+                  <th>Segment</th>
+                  <th>Bid</th>
+                  <th>Ask</th>
+                  <th>Ltp</th>
+                  <th>Change</th>
+                  <th>High</th>
+                  <th>Low</th>
+                  <th style="text-align: center;">Live Actions</th>
+                </tr>
+              </thead>
+              <tbody id="market-watch-body">
+                <!-- Rendered via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Embedded TradingView Pro Chart Studio Card (Visible in Split Mode) -->
+        <div class="mw-pro-chart-card" id="mw-split-chart-card" style="display:none;">
+          <div class="mw-chart-header">
+            <div class="mw-chart-title-area">
+              <span class="mw-chart-symbol-name" id="mw-active-symbol-title">NIFTY 50</span>
+              <span class="mw-chart-ltp-badge val-green" id="mw-active-ltp-badge">₹25,142.50 (+84.30)</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <div class="mw-timeframe-bar">
+                <button class="btn-tf" onclick="changeSplitTimeframe('1')">1m</button>
+                <button class="btn-tf" onclick="changeSplitTimeframe('5')">5m</button>
+                <button class="btn-tf active" onclick="changeSplitTimeframe('15')">15m</button>
+                <button class="btn-tf" onclick="changeSplitTimeframe('60')">1H</button>
+                <button class="btn-tf" onclick="changeSplitTimeframe('D')">1D</button>
+              </div>
+              <button class="btn btn-chart-quick" onclick="maximizeCurrentChart()" title="Fullscreen Chart">
+                <i class="fa-solid fa-expand"></i>
+              </button>
+              <button class="btn btn-buy-quick" onclick="quickTradeActiveSymbol('BUY')">BUY</button>
+              <button class="btn btn-sell-quick" onclick="quickTradeActiveSymbol('SELL')">SELL</button>
+            </div>
+          </div>
+          <div class="mw-chart-iframe-box" id="mw-split-chart-container">
+            <!-- Injected via TradingView.widget -->
+          </div>
         </div>
       </div>
     </section>
@@ -1152,6 +1297,107 @@
             </button>
           </div>
         </form>
+      </div>
+    </div>
+  <!-- ================= TRADINGVIEW PRO CHART STUDIO MODAL ================= -->
+  <div class="modal-overlay tv-modal" id="tradingview-modal">
+    <div class="modal-content tv-modal-content">
+      <!-- Modal Top Toolbar -->
+      <div class="tv-modal-top-bar">
+        <div class="tv-modal-symbol-info">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <i class="fa-solid fa-chart-candlestick" style="color:#38bdf8; font-size:18px;"></i>
+            <select class="tv-symbol-selector" id="tv-modal-symbol-select" onchange="onTvModalSymbolSelectChange(this.value)">
+              <optgroup label="Indices">
+                <option value="NSE:NIFTY" selected>NIFTY 50 (NSE)</option>
+                <option value="NSE:BANKNIFTY">BANK NIFTY (NSE)</option>
+                <option value="NSE:CNXFINANCE">FINNIFTY (NSE)</option>
+                <option value="BSE:SENSEX">SENSEX (BSE)</option>
+              </optgroup>
+              <optgroup label="Major Stocks">
+                <option value="NSE:RELIANCE">RELIANCE (NSE)</option>
+                <option value="NSE:HDFCBANK">HDFC BANK (NSE)</option>
+                <option value="NSE:TCS">TCS (NSE)</option>
+                <option value="NSE:INFY">INFOSYS (NSE)</option>
+                <option value="NSE:ICICIBANK">ICICI BANK (NSE)</option>
+                <option value="NSE:SBIN">STATE BANK OF INDIA (NSE)</option>
+                <option value="NSE:BHARTIARTL">BHARTI AIRTEL (NSE)</option>
+                <option value="NSE:ITC">ITC (NSE)</option>
+                <option value="NSE:LT">LARSEN &amp; TOUBRO (NSE)</option>
+              </optgroup>
+              <optgroup label="Commodities &amp; Crypto">
+                <option value="TVC:GOLD">GOLD (TVC / MCX)</option>
+                <option value="TVC:SILVER">SILVER (TVC / MCX)</option>
+                <option value="TVC:USOIL">CRUDE OIL (TVC / MCX)</option>
+                <option value="BINANCE:BTCUSDT">BITCOIN (BTC/USDT)</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <span class="mw-chart-ltp-badge val-green" id="tv-modal-ltp-badge">₹25,142.50 (+84.30)</span>
+          <span class="badge-tag" style="background:rgba(59,130,246,0.18); color:#60a5fa;">TRADINGVIEW FREE PRO ENGINE</span>
+        </div>
+
+        <!-- Timeframe Selector -->
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div class="mw-timeframe-bar">
+            <button class="btn-tf" onclick="changeTvModalTimeframe('1')">1m</button>
+            <button class="btn-tf" onclick="changeTvModalTimeframe('5')">5m</button>
+            <button class="btn-tf active" onclick="changeTvModalTimeframe('15')">15m</button>
+            <button class="btn-tf" onclick="changeTvModalTimeframe('60')">1H</button>
+            <button class="btn-tf" onclick="changeTvModalTimeframe('D')">1D</button>
+            <button class="btn-tf" onclick="changeTvModalTimeframe('W')">1W</button>
+          </div>
+
+          <button class="btn btn-primary-green" onclick="orderFromTvModal('BUY')">
+            <i class="fa-solid fa-arrow-trend-up"></i> BUY
+          </button>
+          <button class="btn btn-red" onclick="orderFromTvModal('SELL')">
+            <i class="fa-solid fa-arrow-trend-down"></i> SELL
+          </button>
+          <button class="sidebar-close-btn" onclick="closeModal('tradingview-modal')">&times;</button>
+        </div>
+      </div>
+
+      <!-- Modal Body Layout: Main TradingView Chart + Side Technical Analysis -->
+      <div class="tv-modal-body-layout">
+        <div class="tv-main-chart-pane" id="tv-modal-chart-container">
+          <!-- Injected via TradingView.widget -->
+        </div>
+
+        <div class="tv-side-panel">
+          <!-- Technical Analysis Gauge Widget -->
+          <div class="tv-side-widget-box">
+            <div class="tv-side-widget-title">
+              <i class="fa-solid fa-gauge-high" style="color:#38bdf8;"></i> Technical Sentiment
+            </div>
+            <div id="tv-tech-analysis-container" style="height:250px;">
+              <!-- TradingView Technical Analysis Widget -->
+            </div>
+          </div>
+
+          <!-- Quick 1-Click Execution Ticket -->
+          <div class="tv-side-widget-box">
+            <div class="tv-side-widget-title">
+              <i class="fa-solid fa-bolt" style="color:#f59e0b;"></i> Fast Trade Direct
+            </div>
+            <div class="tv-quick-order-ticket">
+              <div style="display:flex; justify-content:space-between; font-size:12px; color:#cbd5e1;">
+                <span>Quick Lots:</span>
+                <strong id="tv-quick-lots-label">1 Lot (25 Qty)</strong>
+              </div>
+              <div style="display:flex; gap:6px;">
+                <button type="button" class="btn btn-lot-step" style="flex:1;" onclick="setTvQuickLots(1)">1 Lot</button>
+                <button type="button" class="btn btn-lot-step" style="flex:1;" onclick="setTvQuickLots(2)">2 Lots</button>
+                <button type="button" class="btn btn-lot-step" style="flex:1;" onclick="setTvQuickLots(5)">5 Lots</button>
+              </div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px;">
+                <button class="btn btn-primary-green" style="padding:10px;" onclick="orderFromTvModal('BUY')">BUY MARKET</button>
+                <button class="btn btn-red" style="padding:10px;" onclick="orderFromTvModal('SELL')">SELL MARKET</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
