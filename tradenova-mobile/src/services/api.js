@@ -51,6 +51,27 @@ class ApiService {
     if (!this.client) await this.init();
     return this.client.delete(url).then(res => res.data);
   }
+
+  // ── Indian Stock Exchange API2 (RapidAPI: linuz) ──
+  async getIndianStockQuote(symbol) {
+    return this.get(`/api/market/stock/${encodeURIComponent(symbol)}`);
+  }
+
+  async getTrendingStocks() {
+    return this.get('/api/market/trending');
+  }
+
+  async getPriceShockers() {
+    return this.get('/api/market/shockers');
+  }
+
+  async getMostActive(exchange = 'NSE') {
+    return this.get(`/api/market/active/${exchange}`);
+  }
+
+  async getIndianMarketNews() {
+    return this.get('/api/market/news');
+  }
 }
 
 export const API = new ApiService();

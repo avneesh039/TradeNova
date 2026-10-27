@@ -79,6 +79,7 @@ const {
 } = require('./database');
 const whatsapp = require('./services/whatsapp');
 const kite = require('./services/kite');
+const indianStockApi = require('./services/indianStockApi');
 
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
 
@@ -1560,6 +1561,118 @@ app.post('/api/kite/config', requireAuth, requireAdmin, (req, res) => {
 });
 
 // ═══════════════════════════════════════════════════════════════
+// INDIAN STOCK EXCHANGE API2 (linuz / RapidAPI) ROUTES
+// ═══════════════════════════════════════════════════════════════
+app.get('/api/indian-api/status', (req, res) => {
+  res.json(indianStockApi.getStatus());
+});
+
+app.post('/api/indian-api/config', requireAuth, requireAdmin, (req, res) => {
+  const { apiKey, apiHost, autoSyncEnabled, syncIntervalSeconds } = req.body;
+  const status = indianStockApi.configure({ apiKey, apiHost, autoSyncEnabled, syncIntervalSeconds });
+
+  try {
+    const envPath = path.join(__dirname, '.env');
+    let envContent = fs.existsSync(envPath) ? fs.readFileSync(envPath, 'utf8') : '';
+    if (apiKey !== undefined) {
+      if (envContent.includes('RAPIDAPI_KEY=')) {
+        envContent = envContent.replace(/RAPIDAPI_KEY=.*/g, `RAPIDAPI_KEY=${apiKey}`);
+      } else {
+        envContent += `\nRAPIDAPI_KEY=${apiKey}`;
+      }
+    }
+    if (autoSyncEnabled !== undefined) {
+      if (envContent.includes('INDIAN_API_AUTO_SYNC=')) {
+        envContent = envContent.replace(/INDIAN_API_AUTO_SYNC=.*/g, `INDIAN_API_AUTO_SYNC=${autoSyncEnabled}`);
+      } else {
+        envContent += `\nINDIAN_API_AUTO_SYNC=${autoSyncEnabled}`;
+      }
+    }
+    fs.writeFileSync(envPath, envContent.trim() + '\n', 'utf8');
+  } catch (e) {
+    console.warn('Could not write Indian Stock API settings to .env:', e.message);
+  }
+
+  res.json({ success: true, status });
+});
+
+app.post('/api/indian-api/test', requireAuth, async (req, res) => {
+  const { apiKey } = req.body || {};
+  const result = await indianStockApi.testConnection(apiKey);
+  res.json(result);
+});
+
+app.post('/api/indian-api/sync-now', requireAuth, async (req, res) => {
+  try {
+    const result = await indianStockApi.syncMarketQuotes(req.body?.symbols);
+    res.json({ success: true, result });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Real-time Stock Details (Fundamentals, 52W metrics, quotes)
+app.get('/api/market/stock/:symbol', async (req, res) => {
+  try {
+    const data = await indianStockApi.getStock(req.params.symbol);
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Trending Indian Stocks
+app.get('/api/market/trending', async (req, res) => {
+  try {
+    const data = await indianStockApi.getTrending();
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// NSE / BSE Most Active Stocks
+app.get('/api/market/active/:exchange?', async (req, res) => {
+  try {
+    const exchange = req.params.exchange || req.query.exchange || 'NSE';
+    const data = await indianStockApi.getMostActive(exchange);
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Price Shockers / Volatility Movers
+app.get('/api/market/shockers', async (req, res) => {
+  try {
+    const data = await indianStockApi.getPriceShockers();
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Real-time Market News
+app.get('/api/market/news', async (req, res) => {
+  try {
+    const data = await indianStockApi.getNews();
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// 52-Week High / Low
+app.get('/api/market/52week', async (req, res) => {
+  try {
+    const data = await indianStockApi.get52WeekHighLow();
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════
 // BRANDING & LOGO MANAGEMENT ROUTES
 // ═══════════════════════════════════════════════════════════════
 const BRANDING_FILE = path.join(DATA_DIR, 'branding.json');
@@ -1709,9 +1822,10 @@ app.get('*', (req, res) => {
 io.on('connection', (socket) => {
   console.log('Client connected:', socket.id);
 
-  // Send full market data, Kite feed status & current branding on connect
+  // Send full market data, Kite feed status, Indian Stock API status & current branding on connect
   socket.emit('marketData', liveData);
   socket.emit('kite:status', kite.getStatus());
+  socket.emit('indianApi:status', indianStockApi.getStatus());
   socket.emit('branding:updated', loadBranding());
 
   socket.on('disconnect', () => {
@@ -1741,6 +1855,9 @@ async function startServer() {
     checkPendingOrders();
     io.emit('priceUpdate', tickUpdates);
   });
+
+  // Initialize Indian Stock Exchange API2 (RapidAPI: indian-stock-exchange-api2)
+  indianStockApi.init(io, liveData);
 
   // Dual engine ticker: uses real Zerodha ticks if connected, otherwise fallback to high-fidelity simulation
   setInterval(() => {

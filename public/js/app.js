@@ -1064,6 +1064,7 @@ const App = {
     this.setupSidebar();
     this.connectSocket();
     this.fetchKiteStatus();
+    this.fetchIndianApiStatus();
 
     // Check if user came via a direct redirect URL (e.g. /#branding or #branding)
     const targetHash = (window.location.hash || '').replace('#', '').toLowerCase();
@@ -1146,6 +1147,10 @@ const App = {
 
     this.socket.on('kite:status', data => {
       this.handleKiteStatus(data);
+    });
+
+    this.socket.on('indianApi:status', data => {
+      this.handleIndianApiStatus(data);
     });
 
     this.socket.on('branding:updated', data => {
@@ -4090,6 +4095,399 @@ const App = {
     } catch (e) {
       this.toast('Error saving Kite credentials: ' + e.message, 'error');
     }
+  },
+
+  // ═══════════════════════════════════════════════════════
+  // INDIAN STOCK EXCHANGE API2 (RapidAPI: linuz) CONTROLS
+  // ═══════════════════════════════════════════════════════
+  openIndianApiModal() {
+    const modal = document.getElementById('indianApiModal');
+    if (!modal) return;
+    modal.classList.add('active');
+    this.fetchIndianApiStatus();
+    this.loadMoversCategory('trending');
+    this.loadMarketNews();
+  },
+
+  closeIndianApiModal() {
+    document.getElementById('indianApiModal')?.classList.remove('active');
+  },
+
+  switchIndianApiTab(tabName) {
+    const tabs = ['config', 'explorer', 'movers', 'news'];
+    tabs.forEach(t => {
+      const el = document.getElementById(`indianApiTab-${t}`);
+      const btn = document.getElementById(`tabBtnIndian${t.charAt(0).toUpperCase() + t.slice(1)}`);
+      if (el) el.style.display = (t === tabName) ? 'block' : 'none';
+      if (btn) {
+        if (t === tabName) {
+          btn.classList.add('active');
+          btn.style.color = '#c084fc';
+          btn.style.borderBottom = '2px solid #c084fc';
+          btn.style.fontWeight = '700';
+        } else {
+          btn.classList.remove('active');
+          btn.style.color = '#94a3b8';
+          btn.style.borderBottom = '2px solid transparent';
+          btn.style.fontWeight = '600';
+        }
+      }
+    });
+
+    if (tabName === 'explorer' && !this.hasInspectedDefault) {
+      this.hasInspectedDefault = true;
+      this.inspectStockDetails();
+    }
+  },
+
+  async fetchIndianApiStatus() {
+    try {
+      const data = await this.api('/api/indian-api/status');
+      this.handleIndianApiStatus(data);
+    } catch (err) {
+      console.warn('Failed to fetch Indian Stock API status:', err);
+    }
+  },
+
+  handleIndianApiStatus(data) {
+    if (!data) return;
+    this.indianApiStatus = data;
+
+    // Header badge
+    const headerPill = document.getElementById('indianApiHeaderBadge');
+    const headerText = document.getElementById('indianApiHeaderText');
+    const headerDot = document.getElementById('indianApiDot');
+    const navBadge = document.getElementById('indianApiNavBadge');
+
+    // Modal elements
+    const statusText = document.getElementById('indianApiStatusText');
+    const statusDot = document.getElementById('indianApiStatusDot');
+    const statusSub = document.getElementById('indianApiStatusSub');
+    const keyPreview = document.getElementById('indianApiKeyPreview');
+    const lastSync = document.getElementById('indianApiLastSync');
+    const totalReqs = document.getElementById('indianApiTotalReqs');
+    const cacheEntries = document.getElementById('indianApiCacheEntries');
+    const checkAutoSync = document.getElementById('checkIndianAutoSync');
+    const selectSyncInterval = document.getElementById('selectIndianSyncInterval');
+    const inputKey = document.getElementById('inputRapidApiKey');
+    const inputHost = document.getElementById('inputRapidApiHost');
+
+    const isLive = data.active && data.configured;
+
+    if (headerText) {
+      headerText.textContent = isLive ? 'Indian API: Live ⚡' : 'Indian API: Sim';
+      headerText.style.color = isLive ? '#c084fc' : '#94a3b8';
+    }
+    if (headerDot) {
+      headerDot.style.background = isLive ? '#c084fc' : '#64748b';
+      headerDot.className = isLive ? 'conn-dot connected' : 'conn-dot';
+    }
+    if (headerPill) {
+      headerPill.style.borderColor = isLive ? 'rgba(168,85,247,0.45)' : 'rgba(255,255,255,0.1)';
+      headerPill.style.background = isLive ? 'rgba(168,85,247,0.15)' : 'rgba(255,255,255,0.03)';
+    }
+    if (navBadge) {
+      navBadge.textContent = isLive ? 'LIVE' : 'SIM';
+      navBadge.style.background = isLive ? 'rgba(168,85,247,0.25)' : 'rgba(255,255,255,0.08)';
+      navBadge.style.color = isLive ? '#c084fc' : '#94a3b8';
+    }
+
+    if (statusText) {
+      statusText.textContent = isLive ? 'Connected & Live (RapidAPI)' : 'Standby / Simulation Mode';
+      statusText.style.color = isLive ? '#c084fc' : '#94a3b8';
+    }
+    if (statusDot) {
+      statusDot.style.background = isLive ? '#c084fc' : '#64748b';
+    }
+    if (statusSub) {
+      statusSub.textContent = isLive
+        ? `Connected to ${data.apiHost || 'indian-stock-exchange-api2.p.rapidapi.com'}. Quotes flowing into TradeNova engine.`
+        : 'RapidAPI key not set. High-fidelity simulation mode active (Zero downtime).';
+    }
+
+    if (keyPreview) keyPreview.textContent = data.keyPreview || 'None';
+    if (lastSync) lastSync.textContent = data.lastSyncTime || 'Never';
+    if (totalReqs) totalReqs.textContent = data.totalRequests || '0';
+    if (cacheEntries) cacheEntries.textContent = `${data.cacheEntries || 0} Items`;
+
+    if (checkAutoSync && checkAutoSync !== document.activeElement) {
+      checkAutoSync.checked = !!data.autoSyncEnabled;
+    }
+    if (selectSyncInterval && selectSyncInterval !== document.activeElement) {
+      selectSyncInterval.value = String(data.syncIntervalSeconds || 60);
+    }
+    if (inputHost && !inputHost.value) {
+      inputHost.value = data.apiHost || 'indian-stock-exchange-api2.p.rapidapi.com';
+    }
+  },
+
+  async saveIndianApiConfig() {
+    const apiKey = document.getElementById('inputRapidApiKey')?.value.trim();
+    const apiHost = document.getElementById('inputRapidApiHost')?.value.trim() || 'indian-stock-exchange-api2.p.rapidapi.com';
+    const autoSyncEnabled = document.getElementById('checkIndianAutoSync')?.checked;
+    const syncIntervalSeconds = parseInt(document.getElementById('selectIndianSyncInterval')?.value || '60', 10);
+
+    try {
+      const res = await this.api('/api/indian-api/config', {
+        method: 'POST',
+        body: { apiKey, apiHost, autoSyncEnabled, syncIntervalSeconds }
+      });
+      if (res && res.success) {
+        this.toast('Indian Stock Exchange API settings saved successfully!', 'success');
+        this.fetchIndianApiStatus();
+      }
+    } catch (e) {
+      this.toast('Failed to save API config: ' + e.message, 'error');
+    }
+  },
+
+  async testIndianApiConnection() {
+    const apiKey = document.getElementById('inputRapidApiKey')?.value.trim();
+    this.toast('Testing connection to Indian Stock Exchange API2...', 'info');
+
+    try {
+      const res = await this.api('/api/indian-api/test', {
+        method: 'POST',
+        body: { apiKey }
+      });
+
+      if (res && res.success) {
+        this.toast(`✔ ${res.message} (${res.latencyMs}ms)`, 'success');
+        if (res.sample) {
+          this.toast(`Sample Quote: ${res.sample.companyName} ₹${res.sample.price}`, 'info');
+        }
+        this.fetchIndianApiStatus();
+      } else {
+        this.toast(`✖ ${res?.message || 'Connection test failed'}`, 'error');
+      }
+    } catch (e) {
+      this.toast('Connection test error: ' + e.message, 'error');
+    }
+  },
+
+  async syncIndianApiNow() {
+    const btn = document.getElementById('btnSyncIndianNow');
+    if (btn) btn.textContent = '⏳ Syncing...';
+
+    try {
+      const res = await this.api('/api/indian-api/sync-now', { method: 'POST' });
+      if (res && res.success) {
+        this.toast(`✔ Live sync completed! ${res.result?.updatedCount || 0} Indian stocks refreshed.`, 'success');
+        this.fetchIndianApiStatus();
+      }
+    } catch (e) {
+      this.toast('Sync failed: ' + e.message, 'error');
+    } finally {
+      if (btn) btn.textContent = '🔄 Sync Quotes Now';
+    }
+  },
+
+  async inspectStockDetails(forcedSymbol) {
+    const symInput = document.getElementById('inputStockSearchSymbol');
+    const symbol = (forcedSymbol || symInput?.value || 'TATAMOTORS').trim().toUpperCase();
+    const container = document.getElementById('stockInspectResult');
+    if (!container) return;
+
+    container.innerHTML = `<div style="text-align: center; color: #94a3b8; padding: 25px 0;">⏳ Ingesting live quote & financials for ${symbol}...</div>`;
+
+    try {
+      const data = await this.api(`/api/market/stock/${encodeURIComponent(symbol)}`);
+      if (!data) throw new Error('No data received');
+
+      const isUp = (data.change >= 0);
+      const color = isUp ? '#10b981' : '#ef4444';
+      const arrow = isUp ? '▲' : '▼';
+
+      container.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 18px; font-weight: 800; color: #fff;">${data.symbol}</span>
+              <span style="font-size: 11px; font-weight: 700; background: rgba(59,130,246,0.2); color: #60a5fa; padding: 2px 8px; border-radius: 4px;">${data.exchange || 'NSE'}</span>
+              <span style="font-size: 11px; color: #94a3b8;">${data.industry || 'Equities'}</span>
+            </div>
+            <div style="font-size: 13px; color: #cbd5e1; margin-top: 3px;">${data.companyName}</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 24px; font-weight: 800; color: #fff; font-family: monospace;">₹ ${data.price.toFixed(2)}</div>
+            <div style="font-size: 13px; font-weight: 700; color: ${color}; margin-top: 2px;">
+              ${arrow} ${Math.abs(data.change).toFixed(2)} (${isUp ? '+' : ''}${data.changePct.toFixed(2)}%)
+            </div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px;">
+          <div style="background: rgba(0,0,0,0.25); padding: 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.06);">
+            <div style="font-size: 10.5px; color: #94a3b8;">Day Range</div>
+            <div style="font-size: 12.5px; font-weight: 700; color: #e2e8f0; margin-top: 3px;">₹ ${data.low} - ₹ ${data.high}</div>
+          </div>
+          <div style="background: rgba(0,0,0,0.25); padding: 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.06);">
+            <div style="font-size: 10.5px; color: #94a3b8;">52-Week Range</div>
+            <div style="font-size: 12.5px; font-weight: 700; color: #c084fc; margin-top: 3px;">₹ ${data.week52Low} - ₹ ${data.week52High}</div>
+          </div>
+          <div style="background: rgba(0,0,0,0.25); padding: 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.06);">
+            <div style="font-size: 10.5px; color: #94a3b8;">Total Volume</div>
+            <div style="font-size: 12.5px; font-weight: 700; color: #38bdf8; margin-top: 3px;">${(data.volume || 0).toLocaleString('en-IN')}</div>
+          </div>
+          <div style="background: rgba(0,0,0,0.25); padding: 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.06);">
+            <div style="font-size: 10.5px; color: #94a3b8;">Market Cap & P/E</div>
+            <div style="font-size: 12.5px; font-weight: 700; color: #4ade80; margin-top: 3px;">${data.marketCap} (P/E: ${data.pe})</div>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 14px;">
+          <div style="font-size: 11px; color: #94a3b8;">
+            Source: <strong style="color: #c084fc;">Indian Stock Exchange API2</strong> | Updated: ${new Date(data.updatedAt || Date.now()).toLocaleTimeString()}
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button type="button" class="btn btn-sm" onclick="App.openOrderModal('${data.symbol}', 'buy')" style="background: #10b981; color: #fff; font-weight: 700; border: none; padding: 7px 16px; border-radius: 6px; cursor: pointer;">
+              BUY ${data.symbol}
+            </button>
+            <button type="button" class="btn btn-sm" onclick="App.openOrderModal('${data.symbol}', 'sell')" style="background: #ef4444; color: #fff; font-weight: 700; border: none; padding: 7px 16px; border-radius: 6px; cursor: pointer;">
+              SELL ${data.symbol}
+            </button>
+          </div>
+        </div>
+      `;
+    } catch (err) {
+      container.innerHTML = `<div style="text-align: center; color: #ef4444; padding: 20px 0;">Error fetching stock details: ${err.message}</div>`;
+    }
+  },
+
+  async loadMoversCategory(category) {
+    this.currentMoversCategory = category;
+    const btns = {
+      'trending': 'btnFilterTrending',
+      'shockers': 'btnFilterShockers',
+      'active_nse': 'btnFilterNSEActive',
+      'active_bse': 'btnFilterBSEActive'
+    };
+
+    Object.entries(btns).forEach(([cat, id]) => {
+      const el = document.getElementById(id);
+      if (el) {
+        if (cat === category) {
+          el.style.background = '#9333ea';
+          el.style.color = '#fff';
+          el.style.borderColor = 'transparent';
+        } else {
+          el.style.background = 'rgba(255,255,255,0.05)';
+          el.style.color = '#94a3b8';
+          el.style.borderColor = 'rgba(255,255,255,0.1)';
+        }
+      }
+    });
+
+    const container = document.getElementById('moversTableContainer');
+    if (!container) return;
+    container.innerHTML = '<div style="text-align: center; color: #94a3b8; padding: 25px 0;">Loading data from Indian Stock Exchange API2...</div>';
+
+    let url = '/api/market/trending';
+    if (category === 'shockers') url = '/api/market/shockers';
+    if (category === 'active_nse') url = '/api/market/active/NSE';
+    if (category === 'active_bse') url = '/api/market/active/BSE';
+
+    try {
+      const list = await this.api(url);
+      if (!Array.isArray(list) || list.length === 0) {
+        container.innerHTML = '<div style="text-align: center; color: #94a3b8; padding: 20px 0;">No items found.</div>';
+        return;
+      }
+
+      let html = `
+        <table style="width: 100%; border-collapse: collapse; font-size: 12px; text-align: left;">
+          <thead>
+            <tr style="border-bottom: 1px solid rgba(255,255,255,0.1); color: #94a3b8; font-size: 11px; text-transform: uppercase;">
+              <th style="padding: 10px 8px;">Instrument</th>
+              <th style="padding: 10px 8px;">Exchange</th>
+              <th style="padding: 10px 8px; text-align: right;">Price (₹)</th>
+              <th style="padding: 10px 8px; text-align: right;">Change</th>
+              <th style="padding: 10px 8px; text-align: right;">Volume</th>
+              <th style="padding: 10px 8px; text-align: center;">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      list.forEach(item => {
+        const isUp = (item.change >= 0);
+        const color = isUp ? '#10b981' : '#ef4444';
+        const changeSign = isUp ? '+' : '';
+
+        html += `
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer;" onmouseover="this.style.background='rgba(255,255,255,0.03)'" onmouseout="this.style.background='transparent'">
+            <td style="padding: 10px 8px;" onclick="App.inspectStockDetails('${item.symbol}')">
+              <div style="font-weight: 700; color: #fff;">${item.symbol}</div>
+              <div style="font-size: 10.5px; color: #94a3b8;">${item.companyName || ''}</div>
+            </td>
+            <td style="padding: 10px 8px;">
+              <span style="font-size: 10px; font-weight: 700; background: rgba(59,130,246,0.15); color: #60a5fa; padding: 2px 6px; border-radius: 4px;">${item.exchange || 'NSE'}</span>
+            </td>
+            <td style="padding: 10px 8px; text-align: right; font-weight: 700; color: #fff; font-family: monospace;">
+              ₹ ${(item.price || item.ltp || 0).toFixed(2)}
+            </td>
+            <td style="padding: 10px 8px; text-align: right; font-weight: 700; color: ${color};">
+              ${changeSign}${(item.change || 0).toFixed(2)} (${changeSign}${(item.changePct || 0).toFixed(2)}%)
+            </td>
+            <td style="padding: 10px 8px; text-align: right; color: #cbd5e1; font-size: 11px;">
+              ${(item.volume || 0).toLocaleString('en-IN')}
+            </td>
+            <td style="padding: 10px 8px; text-align: center;">
+              <button type="button" class="btn btn-sm" onclick="App.openOrderModal('${item.symbol}', 'buy')" style="background: rgba(16,185,129,0.2); color: #34d399; border: 1px solid rgba(16,185,129,0.4); padding: 4px 10px; border-radius: 4px; font-weight: 700; cursor: pointer; font-size: 11px;">
+                Trade
+              </button>
+            </td>
+          </tr>
+        `;
+      });
+
+      html += '</tbody></table>';
+      container.innerHTML = html;
+    } catch (err) {
+      container.innerHTML = `<div style="text-align: center; color: #ef4444; padding: 20px 0;">Error: ${err.message}</div>`;
+    }
+  },
+
+  refreshMoversList() {
+    this.loadMoversCategory(this.currentMoversCategory || 'trending');
+  },
+
+  async loadMarketNews() {
+    const container = document.getElementById('newsCardsContainer');
+    if (!container) return;
+    container.innerHTML = '<div style="text-align: center; color: #94a3b8; padding: 25px 0;">Fetching headlines from Indian Stock Exchange API2...</div>';
+
+    try {
+      const newsList = await this.api('/api/market/news');
+      if (!Array.isArray(newsList) || newsList.length === 0) {
+        container.innerHTML = '<div style="text-align: center; color: #94a3b8; padding: 20px 0;">No current headlines.</div>';
+        return;
+      }
+
+      let html = '';
+      newsList.forEach(news => {
+        html += `
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; padding: 12px 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-size: 10.5px; font-weight: 700; background: rgba(168,85,247,0.15); color: #c084fc; padding: 2px 7px; border-radius: 4px;">${news.category || 'Market Flash'}</span>
+              <span style="font-size: 11px; color: #94a3b8;">${news.time || ''} • <strong style="color: #cbd5e1;">${news.source || 'NSE'}</strong></span>
+            </div>
+            <div style="font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 4px; line-height: 1.4;">${news.title}</div>
+            <div style="font-size: 12px; color: #94a3b8; line-height: 1.5;">${news.summary}</div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    } catch (err) {
+      container.innerHTML = `<div style="text-align: center; color: #ef4444; padding: 20px 0;">Failed to load news: ${err.message}</div>`;
+    }
+  },
+
+  togglePasswordVisibility(inputId) {
+    const el = document.getElementById(inputId);
+    if (!el) return;
+    el.type = (el.type === 'password') ? 'text' : 'password';
   },
 
   // ═══════════════════════════════════════════════════════
