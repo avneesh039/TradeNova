@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">TradeNova SN</string>
+    <string name="title_activity_main">TradeNova SN</string>
+    <string name="package_name">com.tradenova.terminal</string>
+    <string name="custom_url_scheme">com.tradenova.terminal</string>
+</resources>

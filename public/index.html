@@ -1,0 +1,2953 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0e17">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="TradeNova">
+  <meta name="application-name" content="TradeNova SN">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="description" content="TradeNova SN — Multi-Market Dabba & Institutional Trading Portal. Real-time MCX, NSE Cash, Currency, and F&O Derivatives.">
+  <title>TradeNova SN — Institutional Trading Portal</title>
+  
+  <!-- Browser Favicon & Touch Icons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- Open Graph / WhatsApp / Telegram Social Share Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="TradeNova SN — Institutional Trading Terminal">
+  <meta property="og:description" content="Multi-Market Dabba & Institutional Trading Portal. Real-time MCX, NSE Cash, Currency, and F&O Derivatives.">
+  <meta property="og:image" content="/og-image.png">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="TradeNova SN — Institutional Trading Terminal">
+  <meta name="twitter:description" content="Multi-Market Dabba & Institutional Trading Portal. Real-time MCX, NSE Cash, Currency, and F&O Derivatives.">
+  <meta name="twitter:image" content="/og-image.png">
+
+  <link rel="stylesheet" href="/css/style.css?v=4.7">
+  <script src="https://s3.tradingview.com/tv.js"></script>
+  <script>
+    (function() {
+      var saved = localStorage.getItem('tradenova_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', saved);
+    })();
+  </script>
+</head>
+<body>
+
+<!-- ═══ LOGIN ═══ -->
+<!-- ═══ IN-APP MOBILE & WEB SPLASH & 3-SLIDE ONBOARDING ═══ -->
+<div class="mobile-splash-screen" id="mobileSplashScreen">
+  <div class="splash-ambient-bg">
+    <div class="splash-glow splash-glow-1"></div>
+    <div class="splash-glow splash-glow-2"></div>
+    <div class="splash-grid-mesh"></div>
+  </div>
+
+  <!-- Splash Top Bar with Skip -->
+  <div class="splash-top-bar">
+    <div class="splash-brand-chip">
+      <div class="splash-mini-logo">⚡</div>
+      <span class="splash-brand-name">TradeNova <b style="color: var(--gold-shine, #d4af37);">SN</b></span>
+    </div>
+    <button type="button" class="splash-skip-btn" id="splashSkipBtn" onclick="App.dismissSplashScreen(false)">
+      <span>Skip</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+
+  <!-- 3-Slide Carousel Container -->
+  <div class="splash-carousel-wrapper">
+    <div class="splash-carousel-track" id="splashCarouselTrack">
+      
+      <!-- ═══ SLIDE 1: Indian Multi-Market Exchange Terminal ═══ -->
+      <div class="splash-slide active" id="splashSlide-0" data-slide="0">
+        <div class="slide-visual-card">
+          <!-- Exchange Logos Header -->
+          <div class="clean-exchanges-row">
+            <span class="clean-exch-badge nse">NSE</span>
+            <span class="clean-exch-badge bse">BSE</span>
+            <span class="clean-exch-badge mcx">MCX</span>
+          </div>
+
+          <!-- Live Market Quotes Display -->
+          <div class="clean-quotes-column">
+            <div class="clean-quote-row">
+              <span class="cq-sym">NIFTY 50</span>
+              <span class="cq-val">24,180.50</span>
+              <span class="cq-chg up">▲ +0.45%</span>
+            </div>
+            <div class="clean-quote-row">
+              <span class="cq-sym">BANKNIFTY</span>
+              <span class="cq-val">51,245.80</span>
+              <span class="cq-chg up">▲ +0.62%</span>
+            </div>
+            <div class="clean-quote-row">
+              <span class="cq-sym">CRUDE OIL</span>
+              <span class="cq-val">6,215.00</span>
+              <span class="cq-chg up">▲ +1.10%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-text-box">
+          <h2 class="slide-title">Multi-Market Indian Terminal</h2>
+          <p class="slide-desc">
+            Direct sub-10ms Zerodha Kite tick streaming across NSE Cash, F&O Derivatives, and MCX Commodities.
+          </p>
+          <div class="clean-badges-row">
+            <span class="clean-stat-chip">🇮🇳 100% Indian Exchanges</span>
+            <span class="clean-stat-chip">⚡ Sub-10ms Feed</span>
+            <span class="clean-stat-chip">📊 Live Depth</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ SLIDE 2: Institutional Leverage & Execution ═══ -->
+      <div class="splash-slide" id="splashSlide-1" data-slide="1">
+        <div class="slide-visual-card">
+          <div class="clean-leverage-display">
+            <div class="clean-prop-tag">INSTITUTIONAL MARGIN</div>
+            <div class="clean-multiplier-number">500x</div>
+            <div class="clean-fund-badge">
+              <span class="cfb-label">Paper Capital:</span>
+              <span class="cfb-val">₹10,00,000</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="slide-text-box">
+          <h2 class="slide-title">Institutional Margin & Execution</h2>
+          <p class="slide-desc">
+            Trade with maximum margin multiplier, zero slippage fills, and real-time mark-to-market risk tracking.
+          </p>
+          <div class="clean-badges-row">
+            <span class="clean-stat-chip">💰 ₹10L Balance</span>
+            <span class="clean-stat-chip">🎯 Zero Slippage</span>
+            <span class="clean-stat-chip">🛡️ Instant Bracket Orders</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ SLIDE 3: Instant Access & Broker Helpdesk ═══ -->
+      <div class="splash-slide" id="splashSlide-2" data-slide="2">
+        <div class="slide-visual-card">
+          <div class="clean-wa-display">
+            <div class="clean-wa-shield">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2.2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            </div>
+            <div class="clean-wa-title">Official Broker Desk</div>
+            <div class="clean-wa-sub">+91 • 10-Second Activation</div>
+          </div>
+        </div>
+
+        <div class="slide-text-box">
+          <h2 class="slide-title">Instant Access in 10 Seconds</h2>
+          <p class="slide-desc">
+            Zero KYC paperwork. Verify via automated WhatsApp OTP and start trading immediately with 24/7 desk support.
+          </p>
+          <div class="clean-badges-row">
+            <span class="clean-stat-chip">📲 10s OTP Verify</span>
+            <span class="clean-stat-chip">💬 24/7 Desk Help</span>
+            <span class="clean-stat-chip">🔒 256-Bit SSL</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bottom Navigation & Controls -->
+  <div class="splash-bottom-bar">
+    <!-- Slide Dots -->
+    <div class="splash-dots-row">
+      <span class="splash-dot active" id="splashDot-0" onclick="App.setSplashSlide(0)"></span>
+      <span class="splash-dot" id="splashDot-1" onclick="App.setSplashSlide(1)"></span>
+      <span class="splash-dot" id="splashDot-2" onclick="App.setSplashSlide(2)"></span>
+    </div>
+
+    <!-- Main Action Button (Next Slide or Get Started) -->
+    <button type="button" class="btn-splash-action" id="btnSplashAction" onclick="App.nextSplashSlide()">
+      <span id="splashActionLabel">Explore Margin & Desk →</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+
+    <div class="splash-bottom-links">
+      <span>Already have a trader account?</span>
+      <a href="javascript:void(0)" onclick="App.dismissSplashScreen(false); App.switchAuthTab('login');" class="splash-login-link">Sign In</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ LOGIN & REGISTER PAGE ═══ -->
+<div class="login-page" id="loginPage">
+  <div class="login-bg-grid"></div>
+
+  <!-- Mobile & Desktop Top Bar -->
+  <div class="login-top-bar">
+    <div class="login-status-indicator">
+      <span class="status-pulse-dot"></span>
+      <span class="status-text">Engine Online</span>
+    </div>
+    <div class="login-top-buttons">
+      <button type="button" class="theme-toggle-btn" id="loginThemeToggle" onclick="App.toggleTheme()" title="Toggle Light / Dark Mode">
+        <span class="theme-icon" id="loginThemeIcon"></span>
+        <span class="theme-label" id="loginThemeLabel">Theme</span>
+      </button>
+      <button type="button" class="btn-whatsapp-desk" onclick="App.openWhatsAppDesk()" title="Contact Broker WhatsApp Desk">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2.2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        <span class="desk-label">Support</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="login-container">
+    <div class="login-logo">
+      <div class="logo-icon" id="loginLogoIcon"></div>
+      <h1>TradeNova SN</h1>
+      <p>Institutional Multi-Market Trading Portal</p>
+    </div>
+
+    <!-- Auth Mode Tabs (Segmented Control) -->
+    <div class="auth-tabs" id="authTabs">
+      <button type="button" class="auth-tab active" id="tabBtnLogin" onclick="App.switchAuthTab('login')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        <span>Sign In</span>
+      </button>
+      <button type="button" class="auth-tab" id="tabBtnRegister" onclick="App.switchAuthTab('register')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+        <span>New Trader Register</span>
+      </button>
+    </div>
+
+    <!-- ═══ SIGN IN FORM ═══ -->
+    <form class="login-form" id="loginForm">
+      <div class="form-group">
+        <label for="loginUsername">Trader User ID</label>
+        <div class="input-with-icon">
+          <svg class="input-leading-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="4"/><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/></svg>
+          <input type="text" id="loginUsername" placeholder="Enter user ID (e.g. AG, admin, demo)" autocomplete="username" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px;">
+          <label for="loginPassword" style="margin-bottom: 0;">Password</label>
+          <a href="javascript:void(0)" onclick="App.openWhatsAppDesk('Forgot Password')" style="font-size: 11px; color: var(--gold-shine, #d4af37); text-decoration: none; font-weight: 600;">Forgot?</a>
+        </div>
+        <div class="input-with-icon">
+          <svg class="input-leading-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <input type="password" id="loginPassword" placeholder="Enter password" autocomplete="current-password" required>
+          <button type="button" class="btn-toggle-pw" id="toggleLoginPw" onclick="App.togglePasswordVisibility('loginPassword', 'toggleLoginPw')" aria-label="Toggle password visibility">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="auth-options-row">
+        <label class="custom-checkbox-wrap">
+          <input type="checkbox" id="rememberUserId" checked>
+          <span class="custom-checkbox-mark"></span>
+          <span class="checkbox-label">Remember User ID</span>
+        </label>
+      </div>
+      <button type="submit" class="btn-login" id="btnLoginSubmit">
+        <span>Sign In to Terminal</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <!-- ⚡ Instant 1-Click Demo Login Access -->
+      <div class="quick-demo-box">
+        <button type="button" class="btn-quick-demo" id="btnQuickDemoLogin" onclick="App.loginAs('demo', 'demo')">
+          <span class="qdb-icon">⚡</span>
+          <span class="qdb-text">Instant 1-Click Demo Account (₹10 Lakh Balance)</span>
+        </button>
+        <div class="quick-demo-presets">
+          <span class="qdp-chip" onclick="document.getElementById('loginUsername').value='admin'; document.getElementById('loginPassword').value='admin123';">Fill Admin (admin / admin123)</span>
+          <span class="qdp-chip" onclick="document.getElementById('loginUsername').value='demo'; document.getElementById('loginPassword').value='demo';">Fill Demo (demo / demo)</span>
+        </div>
+      </div>
+
+      <div class="login-error" id="loginError"></div>
+    </form>
+
+    <!-- ═══ REGISTRATION FORM (STEP 1: DETAILS) ═══ -->
+    <form class="login-form" id="registerForm" style="display: none;" onsubmit="App.submitRegisterDetails(event)">
+      <div class="register-intro-card">
+        <div class="ric-icon">📲</div>
+        <div class="ric-text">
+          <div class="ric-title">Instant Trader Registration</div>
+          <div class="ric-desc">Account activation OTP will be dispatched immediately to your WhatsApp.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="regName">Full Name</label>
+        <div class="input-with-icon">
+          <svg class="input-leading-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="4"/><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/></svg>
+          <input type="text" id="regName" placeholder="e.g. Rahul Sharma" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="regPhone">WhatsApp Mobile Number</label>
+        <div style="display: flex; gap: 6px;">
+          <span class="phone-prefix-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2.2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            <span>+91</span>
+          </span>
+          <input type="tel" id="regPhone" placeholder="10-digit mobile number" maxlength="10" pattern="[0-9]{10}" required style="flex: 1;">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="regUsername">Desired Trader User ID</label>
+        <div class="input-with-icon">
+          <svg class="input-leading-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+          <input type="text" id="regUsername" placeholder="e.g. RS001, rahul_trader" required autocomplete="username">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="regCity">City / Location</label>
+        <div class="input-with-icon">
+          <svg class="input-leading-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <input type="text" id="regCity" placeholder="e.g. Mumbai, Surat, Delhi">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="regPassword">Account Password</label>
+        <div class="input-with-icon">
+          <svg class="input-leading-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <input type="password" id="regPassword" placeholder="Create secure password" required minlength="4">
+          <button type="button" class="btn-toggle-pw" id="toggleRegPw" onclick="App.togglePasswordVisibility('regPassword', 'toggleRegPw')" aria-label="Toggle password visibility">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+      <button type="submit" class="btn-login" id="btnSendOtp">
+        <span>📲 Send WhatsApp Verification Code</span>
+      </button>
+      <div class="login-error" id="registerError"></div>
+      <div style="text-align: center; margin-top: 14px; font-size: 12px; color: var(--text-muted);">
+        Already have an account? <a href="javascript:void(0)" onclick="App.switchAuthTab('login')" style="color: var(--gold-shine, #d4af37); font-weight: 700; text-decoration: none;">Sign In here</a>
+      </div>
+    </form>
+
+    <!-- ═══ REGISTRATION STEP 2: VERIFY OTP ═══ -->
+    <div id="registerOtpView" style="display: none; padding-top: 10px;">
+      <div style="text-align: center; margin-bottom: 18px;">
+        <div class="otp-shield-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        </div>
+        <div style="font-size: 16px; font-weight: 800; color: var(--text-heading);">Verify WhatsApp OTP</div>
+        <div style="font-size: 12.5px; color: var(--text-muted); margin-top: 5px;">
+          We dispatched a 6-digit verification code to:<br><b id="otpTargetPhone" style="color: var(--text-primary); font-size: 14px; letter-spacing: 0.5px;">+91 98765 43210</b>
+        </div>
+        <div id="devOtpBanner" style="display: none; margin-top: 10px; padding: 6px 12px; background: rgba(59,130,246,0.15); border: 1px dashed var(--blue); border-radius: 6px; font-size: 11px; color: var(--blue);"></div>
+      </div>
+
+      <form onsubmit="App.submitVerifyOtp(event)">
+        <div class="form-group" style="text-align: center;">
+          <label style="margin-bottom: 10px; text-align: center;">Enter 6-Digit Code</label>
+          <input type="text" id="regOtpInput" placeholder="● ● ● ● ● ●" maxlength="6" pattern="[0-9]{6}" required autocomplete="one-time-code" style="text-align: center; font-size: 24px; letter-spacing: 8px; font-weight: 800; font-family: 'JetBrains Mono', monospace; padding: 12px;">
+        </div>
+        <button type="submit" class="btn-login" id="btnVerifyOtpSubmit" style="background: var(--gradient-green); color: #041a0e;">
+          <span>✅ Verify & Activate Account</span>
+        </button>
+        <div class="login-error" id="otpError"></div>
+      </form>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 18px; font-size: 12px;">
+        <button type="button" onclick="App.backToRegisterForm()" style="background: none; border: none; color: var(--text-muted); cursor: pointer; text-decoration: underline; font-size: 12px;">
+          ← Edit Details
+        </button>
+        <button type="button" id="btnResendOtp" onclick="App.resendRegisterOtp()" style="background: none; border: none; color: var(--gold-shine, #d4af37); cursor: pointer; font-weight: 700; font-size: 12px;">
+          Resend Code (<span id="resendTimer">60</span>s)
+        </button>
+      </div>
+    </div>
+
+    <!-- ═══ LOGIN FOOTER (DEMO & SUPPORT) ═══ -->
+    <div class="login-footer" id="loginFooter">
+      <button type="button" class="btn-demo" id="demoLogin">
+        <span id="demoIcon"></span>
+        <span>Try Demo Trader Account</span>
+      </button>
+      <div class="login-broker-support-row">
+        <span>Need credentials or custom limits?</span>
+        <a href="javascript:void(0)" onclick="App.openWhatsAppDesk()" class="support-link">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          <span>WhatsApp Broker Desk</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ APP SHELL ═══ -->
+<div class="app-shell" id="appShell">
+
+  <!-- Mobile Top Bar (< 900px) -->
+  <div class="mobile-top-bar" id="mobileTopBar">
+    <button type="button" class="mobile-menu-btn" id="btnMobileMenu" onclick="App.toggleMobileSidebar()" aria-label="Open Navigation Menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+    <div class="mobile-brand" onclick="App.nav('marketwatch')">
+      <div class="logo-sm" id="mobileLogo"></div>
+      <span class="brand-text">TradeNova</span>
+      <span class="brand-badge" id="mobileRoleBadge">ADMIN</span>
+    </div>
+    <div class="mobile-top-actions">
+      <div class="conn-status-sm">
+        <div class="conn-dot connected" id="mobileConnDot"></div>
+      </div>
+      <button type="button" class="top-btn" id="mobileSoundBtn" onclick="SoundEngine.toggle()" title="Toggle Sound">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+      </button>
+      <button type="button" class="theme-toggle-btn-sm" onclick="App.toggleTheme()" title="Switch Light/Dark Mode">
+        <span class="theme-icon" id="mobileThemeIcon"></span>
+      </button>
+      <div class="avatar mobile-avatar" id="mobileAvatar" onclick="App.toggleMobileProfileSheet()" title="Account & Profile Menu">A</div>
+    </div>
+  </div>
+
+  <!-- Mobile Sidebar Backdrop Overlay -->
+  <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="App.closeMobileSidebar()"></div>
+
+  <!-- Mobile User Profile & Settings Drawer / Sheet -->
+  <div class="mobile-sheet-overlay" id="mobileUserSheetOverlay" onclick="App.toggleMobileProfileSheet(false)">
+    <div class="mobile-sheet" onclick="event.stopPropagation()">
+      <div class="mobile-sheet-handle"></div>
+      <div class="mobile-sheet-header">
+        <div class="mobile-sheet-user-info">
+          <div class="avatar mobile-sheet-avatar" id="sheetAvatar">A</div>
+          <div>
+            <div class="mobile-sheet-name" id="sheetUserName">Trader</div>
+            <div class="mobile-sheet-meta">
+              <span class="mobile-sheet-role" id="sheetUserRole">trader</span>
+              <span class="mobile-sheet-id" id="sheetUserId">@ID</span>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="mobile-sheet-close" onclick="App.toggleMobileProfileSheet(false)">✕</button>
+      </div>
+      
+      <div class="mobile-sheet-stats">
+        <div class="mss-card">
+          <div class="mss-label">Trading Status</div>
+          <div class="mss-val" style="color: var(--green);">● Live Connected</div>
+        </div>
+        <div class="mss-card">
+          <div class="mss-label">Account Type</div>
+          <div class="mss-val" id="sheetAccountType" style="color: var(--gold-shine, #d4af37);">Institutional</div>
+        </div>
+      </div>
+
+      <div class="mobile-sheet-actions">
+        <button type="button" class="mobile-sheet-action-btn" onclick="App.toggleTheme()">
+          <span class="theme-icon" id="sheetThemeIcon"></span>
+          <span>Toggle Theme (Dark / Light)</span>
+        </button>
+        <button type="button" class="mobile-sheet-action-btn" onclick="SoundEngine.toggle()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          <span>Toggle Audio Feedback</span>
+        </button>
+        <button type="button" class="mobile-sheet-action-btn" onclick="App.previewSplashScreen()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <span>Replay App Splash Screen</span>
+        </button>
+        <button type="button" class="mobile-sheet-action-btn" onclick="App.openWhatsAppDesk()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          <span>WhatsApp Broker Support Desk</span>
+        </button>
+        <button type="button" class="mobile-sheet-action-btn btn-danger" onclick="App.toggleMobileProfileSheet(false); App.logout();">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <span style="font-weight: 700; color: var(--red, #ef4444);">Sign Out / Switch Trader</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ticker Strip -->
+  <div class="ticker-strip">
+    <div class="ticker-content" id="tickerContent"></div>
+  </div>
+
+  <div class="app-body">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-sm" id="sidebarLogo"></div>
+        <span class="brand">TradeNova</span>
+        <span class="brand-badge">ADMIN</span>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <div class="nav-section-title">Markets & Trade</div>
+          <div class="nav-item active" data-page="dashboard"><span class="icon" id="navIcon-dashboard"></span>Dashboard</div>
+          <div class="nav-item" data-page="marketwatch"><span class="icon" id="navIcon-marketwatch"></span>Market Watch <span class="live-dot"></span></div>
+          <div class="nav-item" data-page="trading"><span class="icon" id="navIcon-trading"></span>Trading Terminal</div>
+        </div>
+        <div class="nav-section">
+          <div class="nav-section-title">Portfolio & Orders</div>
+          <div class="nav-item" data-page="positions"><span class="icon" id="navIcon-positions"></span>Active Positions</div>
+          <div class="nav-item" data-page="closed"><span class="icon" id="navIcon-closed"></span>Closed Trades</div>
+          <div class="nav-item" data-page="trades"><span class="icon" id="navIcon-trades"></span>Trades Register</div>
+          <div class="nav-item" data-page="pending-orders"><span class="icon" id="navIcon-pending"></span>Pending Orders</div>
+          <div class="nav-item" data-page="orders"><span class="icon" id="navIcon-orders"></span>Order Book</div>
+        </div>
+        <div class="nav-section">
+          <div class="nav-section-title">Ledger & Admin</div>
+          <div class="nav-item nav-admin-only" data-page="clients"><span class="icon" id="navIcon-clients"></span>Trading Clients</div>
+          <div class="nav-item nav-admin-only" data-page="whatsapp"><span class="icon" id="navIcon-whatsapp"></span>WhatsApp Alerts <span class="badge" id="waNavBadge" style="font-size: 9px; padding: 2px 6px; border-radius: 4px; background: rgba(0,230,118,0.15); color: var(--green); margin-left: auto; font-weight: 700;">WA</span></div>
+          <div class="nav-item nav-admin-only" data-page="kite" onclick="App.openKiteModal()"><span class="icon" id="navIcon-kite"></span>Zerodha Kite Feed <span class="badge" id="kiteNavBadge" style="font-size: 9px; padding: 2px 6px; border-radius: 4px; background: rgba(56,189,248,0.15); color: #38bdf8; margin-left: auto; font-weight: 700;">v3 API</span></div>
+          <div class="nav-item nav-admin-only" data-page="branding"><span class="icon" id="navIcon-branding"></span>Logo & Branding <span class="badge" id="brandingNavBadge" style="font-size: 9px; padding: 2px 6px; border-radius: 4px; background: rgba(212,175,55,0.2); color: #d4af37; margin-left: auto; font-weight: 700;">PRO</span></div>
+          <div class="nav-item" data-page="funds"><span class="icon" id="navIcon-funds"></span>Trader Funds Ledger</div>
+          <div class="nav-item" data-page="reports"><span class="icon" id="navIcon-reports"></span>Reports & P&L</div>
+          <div class="nav-item" data-page="notifications"><span class="icon" id="navIcon-notifications"></span>Broadcasts</div>
+        </div>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="sidebar-user-row">
+          <div class="avatar" id="sidebarAvatar">A</div>
+          <div>
+            <div class="user-name" id="sidebarUserName">Admin</div>
+            <div class="user-role" id="sidebarUserRole">admin</div>
+          </div>
+        </div>
+        <div class="sidebar-action-row">
+          <button class="theme-toggle-btn" id="sidebarThemeToggle" onclick="App.toggleTheme()" title="Switch Light/Dark Mode">
+            <span class="theme-icon" id="sidebarThemeIcon"></span>
+            <span class="theme-label" id="sidebarThemeLabel">Dark</span>
+          </button>
+          <button class="btn-logout" id="btnLogout" title="Sign Out">
+            <span id="logoutIcon"></span> Exit
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- ═══ DASHBOARD ═══ -->
+      <div class="page-view active" id="page-dashboard">
+        <div class="page-header">
+          <div>
+            <h2>Trading Admin Dashboard</h2>
+            <div class="page-sub">Live M2M, turnover matrix, operational KPIs & weekly earnings</div>
+          </div>
+          <div class="header-actions">
+            <button class="top-btn nav-admin-only" onclick="App.nav('branding')" title="Platform Logo & Branding Setup" style="cursor: pointer; background: rgba(212,175,55,0.12); border: 1px solid rgba(212,175,55,0.35); padding: 5px 12px; border-radius: 20px; display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 700; color: #d4af37;">
+              <span>🎨</span>
+              <span>Logo & Branding</span>
+            </button>
+            <button class="top-btn" id="soundToggleBtn" onclick="SoundEngine.toggle()" title="Toggle Web Audio"></button>
+            <div class="conn-status" id="kiteHeaderBadge" onclick="App.openKiteModal()" style="cursor: pointer; background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.3); padding: 4px 10px; border-radius: 20px; display: flex; align-items: center; gap: 6px;" title="Click to manage Zerodha Kite Connect v3 Feed">
+              <div class="conn-dot" id="kiteDot" style="background: #38bdf8; width: 7px; height: 7px; border-radius: 50%;"></div>
+              <span id="kiteHeaderText" style="color: #38bdf8; font-weight: 700; font-size: 11px;">Kite: Sim</span>
+            </div>
+            <div class="conn-status">
+              <div class="conn-dot connected" id="connDot"></div>
+              <span id="connText" class="text-green fw-700">Live Active</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5 Top Operational KPIs -->
+        <div class="stats-grid" style="grid-template-columns: repeat(5, 1fr)">
+          <div class="stat-card blue">
+            <div class="stat-icon" id="statIcon-users"></div>
+            <div class="stat-label">Active Users</div>
+            <div class="stat-value" id="dashActiveUsers">0</div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-icon" id="statIcon-activePL"></div>
+            <div class="stat-label">Net Profit / Loss</div>
+            <div class="stat-value" id="dashTotalPL">₹0</div>
+          </div>
+          <div class="stat-card gold">
+            <div class="stat-icon" id="statIcon-brokerage"></div>
+            <div class="stat-label">Total Brokerage</div>
+            <div class="stat-value" id="dashBrokerage">₹0</div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-icon" id="statIcon-activeBuy"></div>
+            <div class="stat-label">Active Buy</div>
+            <div class="stat-value text-green" id="dashActiveBuy">0</div>
+          </div>
+          <div class="stat-card red">
+            <div class="stat-icon" id="statIcon-activeSell"></div>
+            <div class="stat-label">Active Sell</div>
+            <div class="stat-value text-red" id="dashActiveSell">0</div>
+          </div>
+        </div>
+
+        <!-- Live M2M Table (All Clients) -->
+        <div class="card mb-24" style="padding: 0; overflow: hidden">
+          <div class="card-header" style="padding: 16px 20px; border-bottom: 1px solid var(--border-primary)">
+            <span class="card-title" style="font-size: 13px; color: var(--text-heading)">
+              <span id="liveM2MIcon"></span> Live M2M (All Clients)
+            </span>
+            <span class="client-status active"><span class="live-dot"></span> Live Tick Synchronized</span>
+          </div>
+          <div style="overflow-x: auto">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>User ID / Client</th>
+                  <th style="text-align: right">Ledger Balance (₹)</th>
+                  <th style="text-align: right">M2M (₹)</th>
+                  <th style="text-align: right">Active Profit / Loss (₹)</th>
+                  <th style="text-align: right">Active Trades</th>
+                  <th style="text-align: right">Margin Used (₹)</th>
+                  <th style="text-align: center">Status</th>
+                </tr>
+              </thead>
+              <tbody id="liveM2MBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Turnover Section: MCX vs Equity -->
+        <div class="turnover-grid">
+          <!-- MCX Turnover -->
+          <div class="turnover-card">
+            <div class="turnover-title">
+              <span id="titleMCXTurnover">
+                <svg class="c-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 14l3.5-8h9l3.5 8H4z" fill="currentColor" fill-opacity="0.15"/>
+                  <rect x="2" y="14" width="20" height="6" rx="1.5" fill="currentColor" fill-opacity="0.25"/>
+                  <line x1="8" y1="17" x2="16" y2="17" stroke-width="1.8"/>
+                  <line x1="8.5" y1="6" x2="7" y2="14"/>
+                  <line x1="15.5" y1="6" x2="17" y2="14"/>
+                </svg>
+                MCX Commodities Turnover
+              </span>
+              <span class="role-badge broker">MCX</span>
+            </div>
+            <div class="turnover-row">
+              <span class="label">Buy Turnover</span>
+              <span class="value text-green" id="mcxBuyTurnover">₹0.00</span>
+            </div>
+            <div class="turnover-row">
+              <span class="label">Sell Turnover</span>
+              <span class="value text-red" id="mcxSellTurnover">₹0.00</span>
+            </div>
+            <div class="turnover-row">
+              <span class="label">Total MCX Turnover</span>
+              <span class="value text-yellow" id="mcxTotalTurnover">₹0.00</span>
+            </div>
+          </div>
+
+          <!-- Equity Turnover -->
+          <div class="turnover-card">
+            <div class="turnover-title">
+              <span id="titleEqTurnover">
+                <svg class="c-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="6" y1="3" x2="6" y2="21"/>
+                  <rect x="4" y="7" width="4" height="9" rx="1" fill="currentColor" fill-opacity="0.25"/>
+                  <line x1="12" y1="5" x2="12" y2="19"/>
+                  <rect x="10" y="9" width="4" height="6" rx="1" fill="currentColor" fill-opacity="0.45"/>
+                  <path d="M15 14l3-3 4 4" stroke-width="2"/>
+                  <polyline points="18 11 22 11 22 15" stroke-width="2"/>
+                </svg>
+                Equity & F&O Turnover
+              </span>
+              <span class="role-badge admin">NSE</span>
+            </div>
+            <div class="turnover-row">
+              <span class="label">Buy Turnover</span>
+              <span class="value text-green" id="eqBuyTurnover">₹0.00</span>
+            </div>
+            <div class="turnover-row">
+              <span class="label">Sell Turnover</span>
+              <span class="value text-red" id="eqSellTurnover">₹0.00</span>
+            </div>
+            <div class="turnover-row">
+              <span class="label">Total Equity Turnover</span>
+              <span class="value text-yellow" id="eqTotalTurnover">₹0.00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weekly Earnings Summary -->
+        <div class="turnover-grid">
+          <div class="turnover-card">
+            <div class="turnover-title">
+              <span id="titleThisWeek">
+                <svg class="c-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="3" fill="currentColor" fill-opacity="0.12"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                  <circle cx="8" cy="14" r="1" fill="currentColor"/>
+                  <circle cx="12" cy="14" r="1" fill="currentColor"/>
+                  <circle cx="16" cy="14" r="1" fill="currentColor"/>
+                  <circle cx="8" cy="18" r="1" fill="currentColor"/>
+                  <circle cx="12" cy="18" r="1" fill="currentColor"/>
+                </svg>
+                Financials This Week
+              </span>
+              <span class="text-green fw-700">Current Cycle</span>
+            </div>
+            <div class="turnover-row">
+              <span class="label">Gross Client P&L</span>
+              <span class="value" id="thisWeekGross">₹0.00</span>
+            </div>
+            <div class="turnover-row">
+              <span class="label">Brokerage Accrued</span>
+              <span class="value text-yellow" id="thisWeekBrok">₹0.00</span>
+            </div>
+            <div class="turnover-row">
+              <span class="label">Net Master Settlement</span>
+              <span class="value text-green" id="thisWeekNet">₹0.00</span>
+            </div>
+          </div>
+
+          <div class="turnover-card">
+            <div class="turnover-title">
+              <span id="titleLastWeek">
+                <svg class="c-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="3" fill="currentColor" fill-opacity="0.12"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                  <circle cx="8" cy="14" r="1" fill="currentColor"/>
+                  <circle cx="12" cy="14" r="1" fill="currentColor"/>
+                  <circle cx="16" cy="14" r="1" fill="currentColor"/>
+                  <circle cx="8" cy="18" r="1" fill="currentColor"/>
+                  <circle cx="12" cy="18" r="1" fill="currentColor"/>
+                </svg>
+                Financials Last Week
+              </span>
+              <span class="text-muted">Audited</span>
+            </div>
+            <div class="turnover-row">
+              <span class="label">Gross Client P&L</span>
+              <span class="value" id="lastWeekGross">₹1,45,200.00</span>
+            </div>
+            <div class="turnover-row">
+              <span class="label">Brokerage Accrued</span>
+              <span class="value text-yellow" id="lastWeekBrok">₹12,450.00</span>
+            </div>
+            <div class="turnover-row">
+              <span class="label">Net Master Settlement</span>
+              <span class="value text-green" id="lastWeekNet">₹1,32,750.00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Top Gainers / Losers & Pulse -->
+        <div class="dashboard-grid">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title" id="titleTopGainers"></span>
+              <span class="text-muted" style="font-size: 11px">NSE & MCX</span>
+            </div>
+            <div id="topGainers"></div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title" id="titleTopLosers"></span>
+              <span class="text-muted" style="font-size: 11px">NSE & MCX</span>
+            </div>
+            <div id="topLosers"></div>
+          </div>
+          <div class="card" style="grid-column: 1 / -1">
+            <div class="card-header">
+              <span class="card-title" id="titleMarketActivity"></span>
+              <span class="text-muted" style="font-size: 11px">Live tick streaming volume</span>
+            </div>
+            <div class="mini-chart" id="miniChartBars"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ MARKET WATCH ═══ -->
+      <div class="page-view" id="page-marketwatch">
+        <div class="page-header">
+          <div>
+            <h2>Market Watch</h2>
+            <div class="page-sub">Real-time institutional streaming quotes across segments</div>
+          </div>
+          <div class="header-actions">
+            <div class="conn-status">
+              <span class="live-dot"></span>
+              <span class="text-muted" style="font-size: 12px; margin-left: 6px">Tick Feed Active</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="segment-tabs" id="mwTabs">
+          <button class="segment-tab active" data-seg="NSE" onclick="App.switchSeg('NSE')">
+            <span id="tabIcon-nse"></span> NSE Equities
+          </button>
+          <button class="segment-tab" data-seg="BSE" onclick="App.switchSeg('BSE')">
+            <span id="tabIcon-bse"></span> BSE Equities
+          </button>
+          <button class="segment-tab" data-seg="MCX" onclick="App.switchSeg('MCX')">
+            <span id="tabIcon-mcx"></span> MCX Commodities
+          </button>
+          <button class="segment-tab" data-seg="CURRENCY" onclick="App.switchSeg('CURRENCY')">
+            <span id="tabIcon-cur"></span> Currency CDS
+          </button>
+          <button class="segment-tab" data-seg="FNO" onclick="App.switchSeg('FNO')">
+            <span id="tabIcon-fno"></span> F&O Derivatives
+          </button>
+          <button class="segment-tab" data-seg="WATCHLIST" onclick="App.switchSeg('WATCHLIST')">
+            <span id="tabIcon-wl"></span> My Watchlist
+          </button>
+        </div>
+
+        <div class="search-bar">
+          <span class="s-icon" id="searchIcon-mw"></span>
+          <input type="text" placeholder="Search instrument symbol or company name (e.g. GOLD, RELIANCE, CRUDE, NIFTY)..." oninput="App.filterMW(this.value)">
+        </div>
+
+        <div class="card" style="padding: 0; overflow: auto; max-height: calc(100vh - 290px)">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Symbol / Script</th>
+                <th>Instrument Name</th>
+                <th style="text-align: right">Bid (₹)</th>
+                <th style="text-align: right">Ask (₹)</th>
+                <th style="text-align: right">LTP (₹)</th>
+                <th style="text-align: right">Change</th>
+                <th style="text-align: right">% Chg</th>
+                <th style="text-align: right">High</th>
+                <th style="text-align: right">Low</th>
+                <th>Trade Actions</th>
+              </tr>
+            </thead>
+            <tbody id="mwBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ═══ TRADING TERMINAL & LIVE CHARTING ═══ -->
+      <div class="page-view" id="page-trading">
+
+        <!-- Terminal Layout: Scripts Table (Rest / Main Area) + Small Box Chart -->
+        <div class="tt-layout" id="ttLayout">
+
+          <!-- MAIN / REST PART: Scripts Panel with Search & Full Columns -->
+          <div class="tt-scripts-panel" id="ttScriptsPanel">
+            <!-- Search & Filter Panel -->
+            <div class="tt-search-panel">
+              <div class="tt-search-box">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+                <input type="text" id="tradeWatchSearch" placeholder="Search script, symbol, exchange..." oninput="App.filterTradeWatch(this.value)">
+                <button type="button" class="tt-search-clear" onclick="document.getElementById('tradeWatchSearch').value=''; App.filterTradeWatch('')" title="Clear">✕</button>
+              </div>
+              <div class="tt-filter-tabs">
+                <button class="tt-wl-tab active" onclick="App.filterTradeSegment('ALL',this)">ALL</button>
+                <button class="tt-wl-tab" onclick="App.filterTradeSegment('MCX',this)">MCX</button>
+                <button class="tt-wl-tab" onclick="App.filterTradeSegment('NSE',this)">NSE</button>
+                <button class="tt-wl-tab" onclick="App.filterTradeSegment('BSE',this)">BSE</button>
+                <button class="tt-wl-tab" onclick="App.filterTradeSegment('FNO',this)">F&O</button>
+                <button class="tt-wl-tab" onclick="App.filterTradeSegment('CDS',this)">FX</button>
+              </div>
+              <div class="tt-search-panel-right">
+                <button type="button" class="btn-restore-chart" id="btnRestoreChart" onclick="App.setChartSize('normal')" style="display:none;" title="Open Chart Side Panel">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M19 9l-5 5-4-4-3 3"/></svg>
+                  Show Chart
+                </button>
+                <div class="tt-scripts-stats">
+                  <span id="ttScriptCount">0</span> Scripts
+                </div>
+              </div>
+            </div>
+
+            <!-- Scripts Table -->
+            <div class="tt-scripts-table-wrap">
+              <table class="tt-scripts-table">
+                <thead>
+                  <tr>
+                    <th class="th-script">Script</th>
+                    <th class="text-right th-bid">Bid</th>
+                    <th class="text-right th-ask">Ask</th>
+                    <th class="text-right th-ltp">Ltp</th>
+                    <th class="text-right th-chg">Change</th>
+                    <th class="text-right th-high">High</th>
+                    <th class="text-right th-low">Low</th>
+                    <th class="text-center th-action">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="tradeWatchBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- DRAGGABLE SPLITTER / RESIZER -->
+          <div class="tt-resizer" id="ttResizer" title="Drag left/right to increase/decrease chart section width">
+            <div class="tt-resizer-line"></div>
+          </div>
+
+          <!-- RIGHT: Small Box TradingView Chart & Quick Pad -->
+          <div class="tt-chart-sidebar" id="ttChartSidebar">
+            <div class="tt-chart-box-card">
+              <!-- Small Box Chart Header -->
+              <div class="tt-box-header">
+                <div class="tt-box-header-left">
+                  <span class="tt-dot-live"></span>
+                  <span class="tt-sym-name" id="tradeSymDisplay">GOLDM</span>
+                  <span class="segment-badge mcx" id="tradeSymExchange">MCX</span>
+                  <span class="tt-full-name" id="tradeSymName">Gold Mini Futures</span>
+                </div>
+                <div class="tt-box-header-right">
+                  <div class="tt-header-telemetry">
+                    <span class="tt-ltp" id="tradeLTP">₹0.00</span>
+                    <span class="tt-chg text-green" id="tradeChg">+₹0.00 (+0.00%)</span>
+                  </div>
+                  <!-- Increase/Decrease & Minimize/Maximize Window Controls -->
+                  <div class="tt-win-controls">
+                    <button type="button" class="tt-win-btn" onclick="App.adjustChartWidth(-60)" title="Decrease Width (-)">
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+                    </button>
+                    <button type="button" class="tt-win-btn" onclick="App.adjustChartWidth(60)" title="Increase Width (+)">
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+                    </button>
+                    <button type="button" class="tt-win-btn" onclick="App.setChartSize('min')" title="Minimize (100% Scripts View)">
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    </button>
+                    <button type="button" class="tt-win-btn" onclick="App.setChartSize('normal')" title="Reset Normal Width (420px)">
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>
+                    </button>
+                    <button type="button" class="tt-win-btn tt-max-btn" id="btnChartMax" onclick="App.toggleChartMax()" title="Maximize / Restore Full View">
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" id="iconChartMax"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Timeframe & Chart Engine Toolbar -->
+              <div class="tt-box-toolbar">
+                <div class="tt-tf-bar" id="terminalTfBar">
+                  <button class="tt-tf" onclick="App.setTF('1',this)">1m</button>
+                  <button class="tt-tf active" onclick="App.setTF('5',this)">5m</button>
+                  <button class="tt-tf" onclick="App.setTF('15',this)">15m</button>
+                  <button class="tt-tf" onclick="App.setTF('60',this)">1H</button>
+                  <button class="tt-tf" onclick="App.setTF('D',this)">1D</button>
+                </div>
+                <div class="tt-toolbar-right">
+                  <button type="button" class="tt-height-btn" id="btnToggleHeight" onclick="App.toggleChartHeight()" title="Toggle Compact (350px) / Expanded Height">
+                    ↕ Height
+                  </button>
+                  <div class="tt-engine-bar">
+                    <button class="tt-eng-btn active" id="btnModeTV" onclick="App.setChartEngine('tv')" title="TradingView Pro Chart">TV</button>
+                    <button class="tt-eng-btn" id="btnModeCanvas" onclick="App.setChartEngine('canvas')" title="Canvas 60fps Chart">Canvas</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Small Box Chart Container -->
+              <div class="tt-small-chart-container" id="ttChartContainer">
+                <div id="tvChartWrapper" class="tv-chart-wrapper" style="width: 100%; height: 100%; position: relative;">
+                  <div id="tv_chart_container" style="width:100%;height:100%;"></div>
+                </div>
+                <div id="canvasChartWrapper" class="canvas-chart-wrapper" style="display:none; width: 100%; height: 100%; position: relative;">
+                  <div class="chart-hud" id="chartHUD">
+                    <span class="hud-item">O:<b>₹0.00</b></span><span class="hud-item">H:<b>₹0.00</b></span>
+                    <span class="hud-item">L:<b>₹0.00</b></span><span class="hud-item">C:<b>₹0.00</b></span>
+                    <span class="hud-item">Vol:<b>0</b></span>
+                  </div>
+                  <canvas id="tradeCanvas" class="chart-canvas"></canvas>
+                </div>
+              </div>
+
+              <!-- Quick Order & Depth Action Strip -->
+              <div class="tt-box-actions">
+                <button class="tt-box-btn tt-buy-btn" onclick="App.openOrderModal('buy')">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+                  BUY
+                </button>
+                <button class="tt-box-btn tt-sell-btn" onclick="App.openOrderModal('sell')">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/></svg>
+                  SELL
+                </button>
+                <button class="tt-box-btn tt-depth-btn" onclick="App.openDepthModal()" title="Market Depth (Level 2)">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="14" y2="18"/></svg>
+                  Depth
+                </button>
+              </div>
+
+              <!-- Selected Script Telemetry Grid -->
+              <div class="tt-box-stats">
+                <div class="stat-pill"><span class="stat-lbl">High</span><b class="stat-val text-green" id="tradeHigh">₹0.00</b></div>
+                <div class="stat-pill"><span class="stat-lbl">Low</span><b class="stat-val text-red" id="tradeLow">₹0.00</b></div>
+                <div class="stat-pill"><span class="stat-lbl">Volume</span><b class="stat-val" id="tradeVol">0</b></div>
+                <div class="stat-pill"><span class="stat-lbl">Lot</span><b class="stat-val" id="tradeLotSize">1 units</b></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ═══ ACTIVE POSITIONS ═══ -->
+      <div class="page-view" id="page-positions">
+        <div class="page-header">
+          <div>
+            <h2>Active Open Positions</h2>
+            <div class="page-sub">Live positions scriptwise, real-time MTM & one-click bulk square-off</div>
+          </div>
+          <div class="header-actions">
+            <button class="btn-panic-squareoff" onclick="App.squareOffAll()">
+              <span id="panicSquareOffIcon"></span> Square Off All Positions
+            </button>
+          </div>
+        </div>
+
+        <div class="position-summary-strip">
+          <div class="position-summary-item">
+            <div class="label">Open Contracts</div>
+            <div class="value" id="posTotalCount">0</div>
+          </div>
+          <div class="position-summary-item">
+            <div class="label">Live Net MTM</div>
+            <div class="value" id="posTotalPL">₹0</div>
+          </div>
+          <div class="position-summary-item">
+            <div class="label">Margin Blocked</div>
+            <div class="value text-yellow" id="posTotalMargin">₹0</div>
+          </div>
+        </div>
+
+        <div class="card" style="padding: 0; overflow: auto">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Symbol / Script</th>
+                <th>Exchange</th>
+                <th>Side</th>
+                <th>Lots / Qty</th>
+                <th>Entry Price (₹)</th>
+                <th>LTP (₹)</th>
+                <th>Unrealized P&L (₹)</th>
+                <th>Square Off</th>
+              </tr>
+            </thead>
+            <tbody id="posBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ═══ CLOSED TRADES SCRIPTWISE ═══ -->
+      <div class="page-view" id="page-closed">
+        <div class="page-header">
+          <div>
+            <h2>Closed Trades Scriptwise</h2>
+            <div class="page-sub">Historical settled trades aggregated scriptwise with realized P/L</div>
+          </div>
+        </div>
+
+        <div class="position-summary-strip">
+          <div class="position-summary-item">
+            <div class="label">Total Realized Net P&L</div>
+            <div class="value" id="closedTotalPL">₹0</div>
+          </div>
+        </div>
+
+        <div class="card" style="padding: 0; overflow: auto">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Script</th>
+                <th>Segment</th>
+                <th>Side</th>
+                <th>Lots / Qty</th>
+                <th>Avg Buy / Entry</th>
+                <th>Avg Sell / Exit</th>
+                <th>Gross P/L</th>
+                <th>Brokerage</th>
+                <th>Net Realized P/L</th>
+                <th>Settled Date</th>
+              </tr>
+            </thead>
+            <tbody id="closedBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ═══ TRADES REGISTER (NEW MODULE) ═══ -->
+      <div class="page-view" id="page-trades">
+        <div class="page-header">
+          <div>
+            <h2>Trades Register</h2>
+            <div class="page-sub">Comprehensive matched buy & sell execution log across clients</div>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-primary" onclick="App.exportTradesExcel()">
+              <span id="btnExportTradesIcon">
+                <svg class="c-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="currentColor" fill-opacity="0.12"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="8" y1="13" x2="16" y2="13" stroke-width="2"/>
+                  <line x1="8" y1="17" x2="16" y2="17" stroke-width="2"/>
+                  <line x1="12" y1="9.5" x2="12" y2="20.5" stroke-dasharray="1 1.5"/>
+                </svg>
+              </span>
+              Export All Trades to Excel
+            </button>
+          </div>
+        </div>
+
+        <div class="card" style="padding: 0; overflow: auto">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Script</th>
+                <th>Segment</th>
+                <th>User ID</th>
+                <th>Buy Rate (₹)</th>
+                <th>Sell Rate (₹)</th>
+                <th>Lots / Units</th>
+                <th>Bought At</th>
+                <th>Sold At</th>
+              </tr>
+            </thead>
+            <tbody id="tradesRegisterBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ═══ PENDING ORDERS (NEW MODULE) ═══ -->
+      <div class="page-view" id="page-pending-orders">
+        <div class="page-header">
+          <div>
+            <h2>Pending Orders</h2>
+            <div class="page-sub">Unexecuted limit, stop-loss and conditional trigger orders</div>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-primary" onclick="App.showCreatePendingModal()">
+              <span id="btnCreatePendingIcon">
+                <svg class="c-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9.5" fill="currentColor" fill-opacity="0.16"/>
+                  <line x1="12" y1="7.5" x2="12" y2="16.5" stroke-width="2.3"/>
+                  <line x1="7.5" y1="12" x2="16.5" y2="12" stroke-width="2.3"/>
+                </svg>
+              </span>
+              Create Pending Order
+            </button>
+          </div>
+        </div>
+
+        <div class="card" style="padding: 0; overflow: auto">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>ID</th>
+                <th>Commodity / Script</th>
+                <th>User ID</th>
+                <th>Trade Side</th>
+                <th>Rate (₹)</th>
+                <th>Lots</th>
+                <th>Condition</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="pendingOrdersBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ═══ ORDER BOOK ═══ -->
+      <div class="page-view" id="page-orders">
+        <div class="page-header">
+          <div>
+            <h2>Order Book</h2>
+            <div class="page-sub">Audit trail of completed, pending, and cancelled orders</div>
+          </div>
+        </div>
+
+        <div class="card" style="padding: 0; overflow: auto">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Symbol</th>
+                <th>Side</th>
+                <th>Type</th>
+                <th>Qty</th>
+                <th>Price (₹)</th>
+                <th>Status</th>
+                <th>Timestamp</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="ordersBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ═══ TRADING CLIENTS (MCX USERS) ═══ -->
+      <div class="page-view" id="page-clients">
+        <div class="page-header">
+          <div>
+            <h2>Trading Clients (MCX Users)</h2>
+            <div class="page-sub">Client master register with credit limits, ledger balance & live P/L</div>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-ghost" onclick="App.exportClientsExcel()">
+              <span id="btnExportClientsIcon">
+                <svg class="c-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="currentColor" fill-opacity="0.12"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="8" y1="13" x2="16" y2="13" stroke-width="2"/>
+                  <line x1="8" y1="17" x2="16" y2="17" stroke-width="2"/>
+                  <line x1="12" y1="9.5" x2="12" y2="20.5" stroke-dasharray="1 1.5"/>
+                </svg>
+              </span>
+              Export to Excel
+            </button>
+            <button class="btn btn-primary" onclick="App.showAddClient()">
+              <span id="btnAddClientIcon">
+                <svg class="c-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" fill="currentColor" fill-opacity="0.12"/>
+                  <circle cx="8.5" cy="7" r="4" fill="currentColor" fill-opacity="0.2"/>
+                  <line x1="20" y1="8" x2="20" y2="14" stroke-width="2.2"/>
+                  <line x1="23" y1="11" x2="17" y2="11" stroke-width="2.2"/>
+                </svg>
+              </span>
+              Create Trading Client
+            </button>
+          </div>
+        </div>
+
+        <div class="card" style="padding: 0; overflow: auto">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th style="text-align: right">Credit Limit (₹)</th>
+                <th style="text-align: right">Ledger Balance (₹)</th>
+                <th style="text-align: right">Net PL (₹)</th>
+                <th>Role</th>
+                <th>Broker</th>
+                <th>Demo Account?</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="clientsBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ═══ TRADER FUNDS LEDGER (FUNDS-WD) ═══ -->
+      <div class="page-view" id="page-funds">
+        <div class="page-header">
+          <div>
+            <h2>Trader Funds Ledger (Funds WD)</h2>
+            <div class="page-sub">Deposit and withdrawal entries ledger across client accounts</div>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-ghost" onclick="App.exportFundsExcel()">
+              <span id="btnExportFundsIcon">
+                <svg class="c-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="currentColor" fill-opacity="0.12"/>
+                  <polyline points="14 2 14 8 20 8"/>
+                  <line x1="8" y1="13" x2="16" y2="13" stroke-width="2"/>
+                  <line x1="8" y1="17" x2="16" y2="17" stroke-width="2"/>
+                  <line x1="12" y1="9.5" x2="12" y2="20.5" stroke-dasharray="1 1.5"/>
+                </svg>
+              </span>
+              Export to Excel
+            </button>
+            <button class="btn btn-success" onclick="App.showFundModal('deposit')">
+              <span id="btnDepositFundsIcon">
+                <svg class="c-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9.5" fill="currentColor" fill-opacity="0.16"/>
+                  <line x1="12" y1="7.5" x2="12" y2="16.5" stroke-width="2.3"/>
+                  <line x1="7.5" y1="12" x2="16.5" y2="12" stroke-width="2.3"/>
+                </svg>
+              </span>
+              Create Funds WD (Deposit)
+            </button>
+            <button class="btn btn-danger" onclick="App.showFundModal('withdraw')">
+              <span id="btnWithdrawFundsIcon">
+                <svg class="c-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9.5" fill="currentColor" fill-opacity="0.16"/>
+                  <line x1="7.5" y1="12" x2="16.5" y2="12" stroke-width="2.3"/>
+                </svg>
+              </span>
+              Withdraw Entry
+            </button>
+          </div>
+        </div>
+
+        <div class="fund-balance-card">
+          <div>
+            <div class="fund-label">Available Master Capital</div>
+            <div class="fund-amount" id="fundBalance">₹0</div>
+            <div class="flex gap-16 mt-8" style="font-size: 13px">
+              <span class="text-muted">Margin Used: <span class="text-yellow fw-700" id="fundMarginUsed">₹0</span></span>
+              <span class="text-muted">Net Free Cash: <span class="text-green fw-700" id="fundAvailable">₹0</span></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="padding: 0; overflow: auto">
+          <div class="card-header" style="padding: 16px 20px">
+            <span class="card-title">Funds Transactions Log</span>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Client Name</th>
+                <th>Type</th>
+                <th style="text-align: right">Amount (₹)</th>
+                <th>Notes / Reference</th>
+                <th>Created At</th>
+              </tr>
+            </thead>
+            <tbody id="fundTxBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ═══ NOTIFICATIONS BROADCAST ═══ -->
+      <div class="page-view" id="page-notifications">
+        <div class="page-header">
+          <div>
+            <h2>Broadcast Announcements</h2>
+            <div class="page-sub">System notices, trading timing alerts & circulars</div>
+          </div>
+          <button class="btn btn-primary nav-admin-only" onclick="App.showNotifModal()">
+            <span id="btnSendNotifIcon"></span> Broadcast Notice
+          </button>
+        </div>
+        <div id="notifContent"></div>
+      </div>
+
+      <!-- ═══ WHATSAPP AUTOMATION DASHBOARD (OPEN-WA) ═══ -->
+      <div class="page-view" id="page-whatsapp">
+        <div class="page-header">
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="color: #25d366; display: flex; align-items: center;">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" fill="currentColor" fill-opacity="0.15"/>
+                  <path d="M9.5 9.5c.3-.6.6-.6 1-.6.2 0 .4.1.5.3.3.6.8 1.8.8 2 0 .2-.1.4-.2.5l-.4.5c-.1.1-.3.2-.2.4.3.6.9 1.4 1.7 1.9.3.2.5.2.7 0l.6-.6c.2-.2.3-.2.5-.1s1.4.7 1.7.8c.2.1.3.2.3.4s-.1 1.2-.7 1.6c-.5.4-1.2.5-2 .2-1.8-.7-3.4-2.2-4.3-4-.7-1.4-.4-2.5.3-3z"/>
+                </svg>
+              </span>
+              <h2>WhatsApp Trade Notifications</h2>
+            </div>
+            <div class="page-sub">Powered by open-wa.org automation — Instant automated execution alerts for trader clients</div>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-outline" id="btnRestartWAPage" onclick="App.startWhatsAppSession()">
+              🔄 Connect / Scan QR
+            </button>
+            <button class="btn" id="btnToggleWAPage" onclick="App.toggleWhatsApp()" style="background: var(--bg-tertiary); border: 1px solid var(--border-primary);">
+              Alerts: ON
+            </button>
+          </div>
+        </div>
+
+        <!-- 3 Status KPI Cards -->
+        <div class="stats-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 24px;">
+          <div class="stat-card blue">
+            <div class="stat-label">Automation Engine</div>
+            <div class="stat-value" style="font-size: 16px; margin-top: 6px;" id="waPageEngine">@open-wa/wa-automate</div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Headless Chrome Engine</div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-label">Bot Session Status</div>
+            <div style="display: flex; align-items: center; gap: 8px; margin-top: 6px;">
+              <span class="conn-dot" id="waPageStatusDot"></span>
+              <span class="stat-value" style="font-size: 16px;" id="waPageStatusText">Checking...</span>
+            </div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;" id="waPageSubStatus">Ready to connect</div>
+          </div>
+          <div class="stat-card purple">
+            <div class="stat-label">Trade Alerts Trigger</div>
+            <div class="stat-value" style="font-size: 16px; margin-top: 6px;" id="waPageAlertsStatus">ACTIVE</div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Orders, Square-offs & Funds</div>
+          </div>
+        </div>
+
+        <!-- Two Column Grid: Left = QR Code / Device Link, Right = Test Tool & Template -->
+        <div class="dashboard-grid">
+          <!-- Left: Device Pairing & QR Code -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">📱 WhatsApp Device Pairing</span>
+            </div>
+            <div style="padding: 20px;">
+              <!-- QR Code Container -->
+              <div id="waPageQRArea" style="display: none; text-align: center; padding: 20px; background: var(--bg-secondary); border-radius: 8px; border: 1px dashed var(--border-primary);">
+                <div style="font-size: 14px; font-weight: 800; color: var(--text-heading); margin-bottom: 6px;">Scan QR Code to Link WhatsApp</div>
+                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5;">
+                  1. Open WhatsApp on your mobile phone<br>
+                  2. Go to <b>Settings / ⋮ Menu</b> &gt; <b>Linked Devices</b><br>
+                  3. Tap <b>Link a Device</b> and point camera at the QR code:
+                </div>
+                <div style="display: inline-block; padding: 14px; background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.35);">
+                  <img id="waPageQRImg" src="" alt="WhatsApp QR Code" style="width: 240px; height: 240px; display: block;" />
+                </div>
+              </div>
+
+              <!-- Connected Card -->
+              <div id="waPageConnectedCard" style="display: none; padding: 24px; text-align: center; background: rgba(0,230,118,0.06); border: 1px solid var(--green-border); border-radius: 10px;">
+                <div style="width: 50px; height: 50px; background: var(--green-bg); color: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div style="font-size: 16px; font-weight: 800; color: var(--text-heading);">WhatsApp Bot is Live & Linked!</div>
+                <div style="font-size: 12px; color: var(--text-secondary); margin-top: 6px; max-width: 380px; margin-left: auto; margin-right: auto; line-height: 1.5;">
+                  Client trade executions, square-offs, and margin ledger entries will be sent automatically to traders via WhatsApp.
+                </div>
+              </div>
+
+              <!-- Disconnected / Ready Prompt -->
+              <div id="waPageReadyCard" style="padding: 30px 20px; text-align: center; background: var(--bg-secondary); border-radius: 8px;">
+                <div style="color: #25d366; margin-bottom: 12px;">
+                  <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" fill="currentColor" fill-opacity="0.15"/>
+                    <path d="M9.5 9.5c.3-.6.6-.6 1-.6.2 0 .4.1.5.3.3.6.8 1.8.8 2 0 .2-.1.4-.2.5l-.4.5c-.1.1-.3.2-.2.4.3.6.9 1.4 1.7 1.9.3.2.5.2.7 0l.6-.6c.2-.2.3-.2.5-.1s1.4.7 1.7.8c.2.1.3.2.3.4s-.1 1.2-.7 1.6c-.5.4-1.2.5-2 .2-1.8-.7-3.4-2.2-4.3-4-.7-1.4-.4-2.5.3-3z"/>
+                  </svg>
+                </div>
+                <div style="font-size: 15px; font-weight: 800; color: var(--text-heading);">Start WhatsApp Client Bot</div>
+                <div style="font-size: 12px; color: var(--text-muted); margin-top: 6px; margin-bottom: 18px; max-width: 360px; margin-left: auto; margin-right: auto;">
+                  Launch headless Chrome session to generate a WhatsApp Web QR code and link your phone.
+                </div>
+                <button class="btn btn-primary" onclick="App.startWhatsAppSession()" style="padding: 10px 24px; font-size: 13px;">
+                  🚀 Start WhatsApp Session & Generate QR
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Test Tool & Live Preview -->
+          <div>
+            <!-- Test Tool Card -->
+            <div class="card" style="margin-bottom: 18px;">
+              <div class="card-header">
+                <span class="card-title">⚡ Instant Test Alert</span>
+              </div>
+              <div style="padding: 18px 20px;">
+                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">
+                  Send a test notification to verify delivery to any client mobile number:
+                </div>
+                <div style="display: flex; gap: 8px;">
+                  <input type="text" id="waPageTestPhone" placeholder="Enter 10-digit mobile number (e.g. 9876543210)" style="flex: 1; padding: 10px 14px; background: var(--bg-input); border: 1px solid var(--border-primary); border-radius: 6px; color: var(--text-primary); font-size: 13px; font-family: 'JetBrains Mono', monospace;">
+                  <button class="btn btn-primary" onclick="App.sendWAPageTestAlert()" style="white-space: nowrap; padding: 10px 20px; font-size: 12.5px;">
+                    Send Alert
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Notification Format Preview Card -->
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">💬 Live Trader Alert Preview</span>
+              </div>
+              <div style="padding: 18px 20px;">
+                <div style="background: var(--bg-secondary); border: 1px solid var(--border-primary); border-radius: 8px; padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.6; color: var(--text-primary); white-space: pre-wrap;">🟢 *TRADENOVA SN — TRADE EXECUTED*
+━━━━━━━━━━━━━━━━━━━━━━━━━
+👤 *Trader:* Rahul Kumar (RK001)
+📈 *Script:* *RELIANCE* (NSE)
+🎯 *Side:* *BUY*
+📦 *Lots / Qty:* 1 Lot (50 units)
+💰 *Exec Price:* ₹2,691.20
+💵 *Order Value:* ₹1,34,560.00
+🛡️ *Margin Req:* ₹26,912.00
+⚡ *Order ID:* #108
+⏱️ *Time:* 23 Oct 2026, 01:30 PM
+━━━━━━━━━━━━━━━━━━━━━━━━━
+_Automated confirmation via TradeNova SN Terminal_</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Full-Width Live Delivery Logs Table -->
+        <div class="card" style="margin-top: 20px;">
+          <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+            <span class="card-title">📋 Live WhatsApp Dispatch Log</span>
+            <button class="btn btn-sm btn-outline" onclick="App.fetchWAStatus()">Refresh Log</button>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Event Type</th>
+                <th>Recipient Mobile</th>
+                <th>Message Content</th>
+                <th style="text-align: center">Status</th>
+                <th style="text-align: right">Timestamp</th>
+              </tr>
+            </thead>
+            <tbody id="waPageLogBody">
+              <tr><td colspan="5" class="text-center text-muted" style="padding: 24px;">No WhatsApp notifications dispatched yet</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ═══ LOGO & BRANDING SETUP PAGE (ADMIN PANEL) ═══ -->
+      <div class="page-view" id="page-branding">
+        <div class="page-header">
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="font-size: 24px;">🎨</span>
+              <h2>Platform Logo & Branding Setup</h2>
+              <span class="badge" style="background: rgba(212,175,55,0.2); color: #d4af37; font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 4px; border: 1px solid rgba(212,175,55,0.4);">LIVE SYNC</span>
+            </div>
+            <div class="page-sub">
+              Upload your company logo & platform icons. All updates reflect immediately across web terminals, browser tabs, PWA, and mobile apps in real-time.
+            </div>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-outline" onclick="App.fetchBranding()" style="display: inline-flex; align-items: center; gap: 6px;">
+              🔄 Reload Active
+            </button>
+            <button class="btn btn-primary" id="btnPageSaveBranding" onclick="App.saveBranding()" style="display: inline-flex; align-items: center; gap: 8px; font-weight: 700; padding: 9px 20px;">
+              ✔ Save & Apply Everywhere
+            </button>
+          </div>
+        </div>
+
+        <!-- 4 Key Status Cards -->
+        <div class="stats-grid" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 24px;">
+          <div class="stat-card gold">
+            <div class="stat-label">Platform Identity</div>
+            <div class="stat-value" style="font-size: 18px; margin-top: 6px;" id="kpiBrandAppName">TradeNova SN</div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;" id="kpiBrandShortName">Short: TradeNova</div>
+          </div>
+          <div class="stat-card blue">
+            <div class="stat-label">Active Platform Logo</div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-top: 6px;">
+              <div style="width: 28px; height: 28px; border-radius: 6px; overflow: hidden; background: #000; border: 1px solid var(--border-primary);">
+                <img id="kpiBrandLogoImg" src="/icons/icon-192.png" style="width: 100%; height: 100%; object-fit: contain;">
+              </div>
+              <span class="stat-value" style="font-size: 15px;">512×512 HD</span>
+            </div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Square PNG / SVG / WebP</div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-label">Real-time Sync</div>
+            <div style="display: flex; align-items: center; gap: 8px; margin-top: 6px;">
+              <span class="conn-dot connected"></span>
+              <span class="stat-value text-green" style="font-size: 17px;">BROADCASTING</span>
+            </div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">WebSocket push to all open tabs</div>
+          </div>
+          <div class="stat-card purple">
+            <div class="stat-label">Sync Destinations</div>
+            <div class="stat-value" style="font-size: 15px; margin-top: 6px;">Web • Tabs • PWA • App</div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Android Mipmaps & Apple Touch</div>
+          </div>
+        </div>
+
+        <!-- Two Column Main Grid -->
+        <div class="dashboard-grid" style="grid-template-columns: 1.15fr 0.85fr; gap: 24px;">
+          <!-- Left: Upload & Configuration Controls -->
+          <div class="card" style="padding: 24px;">
+            <div class="card-header" style="margin-bottom: 20px; padding: 0 0 14px 0; border-bottom: 1px solid var(--border-primary);">
+              <span class="card-title" style="font-size: 14px;">🛠 Upload Logo & Configure Platform</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 18px;">
+              <!-- Drag & Drop Uploader -->
+              <div>
+                <label style="display: block; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">
+                  Upload Logo / App Icon (Supports up to 25 MB)
+                </label>
+                <div id="pageBrandingDropzone" 
+                     onclick="document.getElementById('pageBrandingUploadInput').click()" 
+                     style="border: 2px dashed rgba(212,175,55,0.45); background: var(--bg-secondary); border-radius: 12px; padding: 24px 20px; text-align: center; cursor: pointer; transition: all 0.2s ease;">
+                  <input type="file" id="pageBrandingUploadInput" accept="image/png,image/jpeg,image/webp,image/svg+xml,image/x-icon" style="display: none;" onchange="App.handleBrandingFileSelect(event)">
+                  
+                  <div style="display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 12px;">
+                    <div style="width: 72px; height: 72px; border-radius: 14px; background: #000; border: 1px solid var(--border-primary); display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 6px 16px rgba(0,0,0,0.5);">
+                      <img id="pageBrandingUploadPreview" src="/icons/icon-192.png" alt="Current Logo" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <div style="text-align: left;">
+                      <div style="font-size: 14px; font-weight: 800; color: var(--text-heading);">Click to Upload or Drag & Drop File</div>
+                      <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 3px;">Supports PNG, JPG, SVG, WebP, ICO</div>
+                      <div id="pageBrandingFileName" style="font-size: 11.5px; color: #d4af37; font-weight: 600; margin-top: 4px;">Active logo: icon-192.png</div>
+                    </div>
+                  </div>
+                  
+                  <div style="font-size: 11px; color: var(--text-muted); background: var(--bg-tertiary); padding: 7px 14px; border-radius: 6px; display: inline-block;">
+                    ⚡ Auto-converts to 192px, 512px, Favicon, OG Image, and Android launcher mipmaps
+                  </div>
+                </div>
+              </div>
+
+              <!-- Full Platform Name -->
+              <div>
+                <label style="display: block; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">
+                  Full Platform Name (Browser Tabs & Login Headline)
+                </label>
+                <input type="text" id="pageBrandingAppName" class="form-control" placeholder="e.g. TradeNova SN" oninput="App.syncBrandingPreview()" 
+                       style="width: 100%; padding: 11px 14px; background: var(--bg-input); border: 1px solid var(--border-secondary); border-radius: var(--radius-sm); color: var(--text-primary); font-size: 13.5px;">
+              </div>
+
+              <!-- Short Brand Name -->
+              <div>
+                <label style="display: block; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">
+                  Short Brand Name (Sidebar Brand & Mobile Homescreen Label)
+                </label>
+                <input type="text" id="pageBrandingShortName" class="form-control" placeholder="e.g. TradeNova" oninput="App.syncBrandingPreview()" 
+                       style="width: 100%; padding: 11px 14px; background: var(--bg-input); border: 1px solid var(--border-secondary); border-radius: var(--radius-sm); color: var(--text-primary); font-size: 13.5px;">
+              </div>
+
+              <!-- Tagline -->
+              <div>
+                <label style="display: block; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">
+                  Tagline / Subtitle
+                </label>
+                <input type="text" id="pageBrandingTagline" class="form-control" placeholder="e.g. Institutional Paper Trading Terminal" 
+                       style="width: 100%; padding: 11px 14px; background: var(--bg-input); border: 1px solid var(--border-secondary); border-radius: var(--radius-sm); color: var(--text-primary); font-size: 13.5px;">
+              </div>
+
+              <!-- Accent Color -->
+              <div>
+                <label style="display: block; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">
+                  Platform Theme Accent Color
+                </label>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <input type="color" id="pageBrandingColor" value="#d4af37" oninput="document.getElementById('pageBrandingColorHex').textContent = this.value; App.syncBrandingPreview()" 
+                         style="width: 50px; height: 40px; padding: 2px; border-radius: 6px; border: 1px solid var(--border-secondary); background: transparent; cursor: pointer;">
+                  <span id="pageBrandingColorHex" style="font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 700; color: var(--text-primary);">#d4af37</span>
+                </div>
+              </div>
+
+              <div style="margin-top: 10px;">
+                <button class="btn btn-primary" id="btnPageSaveBrandingBottom" onclick="App.saveBranding()" style="width: 100%; padding: 12px; font-size: 14px; font-weight: 700;">
+                  ✔ Save & Broadcast Everywhere
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Live Multi-Device Previews -->
+          <div class="card" style="padding: 24px; display: flex; flex-direction: column; gap: 20px;">
+            <div class="card-header" style="margin-bottom: 0; padding: 0 0 14px 0; border-bottom: 1px solid var(--border-primary); display: flex; align-items: center; justify-content: space-between;">
+              <span class="card-title" style="font-size: 14px;">📱 Multi-Platform Live Preview</span>
+              <span style="font-size: 10.5px; color: #00c087; font-weight: 700;">● Real-time Sync</span>
+            </div>
+
+            <!-- Preview 1: Browser Tab Mockup -->
+            <div>
+              <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 8px;">1. BROWSER TAB (FAVICON + TITLE)</div>
+              <div style="background: #1c2128; border: 1px solid #30363d; border-radius: 8px 8px 0 0; padding: 10px 14px; display: flex; align-items: center; gap: 10px; max-width: 320px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+                <img id="pagePreviewTabIcon" src="/icons/icon-192.png" width="18" height="18" style="border-radius: 3px; object-fit: contain;">
+                <span id="pagePreviewTabTitle" style="font-size: 12px; font-weight: 600; color: #c9d1d9; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 240px;">TradeNova SN</span>
+                <span style="margin-left: auto; color: #8b949e; font-size: 11px; cursor: pointer;">✕</span>
+              </div>
+              <div style="height: 4px; background: #21262d; border-radius: 0 0 6px 6px;"></div>
+            </div>
+
+            <!-- Preview 2: Header & Sidebar Brand Mockup -->
+            <div>
+              <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 8px;">2. SIDEBAR HEADER LOGO</div>
+              <div style="background: var(--bg-tertiary); border: 1px solid var(--border-primary); border-radius: 8px; padding: 12px 16px; display: flex; align-items: center; gap: 12px;">
+                <div style="width: 34px; height: 34px; border-radius: 8px; overflow: hidden; background: #000; border: 1px solid var(--border-primary); display: flex; align-items: center; justify-content: center;">
+                  <img id="pagePreviewHeaderIcon" src="/icons/icon-192.png" width="34" height="34" style="object-fit: cover;">
+                </div>
+                <span id="pagePreviewBrandText" style="font-size: 15px; font-weight: 800; color: var(--text-heading); letter-spacing: 0.4px;">TradeNova</span>
+                <span class="badge" style="background: rgba(212,175,55,0.2); color: #d4af37; font-size: 9.5px; font-weight: 800; padding: 2px 7px; border-radius: 4px;">ADMIN</span>
+              </div>
+            </div>
+
+            <!-- Preview 3: Mobile Phone Homescreen App Icon -->
+            <div>
+              <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 8px;">3. ANDROID & iOS APP ICON</div>
+              <div style="background: radial-gradient(circle at center, #1e2638 0%, #0c1017 100%); border: 1px solid var(--border-primary); border-radius: 12px; padding: 24px; text-align: center;">
+                <div style="display: inline-block; position: relative;">
+                  <div style="width: 68px; height: 68px; border-radius: 16px; overflow: hidden; background: #000; box-shadow: 0 10px 28px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                    <img id="pagePreviewMobileIcon" src="/icons/icon-192.png" width="68" height="68" style="object-fit: cover;">
+                  </div>
+                  <div id="pagePreviewShortName" style="font-size: 12px; font-weight: 600; color: #ffffff; text-align: center; margin-top: 8px; text-shadow: 0 1px 3px rgba(0,0,0,0.8);">TradeNova</div>
+                </div>
+                <div style="font-size: 11px; color: var(--text-muted); margin-top: 12px;">App Launcher Icon & PWA Manifest</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ REPORTS & ANALYTICS ═══ -->
+      <div class="page-view" id="page-reports">
+        <div class="page-header">
+          <div>
+            <h2>Reports & Analytics</h2>
+            <div class="page-sub">Performance metrics, win/loss breakdown & brokerage yield</div>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card blue">
+            <div class="stat-icon" id="statIcon-rptTrades"></div>
+            <div class="stat-label">Total Trades Closed</div>
+            <div class="stat-value" id="rptTrades">0</div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-icon" id="statIcon-rptNetPL"></div>
+            <div class="stat-label">Cumulative Net P&L</div>
+            <div class="stat-value" id="rptNetPL">₹0</div>
+          </div>
+          <div class="stat-card gold">
+            <div class="stat-icon" id="statIcon-rptBrokerage"></div>
+            <div class="stat-label">Total Brokerage Paid</div>
+            <div class="stat-value" id="rptBrokerage">₹0</div>
+          </div>
+          <div class="stat-card purple">
+            <div class="stat-icon" id="statIcon-rptWinRate"></div>
+            <div class="stat-label">Overall Win Rate</div>
+            <div class="stat-value" id="rptWinRate">0%</div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title text-green" id="titleWins"></span>
+            </div>
+            <div class="stat-value text-green text-mono" id="rptWins" style="font-size: 44px">0</div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title text-red" id="titleLosses"></span>
+            </div>
+            <div class="stat-value text-red text-mono" id="rptLosses" style="font-size: 44px">0</div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Mobile Bottom Sticky Navigation (< 900px) -->
+  <nav class="mobile-bottom-nav" id="mobileBottomNav">
+    <button type="button" class="mob-nav-item active" data-page="marketwatch" onclick="App.nav('marketwatch')">
+      <span class="mob-nav-icon" id="mobNavIcon-mw"></span>
+      <span class="mob-nav-label">Watch</span>
+    </button>
+    <button type="button" class="mob-nav-item" data-page="trading" onclick="App.nav('trading')">
+      <span class="mob-nav-icon" id="mobNavIcon-trading"></span>
+      <span class="mob-nav-label">Terminal</span>
+    </button>
+    <button type="button" class="mob-nav-item" data-page="positions" onclick="App.nav('positions')">
+      <span class="mob-nav-icon" id="mobNavIcon-positions"></span>
+      <span class="mob-nav-label">Positions</span>
+    </button>
+    <button type="button" class="mob-nav-item" data-page="orders" onclick="App.nav('orders')">
+      <span class="mob-nav-icon" id="mobNavIcon-orders"></span>
+      <span class="mob-nav-label">Orders</span>
+    </button>
+    <button type="button" class="mob-nav-item" data-page="dashboard" onclick="App.nav('dashboard')">
+      <span class="mob-nav-icon" id="mobNavIcon-dash"></span>
+      <span class="mob-nav-label">Dashboard</span>
+    </button>
+  </nav>
+</div>
+
+<!-- ═══ MODALS ═══ -->
+<!-- Create Pending Order Modal (Matching /pending-orders/create) -->
+<div class="modal-overlay" id="pendingOrderModal">
+  <div class="modal" style="width: 520px">
+    <div class="modal-header">
+      <div>
+        <h3>Create Pending Orders</h3>
+        <div class="text-muted" style="font-size: 12px; margin-top: 2px">Queue limit/stop orders matching admin.theindicator.in</div>
+      </div>
+      <button class="modal-close" onclick="App.closePendingModal()" id="closePendingModalBtn">
+        <svg class="c-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-form">
+      <div class="form-group">
+        <label>User ID / Trading Client <span class="required-star">*</span></label>
+        <select id="pendingUserId" class="client-select">
+          <!-- Populated dynamically via App.loadUsersForDropdowns() -->
+        </select>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px">
+        <div class="form-group">
+          <label>Segment</label>
+          <select id="pendingSegment" class="client-select" onchange="App.onPendingSegmentChange()">
+            <option value="MCX">MCX Commodities</option>
+            <option value="NSE">NSE Equity Stocks</option>
+            <option value="BSE">BSE Equity Stocks</option>
+            <option value="FNO">NSE Index Futures</option>
+            <option value="CDS">Currency Derivatives</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Commodity / Script</label>
+          <select id="pendingSym" class="client-select">
+            <option value="GOLDM">GOLDM (Gold Mini)</option>
+            <option value="CRUDEOIL">CRUDEOIL (Crude Oil)</option>
+            <option value="SILVERM">SILVERM (Silver Mini)</option>
+            <option value="NATURALGAS">NATURALGAS (Natural Gas)</option>
+            <option value="COPPER">COPPER (Copper)</option>
+            <option value="ZINC">ZINC (Zinc)</option>
+            <option value="RELIANCE">RELIANCE (Reliance Ind.)</option>
+            <option value="NIFTY-FUT">NIFTY-FUT (Nifty Futures)</option>
+            <option value="BANKNIFTY-FUT">BANKNIFTY-FUT (Bank Nifty)</option>
+            <option value="USDINR">USDINR (Currency)</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px">
+        <div class="form-group">
+          <label>Trade Side (B/S)</label>
+          <select id="pendingSide" class="client-select">
+            <option value="buy">BUY (Long)</option>
+            <option value="sell">SELL (Short)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Lots / Units</label>
+          <input type="number" id="pendingLots" class="client-input" value="1" min="1">
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px">
+        <div class="form-group">
+          <label>Rate / Trigger Price (₹) <span class="required-star">*</span></label>
+          <input type="number" id="pendingRate" class="client-input" step="0.05" placeholder="Enter limit rate" required>
+        </div>
+        <div class="form-group">
+          <label>Order Condition</label>
+          <select id="pendingCondition" class="client-select">
+            <option value="LTP <= Rate">Below (LTP &le; Rate - Buy Limit / SL Sell)</option>
+            <option value="LTP >= Rate">Above (LTP &ge; Rate - Sell Limit / SL Buy)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Transaction Password</label>
+        <input type="password" id="pendingTxPass" class="client-input" placeholder="Enter transaction password (optional)">
+      </div>
+
+      <button class="btn btn-primary" style="width: 100%; padding: 13px" onclick="App.submitPendingOrder()">Save Pending Order</button>
+    </div>
+  </div>
+</div>
+
+<!-- Fund WD Modal (Matching /funds-wd/create) -->
+<div class="modal-overlay" id="fundModal">
+  <div class="modal" style="width: 500px">
+    <div class="modal-header">
+      <div>
+        <h3 id="fundModalTitle">Create Funds Wd</h3>
+        <div class="text-muted" style="font-size: 12px; margin-top: 2px">Deposit or withdraw client ledger capital</div>
+      </div>
+      <button class="modal-close" onclick="App.closeFundModal()" id="closeFundModalBtn">
+        <svg class="c-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-form">
+      <div class="form-group">
+        <label>User ID / Client <span class="required-star">*</span></label>
+        <select id="fundUserId" class="client-select">
+          <!-- Populated dynamically via App.loadUsersForDropdowns() -->
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Transaction Type</label>
+        <select id="fundModalType" class="client-select">
+          <option value="deposit">Deposit (Credit to Ledger)</option>
+          <option value="withdraw">Withdraw (Debit from Ledger)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Amount (₹) <span class="required-star">*</span></label>
+        <input type="number" id="fundAmount" class="client-input" placeholder="e.g. 50000" min="1" step="1000">
+      </div>
+
+      <div class="form-group">
+        <label>Notes / Reference</label>
+        <textarea id="fundNotes" class="client-input" rows="2" placeholder="e.g. Bank IMPS Ref #902182 / Cheque #8812 / Daily Profit Payout" style="resize:vertical"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Transaction Password</label>
+        <input type="password" id="fundTxPass" class="client-input" placeholder="Enter transaction password (optional)">
+      </div>
+
+      <button class="btn btn-primary" style="width: 100%; padding: 13px" onclick="App.submitFund()">Save Funds Entry</button>
+    </div>
+  </div>
+</div>
+
+<!-- Institutional Client Configuration Modal (Matching mcxusers/update & mcxusers/create) -->
+<div class="modal-overlay" id="clientModal">
+  <div class="modal modal-xl">
+    <div class="client-modal-header">
+      <div class="client-modal-title-box">
+        <h3 id="clientModalTitle">Create Trading Client</h3>
+        <div class="subtitle" id="clientModalSubtitle">Configure client credentials, credit limits, RMS parameters, brokerage & lot matrix</div>
+      </div>
+      <button class="modal-close" onclick="App.closeClientModal()" id="closeClientModalBtn">
+        <svg class="c-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Client Config Navigation Tabs -->
+    <div class="client-modal-nav">
+      <button class="client-tab-btn active" onclick="App.switchClientTab('personal', this)">
+        <span class="tab-svg-icon" id="clientTabIcon-personal">
+          <svg class="c-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" fill="currentColor" fill-opacity="0.15"/>
+            <circle cx="12" cy="7" r="4" fill="currentColor" fill-opacity="0.2"/>
+            <path d="M16 11l2 2 4-4" stroke-width="2.1"/>
+          </svg>
+        </span> Personal Details
+      </button>
+      <button class="client-tab-btn" onclick="App.switchClientTab('rms', this)">
+        <span class="tab-svg-icon" id="clientTabIcon-rms">
+          <svg class="c-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L4 6v6c0 5.5 3.5 10.7 8 12 4.5-1.3 8-6.5 8-12V6l-8-4z" fill="currentColor" fill-opacity="0.15"/>
+            <circle cx="12" cy="11.5" r="3" stroke-width="1.8"/>
+            <path d="M12 8.5v1M12 14v1M9 11.5h1M14 11.5h1" stroke-width="2"/>
+          </svg>
+        </span> Config & RMS
+      </button>
+      <button class="client-tab-btn" onclick="App.switchClientTab('mcx', this)">
+        <span class="tab-svg-icon" id="clientTabIcon-mcx">
+          <svg class="c-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 14l3.5-8h9l3.5 8H4z" fill="currentColor" fill-opacity="0.15"/>
+            <rect x="2" y="14" width="20" height="6" rx="1.5" fill="currentColor" fill-opacity="0.25"/>
+            <line x1="8" y1="17" x2="16" y2="17" stroke-width="1.8"/>
+            <line x1="8.5" y1="6" x2="7" y2="14"/>
+            <line x1="15.5" y1="6" x2="17" y2="14"/>
+          </svg>
+        </span> MCX Futures
+      </button>
+      <button class="client-tab-btn" onclick="App.switchClientTab('equity', this)">
+        <span class="tab-svg-icon" id="clientTabIcon-equity">
+          <svg class="c-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="6" y1="3" x2="6" y2="21"/>
+            <rect x="4" y="7" width="4" height="9" rx="1" fill="currentColor" fill-opacity="0.25"/>
+            <line x1="12" y1="5" x2="12" y2="19"/>
+            <rect x="10" y="9" width="4" height="6" rx="1" fill="currentColor" fill-opacity="0.45"/>
+            <path d="M15 14l3-3 4 4" stroke-width="2"/>
+            <polyline points="18 11 22 11 22 15" stroke-width="2"/>
+          </svg>
+        </span> Equity & Index
+      </button>
+      <button class="client-tab-btn" onclick="App.switchClientTab('other', this)">
+        <span class="tab-svg-icon" id="clientTabIcon-other">
+          <svg class="c-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="10" width="16" height="11" rx="2.5" fill="currentColor" fill-opacity="0.18"/>
+            <path d="M8 10V6.5a4 4 0 0 1 8 0V10"/>
+            <circle cx="12" cy="14.5" r="1.5" fill="currentColor"/>
+            <path d="M12 16v2.5" stroke-width="2"/>
+          </svg>
+        </span> Other & Security
+      </button>
+    </div>
+
+    <input type="hidden" id="clientModalId">
+
+    <!-- Modal Scrollable Body -->
+    <div class="client-modal-body">
+      <!-- ─── TAB 1: PERSONAL DETAILS ─── -->
+      <div class="client-tab-pane active" id="clientTab-personal">
+        <div class="client-section-heading">Account & Personal Information</div>
+        <div class="form-grid-3">
+          <div>
+            <label class="client-form-label">Full Name <span class="required-star">*</span></label>
+            <input type="text" class="client-input" id="clientName" placeholder="e.g. NGP SUNIL / AG Vikas" required>
+          </div>
+          <div>
+            <label class="client-form-label">Mobile Number</label>
+            <input type="tel" class="client-input" id="clientMobile" placeholder="e.g. 9823012345">
+          </div>
+          <div>
+            <label class="client-form-label">Username / Client Code <span class="required-star">*</span></label>
+            <input type="text" class="client-input" id="clientUsername" placeholder="e.g. AGNGP or 9823012345" required>
+          </div>
+        </div>
+
+        <div class="form-grid-3">
+          <div>
+            <label class="client-form-label">Account Password</label>
+            <input type="text" class="client-input" id="clientPassword" placeholder="Default: 123456 (Leave blank to keep current)">
+          </div>
+          <div>
+            <label class="client-form-label">City</label>
+            <input type="text" class="client-input" id="clientCity" placeholder="e.g. Nagpur / Mumbai">
+          </div>
+          <div>
+            <label class="client-form-label">Trade Block Time (Cooldown sec)</label>
+            <input type="number" class="client-input" id="clientTradeBlockTime" value="0" min="0">
+          </div>
+        </div>
+
+        <div class="client-section-heading">Financials & Role Hierarchy</div>
+        <div class="form-grid-3">
+          <div>
+            <label class="client-form-label">Account Role</label>
+            <select class="client-select" id="clientRole">
+              <option value="client">Client (Trader)</option>
+              <option value="broker">Broker / Sub-Broker</option>
+              <option value="admin">Admin / Super Admin</option>
+            </select>
+          </div>
+          <div>
+            <label class="client-form-label">Credit Limit (₹)</label>
+            <input type="number" class="client-input" id="clientCreditLimit" value="500000" step="10000">
+          </div>
+          <div>
+            <label class="client-form-label">Ledger Funds / Margin (₹)</label>
+            <input type="number" class="client-input" id="clientFunds" value="200000" step="10000">
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div>
+            <label class="client-form-label">Account Type</label>
+            <select class="client-select" id="clientDemo">
+              <option value="0">Live Trading Account</option>
+              <option value="1">Demo / Paper Account</option>
+            </select>
+          </div>
+          <div>
+            <label class="client-form-label">Account Status</label>
+            <select class="client-select" id="clientStatus">
+              <option value="active">Active (Trading Allowed)</option>
+              <option value="inactive">Inactive / Suspended</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- WhatsApp Auto-Delivery Notice -->
+        <div style="margin-top: 18px; padding: 12px 16px; background: rgba(37,211,102,0.08); border: 1px solid var(--green-border); border-radius: var(--radius-sm); display: flex; align-items: center; gap: 12px;">
+          <div style="color: #25d366; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: rgba(37,211,102,0.12); border-radius: 50%; flex-shrink: 0;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </div>
+          <div>
+            <div style="font-size: 12px; font-weight: 700; color: var(--text-heading);">Instant WhatsApp Credentials Dispatch</div>
+            <div style="font-size: 11px; color: var(--text-muted);">Client User ID, password, margin ledger balance & credit limits will be automatically sent to the Mobile Number via WhatsApp upon creation.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── TAB 2: CONFIG & RMS ─── -->
+      <div class="client-tab-pane" id="clientTab-rms">
+        <div class="client-section-heading">Trading Order Execution Rules</div>
+
+        <div class="toggle-card">
+          <div class="toggle-card-info">
+            <span class="toggle-card-title">Allow Orders between High - Low? (AOBHL)</span>
+            <span class="toggle-card-desc">Permit limit orders placed strictly within current session High-Low bounds</span>
+          </div>
+          <label class="ui-switch">
+            <input type="checkbox" id="clientAobhl" checked>
+            <span class="ui-slider"></span>
+          </label>
+        </div>
+
+        <div class="toggle-card">
+          <div class="toggle-card-info">
+            <span class="toggle-card-title">Trigger orders at New High - Low rates Instead of Bid-Ask? (TOAHL)</span>
+            <span class="toggle-card-desc">Execute trigger/SL conditional orders based on Session High/Low prints</span>
+          </div>
+          <label class="ui-switch">
+            <input type="checkbox" id="clientToahl" checked>
+            <span class="ui-slider"></span>
+          </label>
+        </div>
+
+        <div class="toggle-card">
+          <div class="toggle-card-info">
+            <span class="toggle-card-title">Trade Equity as units instead of lots</span>
+            <span class="toggle-card-desc">Allow client to trade equity stocks by single share units rather than market lots</span>
+          </div>
+          <label class="ui-switch">
+            <input type="checkbox" id="clientTradeEquityUnits" checked>
+            <span class="ui-slider"></span>
+          </label>
+        </div>
+
+        <div class="client-section-heading">Auto-Square Off & Risk Alerts</div>
+        <div class="form-grid-2">
+          <div>
+            <label class="client-form-label">Auto-Close all active trades when losses reach % of Ledger-balance</label>
+            <div style="position:relative">
+              <input type="number" class="client-input" id="clientAutoSquareCloseAt" value="90" min="10" max="100">
+              <span style="position:absolute; right:12px; top:50%; transform:translateY(-50%); color:var(--text-muted); font-weight:700">%</span>
+            </div>
+          </div>
+          <div>
+            <label class="client-form-label">Notify client when losses reach % of Ledger-balance</label>
+            <div style="position:relative">
+              <input type="number" class="client-input" id="clientAutoSquareNotifyAt" value="70" min="10" max="100">
+              <span style="position:absolute; right:12px; top:50%; transform:translateY(-50%); color:var(--text-muted); font-weight:700">%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── TAB 3: MCX FUTURES ─── -->
+      <div class="client-tab-pane" id="clientTab-mcx">
+        <div class="toggle-card">
+          <div class="toggle-card-info">
+            <span class="toggle-card-title">MCX Commodity Trading Permission</span>
+            <span class="toggle-card-desc">Enable or disable trading access for all MCX commodity contracts</span>
+          </div>
+          <label class="ui-switch">
+            <input type="checkbox" id="clientCommodity" checked>
+            <span class="ui-slider"></span>
+          </label>
+        </div>
+
+        <div class="client-section-heading">MCX Brokerage & Exposure Rates</div>
+        <div class="form-grid-4">
+          <div>
+            <label class="client-form-label">MCX Brokerage Type</label>
+            <select class="client-select" id="clientMcxBrokerageType">
+              <option value="per_crore">Per Crore Basis</option>
+              <option value="per_lot">Per Lot Basis</option>
+            </select>
+          </div>
+          <div>
+            <label class="client-form-label">MCX Brokerage Rate (₹)</label>
+            <input type="number" class="client-input" id="clientCommodityBrokerage" value="2000">
+          </div>
+          <div>
+            <label class="client-form-label">Exposure MCX Type</label>
+            <select class="client-select" id="clientExposureMcxType">
+              <option value="per_turnover">Per Turnover Basis</option>
+              <option value="per_lot">Per Lot Basis</option>
+            </select>
+          </div>
+          <div>
+            <label class="client-form-label">Intraday Margin Multiplier</label>
+            <input type="number" class="client-input" id="clientExposureMcx" value="200">
+          </div>
+        </div>
+
+        <div class="form-grid-4">
+          <div>
+            <label class="client-form-label">Holding Margin Multiplier</label>
+            <input type="number" class="client-input" id="clientHoldingExposureMcx" value="20">
+          </div>
+          <div>
+            <label class="client-form-label">Min Lot Per Trade</label>
+            <input type="number" class="client-input" id="clientMinSizeTradeCommodity" value="0">
+          </div>
+          <div>
+            <label class="client-form-label">Max Lot Per Trade</label>
+            <input type="number" class="client-input" id="clientMaxSizeTradeCommodity" value="2">
+          </div>
+          <div>
+            <label class="client-form-label">Max Open Lots per Script</label>
+            <input type="number" class="client-input" id="clientMaxSizeScriptCommodity" value="5">
+          </div>
+        </div>
+
+        <div class="form-group" style="max-width:280px">
+          <label class="client-form-label">Max Lots Across All Commodities</label>
+          <input type="number" class="client-input" id="clientMaxSizeAllCommodity" value="20">
+        </div>
+
+        <div class="client-section-heading">MCX Script-wise Brokerage & Lot Exposure Limits</div>
+        <div style="overflow-x: auto; max-height: 240px">
+          <table class="matrix-table">
+            <thead>
+              <tr>
+                <th>Commodity Script</th>
+                <th style="text-align:right">Brokerage (₹)</th>
+                <th style="text-align:right">Intraday Max Lots</th>
+                <th style="text-align:right">Holding Max Lots</th>
+              </tr>
+            </thead>
+            <tbody id="mcxScriptMatrixBody">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ─── TAB 4: EQUITY & INDEX ─── -->
+      <div class="client-tab-pane" id="clientTab-equity">
+        <div class="toggle-card">
+          <div class="toggle-card-info">
+            <span class="toggle-card-title">Equity & F&O Trading Permission</span>
+            <span class="toggle-card-desc">Enable or disable trading access for NSE/BSE Equity and Index Futures</span>
+          </div>
+          <label class="ui-switch">
+            <input type="checkbox" id="clientEquity" checked>
+            <span class="ui-slider"></span>
+          </label>
+        </div>
+
+        <div class="client-section-heading">Equity Brokerage & Margin Settings</div>
+        <div class="form-grid-4">
+          <div>
+            <label class="client-form-label">Equity Brokerage Type</label>
+            <select class="client-select" id="clientEquityBrokerageType">
+              <option value="per_crore">Per Crore Basis</option>
+              <option value="per_lot">Per Lot Basis</option>
+            </select>
+          </div>
+          <div>
+            <label class="client-form-label">Equity Brokerage Rate (₹)</label>
+            <input type="number" class="client-input" id="clientEquityBrokerage" value="4000">
+          </div>
+          <div>
+            <label class="client-form-label">Intraday Margin Multiplier</label>
+            <input type="number" class="client-input" id="clientExposureEquity" value="200">
+          </div>
+          <div>
+            <label class="client-form-label">Holding Margin Multiplier</label>
+            <input type="number" class="client-input" id="clientHoldingExposureEquity" value="20">
+          </div>
+        </div>
+
+        <div class="client-section-heading">Single Stock Futures Lot Limits</div>
+        <div class="form-grid-4">
+          <div>
+            <label class="client-form-label">Min Lot Per Single Trade</label>
+            <input type="number" class="client-input" id="clientMinSizeTradeEquity" value="0">
+          </div>
+          <div>
+            <label class="client-form-label">Max Lot Per Single Trade</label>
+            <input type="number" class="client-input" id="clientMaxSizeTradeEquity" value="2">
+          </div>
+          <div>
+            <label class="client-form-label">Max Open Lots Per Script</label>
+            <input type="number" class="client-input" id="clientMaxSizeScriptEquity" value="5">
+          </div>
+          <div>
+            <label class="client-form-label">Max Size All Equity</label>
+            <input type="number" class="client-input" id="clientMaxSizeAllEquity" value="20">
+          </div>
+        </div>
+
+        <div class="client-section-heading">Index Futures (NIFTY / BANKNIFTY) Lot Limits</div>
+        <div class="form-grid-4">
+          <div>
+            <label class="client-form-label">Min Lot Per Trade (Index)</label>
+            <input type="number" class="client-input" id="clientMinSizeTradeIndex" value="0">
+          </div>
+          <div>
+            <label class="client-form-label">Max Lot Per Trade (Index)</label>
+            <input type="number" class="client-input" id="clientMaxSizeTradeIndex" value="5">
+          </div>
+          <div>
+            <label class="client-form-label">Max Open Lots Per Index</label>
+            <input type="number" class="client-input" id="clientMaxSizeScriptIndex" value="10">
+          </div>
+          <div>
+            <label class="client-form-label">Max Size All Index</label>
+            <input type="number" class="client-input" id="clientMaxSizeAllIndex" value="20">
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── TAB 5: OTHER & SECURITY ─── -->
+      <div class="client-tab-pane" id="clientTab-other">
+        <div class="client-section-heading">Security & Authorization</div>
+        <div class="form-group">
+          <label class="client-form-label">Transaction Password</label>
+          <input type="password" class="client-input" id="clientTxPassword" placeholder="Enter secondary transaction/withdrawal password">
+        </div>
+
+        <div class="client-section-heading">Administrative Notes & KYC Remarks</div>
+        <div class="form-group">
+          <label class="client-form-label">Notes / Instructions</label>
+          <textarea class="client-input" id="clientNotes" rows="4" placeholder="Enter any specific broker arrangements, referral references, bank details or credit terms..." style="resize:vertical"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="client-modal-footer">
+      <button class="btn btn-ghost" onclick="App.closeClientModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="App.saveClient()" id="btnSaveClientConfig">Save Client Configuration</button>
+    </div>
+  </div>
+</div>
+
+<!-- Notification Modal -->
+<div class="modal-overlay" id="notifModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Broadcast Announcement</h3>
+      <button class="modal-close" onclick="App.closeNotifModal()" id="closeNotifModalBtn"></button>
+    </div>
+    <div class="modal-form">
+      <div class="form-group">
+        <label>Announcement Headline</label>
+        <input type="text" id="notifTitle" placeholder="e.g. MCX Timing Notice / Holiday Alert">
+      </div>
+      <div class="form-group">
+        <label>Message Content</label>
+        <textarea id="notifMessage" rows="4" placeholder="Enter broadcast details..." style="resize: vertical"></textarea>
+      </div>
+      <button class="btn btn-primary" style="width: 100%; padding: 13px" onclick="App.sendNotif()">Broadcast to All Clients</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ WHATSAPP ALERTS MODAL (OPEN-WA) ═══ -->
+<div class="modal-overlay" id="whatsappModal">
+  <div class="modal" style="max-width: 680px; width: 95vw;">
+    <div class="modal-header">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="color: #25d366; display: flex; align-items: center;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" fill="currentColor" fill-opacity="0.15"/>
+            <path d="M9.5 9.5c.3-.6.6-.6 1-.6.2 0 .4.1.5.3.3.6.8 1.8.8 2 0 .2-.1.4-.2.5l-.4.5c-.1.1-.3.2-.2.4.3.6.9 1.4 1.7 1.9.3.2.5.2.7 0l.6-.6c.2-.2.3-.2.5-.1s1.4.7 1.7.8c.2.1.3.2.3.4s-.1 1.2-.7 1.6c-.5.4-1.2.5-2 .2-1.8-.7-3.4-2.2-4.3-4-.7-1.4-.4-2.5.3-3z"/>
+          </svg>
+        </span>
+        <div>
+          <h3 style="margin: 0; font-size: 16px;">WhatsApp Trade Notifications</h3>
+          <div style="font-size: 11px; color: var(--text-muted);">Real-time trader execution alerts via open-wa.org automation</div>
+        </div>
+      </div>
+      <button class="modal-close" onclick="App.closeWhatsAppModal()" id="closeWAModalBtn">✕</button>
+    </div>
+
+    <div class="modal-body" style="padding: 16px 20px; max-height: 75vh; overflow-y: auto;">
+      <!-- Connection Status Card -->
+      <div style="background: var(--bg-card-solid); border: 1px solid var(--border-primary); border-radius: 8px; padding: 14px 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-size: 10.5px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px;">Automation Engine Status</div>
+            <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
+              <span class="conn-dot" id="waStatusDot"></span>
+              <span id="waStatusText" style="font-weight: 800; font-size: 13.5px;">Checking status...</span>
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <button class="btn btn-sm btn-outline" id="btnRestartWA" onclick="App.startWhatsAppSession()" style="font-size: 11px; padding: 6px 12px;">
+              🔄 Start / Scan QR
+            </button>
+            <button class="btn btn-sm" id="btnToggleWA" onclick="App.toggleWhatsApp()" style="font-size: 11px; padding: 6px 12px; background: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-primary);">
+              Enabled
+            </button>
+          </div>
+        </div>
+
+        <!-- QR Code Area (Shown when SCAN_QR) -->
+        <div id="waQRArea" style="display: none; text-align: center; padding: 18px; background: var(--bg-secondary); border-radius: 8px; border: 1px dashed var(--border-primary); margin-top: 14px;">
+          <div style="font-size: 13px; font-weight: 700; margin-bottom: 6px; color: var(--text-heading);">Scan WhatsApp Web QR Code</div>
+          <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 14px;">
+            1. Open WhatsApp on phone &gt; Settings / 3 dots &gt; <b>Linked Devices</b><br>
+            2. Tap <b>Link a Device</b> and point camera at the QR code below:
+          </div>
+          <div id="waQRImageContainer" style="display: inline-block; padding: 12px; background: #fff; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+            <img id="waQRImg" src="" alt="WhatsApp QR Code" style="width: 220px; height: 220px; display: block;" />
+          </div>
+        </div>
+
+        <!-- Connected Info (Shown when CONNECTED) -->
+        <div id="waConnectedInfo" style="display: none; padding: 12px 14px; background: rgba(0,230,118,0.08); border: 1px solid var(--green-border); border-radius: 8px; margin-top: 12px;">
+          <div style="display: flex; align-items: center; gap: 8px; color: var(--green); font-size: 12px; font-weight: 700;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            WhatsApp Web Session Linked & Ready
+          </div>
+          <div style="font-size: 11px; color: var(--text-secondary); margin-top: 3px;" id="waConnectedDetails">
+            Instant automated WhatsApp confirmations are active for all client trade executions, square-offs, and ledger updates.
+          </div>
+        </div>
+      </div>
+
+      <!-- Test Message Tool -->
+      <div style="margin-top: 14px; padding: 14px 16px; background: var(--bg-card-solid); border: 1px solid var(--border-primary); border-radius: 8px;">
+        <div style="font-size: 12px; font-weight: 700; margin-bottom: 8px; color: var(--text-heading);">Send Test WhatsApp Trade Alert</div>
+        <div style="display: flex; gap: 8px;">
+          <input type="text" id="waTestPhone" placeholder="Enter 10-digit mobile number (e.g. 9876543210)" style="flex: 1; padding: 8px 12px; background: var(--bg-input); border: 1px solid var(--border-primary); border-radius: 6px; color: var(--text-primary); font-size: 12px; font-family: 'JetBrains Mono', monospace;">
+          <button class="btn btn-primary" onclick="App.sendWATestAlert()" style="white-space: nowrap; padding: 8px 16px; font-size: 11.5px;">
+            Send Test Alert
+          </button>
+        </div>
+      </div>
+
+      <!-- Template Format Preview -->
+      <div style="margin-top: 14px;">
+        <div style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 6px;">Live Execution Template Sent to Traders</div>
+        <div style="background: var(--bg-card-solid); border: 1px solid var(--border-primary); border-radius: 8px; padding: 12px; font-family: 'JetBrains Mono', monospace; font-size: 11px; line-height: 1.5; color: var(--text-primary); white-space: pre-wrap;">🟢 *TRADENOVA SN — TRADE EXECUTED*
+━━━━━━━━━━━━━━━━━━━━━━━━━
+👤 *Trader:* Rahul Kumar (RK001)
+📈 *Script:* *RELIANCE* (NSE)
+🎯 *Side:* *BUY*
+📦 *Lots / Qty:* 1 Lot (50 units)
+💰 *Exec Price:* ₹2,691.20
+💵 *Order Value:* ₹1,34,560.00
+🛡️ *Margin Req:* ₹26,912.00
+⚡ *Order ID:* #108
+⏱️ *Time:* 23 Oct 2026, 01:30 PM
+━━━━━━━━━━━━━━━━━━━━━━━━━
+_Automated confirmation via TradeNova SN Terminal_</div>
+      </div>
+
+      <!-- Live Delivery Logs -->
+      <div style="margin-top: 14px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <div style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">Recent Delivery Logs</div>
+          <button class="btn btn-sm btn-outline" onclick="App.fetchWAStatus()" style="font-size: 10px; padding: 2px 8px;">Refresh</button>
+        </div>
+        <div id="waDeliveryLogs" style="max-height: 140px; overflow-y: auto; background: var(--bg-card-solid); border: 1px solid var(--border-primary); border-radius: 6px; padding: 6px;">
+          <div style="text-align: center; color: var(--text-muted); font-size: 11px; padding: 12px;">No delivery logs yet</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ZERODHA KITE CONNECT v3 MODAL ═══ -->
+<div class="modal-overlay" id="kiteModal">
+  <div class="modal" style="max-width: 680px; width: 95vw;">
+    <div class="modal-header">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="color: #38bdf8; display: flex; align-items: center;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor" fill-opacity="0.2"/>
+          </svg>
+        </span>
+        <div>
+          <h3 style="margin: 0; font-size: 16px;">Zerodha Kite Connect v3 Integration</h3>
+          <div style="font-size: 11px; color: var(--text-muted);">Real-time binary WebSocket tick feed (NSE, BSE, MCX, CDS & NFO)</div>
+        </div>
+      </div>
+      <button class="modal-close" onclick="App.closeKiteModal()" id="closeKiteModalBtn">✕</button>
+    </div>
+
+    <div class="modal-body" style="padding: 16px 20px; max-height: 75vh; overflow-y: auto;">
+      <!-- Connection Status Card -->
+      <div style="background: var(--bg-card-solid); border: 1px solid var(--border-primary); border-radius: 8px; padding: 14px 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-size: 10.5px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px;">Live Feed Status</div>
+            <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
+              <span class="conn-dot" id="kiteStatusDot" style="width: 8px; height: 8px; border-radius: 50%; display: inline-block;"></span>
+              <span id="kiteStatusText" style="font-weight: 800; font-size: 13.5px;">Simulation Mode</span>
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <button class="btn btn-sm btn-primary" id="btnKiteConnect" onclick="App.connectKite()" style="font-size: 11px; padding: 6px 14px; background: #2563eb; color: #fff; border: none; border-radius: 6px; font-weight: 700; cursor: pointer;">
+              ⚡ Connect Zerodha Kite
+            </button>
+            <button class="btn btn-sm btn-outline" id="btnKiteDisconnect" onclick="App.disconnectKite()" style="display: none; font-size: 11px; padding: 6px 14px; border: 1px solid #ef4444; color: #ef4444; background: transparent; border-radius: 6px; font-weight: 700; cursor: pointer;">
+              Disconnect / Switch to Sim
+            </button>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border-primary);">
+          <div>
+            <div style="font-size: 11px; color: var(--text-muted);">Active Authenticated Account</div>
+            <div id="kiteTraderName" style="font-size: 13px; font-weight: 700; color: var(--text-heading); margin-top: 2px;">None (Simulation)</div>
+          </div>
+          <div>
+            <div style="font-size: 11px; color: var(--text-muted);">Market Coverage</div>
+            <div id="kiteTokensCount" style="font-size: 13px; font-weight: 700; color: #38bdf8; margin-top: 2px;">40 Simulated Instruments</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Credentials Configuration Form -->
+      <div style="margin-top: 14px; padding: 14px 16px; background: var(--bg-card-solid); border: 1px solid var(--border-primary); border-radius: 8px;">
+        <div style="font-size: 12px; font-weight: 700; margin-bottom: 8px; color: var(--text-heading); display: flex; justify-content: space-between;">
+          <span>Kite Developer Credentials</span>
+          <a href="https://developers.kite.trade/apps" target="_blank" style="font-size: 11px; color: #38bdf8; text-decoration: none; font-weight: 500;">Open Kite Developer Console ↗</a>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 10px;">
+          <div>
+            <label style="font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 4px;">API Key</label>
+            <input type="text" id="inputKiteApiKey" placeholder="e.g. 7abcde12345xyz" style="width: 100%; box-sizing: border-box; padding: 8px 10px; background: var(--bg-secondary); border: 1px solid var(--border-primary); border-radius: 6px; color: var(--text-primary); font-size: 12px;" />
+          </div>
+          <div>
+            <label style="font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 4px;">API Secret</label>
+            <input type="password" id="inputKiteApiSecret" placeholder="e.g. 32-character secret" style="width: 100%; box-sizing: border-box; padding: 8px 10px; background: var(--bg-secondary); border: 1px solid var(--border-primary); border-radius: 6px; color: var(--text-primary); font-size: 12px;" />
+          </div>
+        </div>
+        <div style="display: flex; justify-content: flex-end;">
+          <button class="btn btn-sm btn-primary" onclick="App.saveKiteConfig()" style="font-size: 11px; padding: 6px 16px; border-radius: 6px;">Save Credentials</button>
+        </div>
+      </div>
+
+      <!-- Quick Setup Instructions & Privacy Architecture -->
+      <div style="margin-top: 14px; padding: 14px 16px; background: rgba(56,189,248,0.05); border: 1px solid rgba(56,189,248,0.2); border-radius: 8px;">
+        <div style="font-size: 12px; font-weight: 700; color: #38bdf8; margin-bottom: 8px;">⚙️ Setup Instructions in Kite Developer Console</div>
+        <ol style="margin: 0; padding-left: 18px; font-size: 11.5px; color: var(--text-secondary); line-height: 1.6;">
+          <li>Log in to <a href="https://developers.kite.trade/apps" target="_blank" style="color: #38bdf8;">developers.kite.trade</a> and create a Kite Connect app.</li>
+          <li>Set the <strong>Redirect URL</strong> to: <code style="background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px; color: #38bdf8;">http://localhost:3000/api/kite/callback</code> (or your VPS domain).</li>
+          <li>Enter your <strong>API Key</strong> and <strong>API Secret</strong> above and click Save.</li>
+          <li>Click <strong>Connect Zerodha Kite</strong> every morning at 9:00 AM to establish the live binary WebSocket stream.</li>
+        </ol>
+        <div style="margin-top: 10px; padding: 8px 10px; background: rgba(16,185,129,0.08); border-radius: 6px; font-size: 11px; color: #34d399; line-height: 1.5;">
+          🔒 <strong>Privacy Assurance:</strong> Zero trader tracking. Kite is exclusively used as a 1-way inbound market quote feed. Your client accounts, orders, positions, and ledgers remain 100% private in local MySQL.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- ═══ GLOBAL ORDER MODAL (Form Popup Modal for Admin & Clients) ═══ -->
+<div class="order-modal-overlay" id="orderModal">
+  <div class="order-modal" id="orderModalBox">
+    <!-- 1. Header with Dual Tab (BUY/SELL) & Live LTP -->
+    <div class="om-header" id="omHeader">
+      <div class="om-side-toggle">
+        <button type="button" class="om-side-tab buy active" id="omTabBuy" onclick="App.setOrderSide('buy')">
+          <span class="om-side-pulse"></span> BUY
+        </button>
+        <button type="button" class="om-side-tab sell" id="omTabSell" onclick="App.setOrderSide('sell')">
+          <span class="om-side-pulse"></span> SELL
+        </button>
+      </div>
+
+      <div class="om-header-center">
+        <span class="om-sym" id="omSymbol">CRUDEOIL</span>
+        <span class="segment-badge mcx" id="omExchange">MCX</span>
+      </div>
+
+      <div class="om-header-right">
+        <div class="om-price-stack">
+          <span class="om-ltp" id="omLtp">₹0.00</span>
+          <span class="om-chg text-green" id="omChg">+0.00%</span>
+        </div>
+        <button type="button" class="om-close" onclick="App.closeOrderModal()" title="Close (Esc)">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="om-header-gold-line"></div>
+
+    <div class="om-body">
+      <!-- 1. Script / Symbol Selector Dropdown (Interactive Search-Select) -->
+      <div class="om-field-group">
+        <label class="om-label">Script / Instrument</label>
+        <div class="search-select-wrap" id="symbolSearchSelectWrap">
+          <div class="search-select-trigger" id="symbolSelectTrigger" onclick="App.toggleSymbolSearchSelect(event)">
+            <div class="ss-trigger-content">
+              <span class="ss-sym-title" id="ssSelectedSymTitle">SENSEX</span>
+              <span class="segment-badge bse" id="ssSelectedSymEx">BSE</span>
+              <span class="ss-sym-ltp" id="ssSelectedSymLtp">₹81,768.78</span>
+            </div>
+            <span class="ss-chevron">
+              <svg class="ss-chevron-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </div>
+          <div class="search-select-dropdown" id="symbolSearchDropdown" style="display:none;" onclick="event.stopPropagation()">
+            <div class="ss-search-bar">
+              <span class="ss-search-icon">
+                <svg class="ss-lens-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <circle cx="10.5" cy="10.5" r="7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M15.5 15.5L21.5 21.5" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M7.5 8C8.2 6.8 9.5 6.2 11 6.2" stroke-width="1.8" stroke-linecap="round" stroke-opacity="0.85"/>
+                </svg>
+              </span>
+              <input type="text" id="symbolSearchInput" class="ss-search-input" placeholder="Search script (e.g. CRUDEOIL, RELIANCE, GOLD)..." autocomplete="off" oninput="App.onSymbolSearchInput(this.value)" onkeydown="App.onSymbolSearchKeyDown(event)">
+              <button type="button" class="ss-clear-btn" id="symbolSearchClear" onclick="App.clearSymbolSearch(event)" title="Clear search">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+            <div class="ss-status-bar" id="symbolSearchStatus">
+              <span>Filter Instruments</span>
+              <span class="ss-count" id="symbolSearchCount"></span>
+            </div>
+            <div class="ss-options-list" id="symbolOptionsList"></div>
+          </div>
+        </div>
+        <select id="orderSymbolSelect" style="display: none;" onchange="App.onOrderSymbolSelect(this.value)">
+        </select>
+      </div>
+
+      <!-- 2. Please Select a Client Dropdown (Interactive AJAX Search-Select) -->
+      <div class="om-field-group" id="omClientGroup">
+        <div class="om-label-row">
+          <label class="om-label">Trading Client Account <span class="text-red">*</span></label>
+          <span id="omClientRoleBadge" class="client-role-pill" style="display:none; font-size:10px; padding:2px 6px;"></span>
+        </div>
+        <div class="search-select-wrap" id="clientSearchSelectWrap">
+          <div class="search-select-trigger" id="clientSelectTrigger" onclick="App.toggleClientSearchSelect(event)">
+            <div class="ss-trigger-content" id="clientSelectedDisplay">
+              <span class="ss-placeholder">Please Select a client</span>
+            </div>
+            <span class="ss-chevron">
+              <svg class="ss-chevron-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </div>
+          <div class="search-select-dropdown" id="clientSearchDropdown" style="display:none;" onclick="event.stopPropagation()">
+            <div class="ss-search-bar">
+              <span class="ss-search-icon">
+                <svg class="ss-lens-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <circle cx="10.5" cy="10.5" r="7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M15.5 15.5L21.5 21.5" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M7.5 8C8.2 6.8 9.5 6.2 11 6.2" stroke-width="1.8" stroke-linecap="round" stroke-opacity="0.85"/>
+                </svg>
+              </span>
+              <input type="text" id="clientSearchInput" class="ss-search-input" placeholder="Search client by Name, ID, Mobile (e.g. Atul, 7566)..." autocomplete="off" oninput="App.onClientSearchInput(this.value)" onkeydown="App.onClientSearchKeyDown(event)">
+              <button type="button" class="ss-clear-btn" id="clientSearchClear" onclick="App.clearClientSearch(event)" title="Clear search">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+            <div class="ss-status-bar" id="clientSearchStatus">
+              <span>Live AJAX Trader Search</span>
+              <span class="ss-count" id="clientSearchCount"></span>
+            </div>
+            <div class="ss-options-list" id="clientOptionsList"></div>
+          </div>
+        </div>
+        <select id="orderClientSelect" style="display: none;" onchange="App.onOrderClientChanged()">
+          <option value="">Please Select a client</option>
+        </select>
+        <div id="omClientFundsInfo" class="om-client-badge" style="display:none;"></div>
+      </div>
+
+      <!-- 3. Order Type (Market vs Limit Segmented Control) -->
+      <div class="om-field-group">
+        <label class="om-label">Order Type</label>
+        <div class="om-type-pill-row">
+          <button type="button" class="om-type-pill active" id="omTypeMarket" onclick="App.setOrderType('market')">
+            Market (MKT)
+          </button>
+          <button type="button" class="om-type-pill" id="omTypeLimit" onclick="App.setOrderType('limit')">
+            Limit (LMT)
+          </button>
+        </div>
+        <select id="orderType" style="display: none;" onchange="App.onOrderTypeChanged()">
+          <option value="market" selected>market</option>
+          <option value="limit">limit</option>
+        </select>
+      </div>
+
+      <!-- 4. Product Type (MIS vs CNC Segmented Control) -->
+      <div class="om-field-group">
+        <label class="om-label">Product Type</label>
+        <div class="om-product-row">
+          <button type="button" class="om-prod active" id="omProdMIS" onclick="App.setProductType('MIS')">
+            Intraday <span class="om-prod-sub">MIS (5x Leverage)</span>
+          </button>
+          <button type="button" class="om-prod" id="omProdCNC" onclick="App.setProductType('CNC')">
+            Delivery <span class="om-prod-sub">CNC (Normal 1x)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 5. Lots & Price Grid -->
+      <div class="om-fields">
+        <div class="om-field-group">
+          <label class="om-label">Quantity / Lots</label>
+          <div class="om-stepper">
+            <button type="button" class="om-step-btn" onclick="App.stepQty(-1)">−</button>
+            <input type="number" id="tradeQty" value="1" min="1" oninput="App.updateOrderSum()">
+            <button type="button" class="om-step-btn" onclick="App.stepQty(1)">+</button>
+          </div>
+          <span class="om-hint" id="tradeLotHint">1 Lot = 100 units</span>
+        </div>
+        <div class="om-field-group">
+          <div class="om-label-row">
+            <label class="om-label">Order Price (₹)</label>
+            <span class="om-ltp-link" id="omPriceLtpLink" onclick="App.fillMarketPrice()" style="display:none;">LTP</span>
+          </div>
+          <div class="om-price-box">
+            <span class="om-currency-prefix">₹</span>
+            <input type="number" class="om-input" id="tradePrice" step="0.05" oninput="App.updateOrderSum()" readonly style="opacity: 0.85;">
+          </div>
+          <span class="om-hint" id="omPriceHint" style="color: #f5be38;">Market Execution @ Live LTP</span>
+        </div>
+      </div>
+
+      <!-- 6. Real-time Order Summary -->
+      <div class="om-summary" id="orderSumContent"></div>
+    </div>
+
+    <!-- 7. Action Button & Shortcut Hints -->
+    <div class="om-footer">
+      <button class="om-submit-btn buy" id="btnPlaceOrder" onclick="App.placeOrder()">
+        BUY
+      </button>
+      <div class="om-kb-hint">
+        <span><kbd>+</kbd> Buy</span>
+        <span><kbd>-</kbd> Sell</span>
+        <span><kbd>Enter</kbd> Submit</span>
+        <span><kbd>Esc</kbd> Close</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ GLOBAL DEPTH MODAL (Market Depth Popup) ═══ -->
+<div class="order-modal-overlay" id="depthModal">
+  <div class="depth-modal-box">
+    <div class="dm-header">
+      <div>
+        <span class="dm-title" id="dmSymbol">GOLDM</span>
+        <span class="segment-badge mcx" id="dmExchange">MCX</span>
+        <span style="font-size:12px; color:var(--text-muted); margin-left:8px">Market Depth</span>
+      </div>
+      <button class="om-close" onclick="App.closeDepthModal()">✕</button>
+    </div>
+    <div class="dm-body">
+      <div class="depth-tables-wrap">
+        <div>
+          <table class="depth-table">
+            <thead><tr><th>Orders</th><th style="text-align:right">Bid Qty</th><th style="text-align:right">Bid ₹</th></tr></thead>
+            <tbody id="depthBidsBody"></tbody>
+          </table>
+        </div>
+        <div>
+          <table class="depth-table">
+            <thead><tr><th>Ask ₹</th><th style="text-align:right">Ask Qty</th><th style="text-align:right">Orders</th></tr></thead>
+            <tbody id="depthAsksBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="depth-meter-bar">
+        <div class="depth-meter-bid" id="depthMeterBid" style="width:50%"></div>
+        <div class="depth-meter-ask" id="depthMeterAsk" style="width:50%"></div>
+      </div>
+      <div class="depth-meter-legend">
+        <span class="text-green fw-700">Bids: <span id="depthTotalBids">0</span> (<span id="depthBidPct">50%</span>)</span>
+        <span class="text-red fw-700">Asks: <span id="depthTotalAsks">0</span> (<span id="depthAskPct">50%</span>)</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ LOGO & BRANDING SETUP MODAL (ADMIN PANEL) ═══ -->
+<div class="modal-overlay" id="brandingModal">
+  <div class="modal" style="width: 860px; max-width: 95vw; max-height: 92vh; padding: 26px 28px; border: 1px solid var(--border-primary); box-shadow: 0 20px 60px rgba(0,0,0,0.6);">
+    <div class="modal-header" style="margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border-primary);">
+      <div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 20px;">🎨</span>
+          <h3 style="margin: 0; font-size: 18px; font-weight: 800; color: var(--text-heading);">Platform Logo & Branding Setup</h3>
+          <span class="badge" style="background: rgba(212,175,55,0.2); color: #d4af37; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(212,175,55,0.4);">LIVE SYNC</span>
+        </div>
+        <p style="margin: 4px 0 0; font-size: 12px; color: var(--text-muted);">
+          Customize your trading terminal branding. Any uploaded logo and name reflects immediately across web, browser tabs, PWA, and mobile apps.
+        </p>
+      </div>
+      <button class="modal-close" onclick="App.closeBrandingModal()" title="Close">✕</button>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 24px; margin-bottom: 20px;">
+      <!-- LEFT: Uploader & Form Controls -->
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <!-- Dropzone / File Picker -->
+        <div>
+          <label style="display: block; font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">
+            Platform Logo & App Icon (Square 512×512 Recommended)
+          </label>
+          <div id="brandingDropzone" 
+               onclick="document.getElementById('brandingUploadInput').click()" 
+               style="border: 2px dashed rgba(212,175,55,0.4); background: var(--bg-secondary); border-radius: 12px; padding: 20px 16px; text-align: center; cursor: pointer; transition: all 0.2s ease;">
+            <input type="file" id="brandingUploadInput" accept="image/png,image/jpeg,image/webp,image/svg+xml,image/x-icon" style="display: none;" onchange="App.handleBrandingFileSelect(event)">
+            
+            <div style="display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 10px;">
+              <div style="width: 64px; height: 64px; border-radius: 12px; background: #000; border: 1px solid var(--border-primary); display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.4);">
+                <img id="brandingUploadPreview" src="/icons/icon-192.png" alt="Current Logo" style="width: 100%; height: 100%; object-fit: contain;">
+              </div>
+              <div style="text-align: left;">
+                <div style="font-size: 13px; font-weight: 700; color: var(--text-heading);">Click to Upload or Drag & Drop</div>
+                <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">PNG, JPG, SVG, WebP, ICO (Up to 25 MB)</div>
+                <div id="brandingFileName" style="font-size: 11px; color: #d4af37; font-weight: 600; margin-top: 4px;">Active logo: icon-192.png</div>
+              </div>
+            </div>
+            
+            <div style="font-size: 10.5px; color: var(--text-muted); background: var(--bg-tertiary); padding: 6px 12px; border-radius: 6px; display: inline-block;">
+              ⚡ Automatically updates Favicons, Web Header, PWA, and Mobile Launcher Icons
+            </div>
+          </div>
+        </div>
+
+        <!-- Full Platform Name -->
+        <div>
+          <label style="display: block; font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">
+            Full Platform Name (Browser Tabs & Login)
+          </label>
+          <input type="text" id="brandingAppName" class="form-control" placeholder="e.g. TradeNova SN" oninput="App.syncBrandingPreview()" 
+                 style="width: 100%; padding: 10px 12px; background: var(--bg-input); border: 1px solid var(--border-secondary); border-radius: var(--radius-sm); color: var(--text-primary); font-size: 13px;">
+        </div>
+
+        <!-- Short Brand Name -->
+        <div>
+          <label style="display: block; font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">
+            Short Brand Name (Header & Mobile App Icon Label)
+          </label>
+          <input type="text" id="brandingShortName" class="form-control" placeholder="e.g. TradeNova" oninput="App.syncBrandingPreview()" 
+                 style="width: 100%; padding: 10px 12px; background: var(--bg-input); border: 1px solid var(--border-secondary); border-radius: var(--radius-sm); color: var(--text-primary); font-size: 13px;">
+        </div>
+
+        <!-- Tagline -->
+        <div>
+          <label style="display: block; font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">
+            Platform Tagline / Subtitle
+          </label>
+          <input type="text" id="brandingTagline" class="form-control" placeholder="e.g. Institutional Paper Trading Terminal" 
+                 style="width: 100%; padding: 10px 12px; background: var(--bg-input); border: 1px solid var(--border-secondary); border-radius: var(--radius-sm); color: var(--text-primary); font-size: 13px;">
+        </div>
+
+        <!-- Primary Accent Color -->
+        <div>
+          <label style="display: block; font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;">
+            Theme Accent Color
+          </label>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <input type="color" id="brandingColor" value="#d4af37" oninput="document.getElementById('brandingColorHex').textContent = this.value; App.syncBrandingPreview()" 
+                   style="width: 44px; height: 36px; padding: 2px; border-radius: 6px; border: 1px solid var(--border-secondary); background: transparent; cursor: pointer;">
+            <span id="brandingColorHex" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: var(--text-primary);">#d4af37</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Live Multi-Device Previews -->
+      <div style="background: var(--bg-secondary); border: 1px solid var(--border-primary); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 16px;">
+        <div style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-heading); display: flex; align-items: center; justify-content: space-between;">
+          <span>Live Preview</span>
+          <span style="font-size: 10px; color: #00c087; font-weight: 700;">● Real-time</span>
+        </div>
+
+        <!-- Preview 1: Browser Tab Mockup -->
+        <div>
+          <div style="font-size: 10.5px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px;">1. BROWSER TAB (FAVICON + TITLE)</div>
+          <div style="background: #1c2128; border: 1px solid #30363d; border-radius: 8px 8px 0 0; padding: 8px 12px; display: flex; align-items: center; gap: 8px; max-width: 280px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+            <img id="brandingPreviewTabIcon" src="/icons/icon-192.png" width="16" height="16" style="border-radius: 3px; object-fit: contain;">
+            <span id="brandingPreviewTabTitle" style="font-size: 11px; font-weight: 600; color: #c9d1d9; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;">TradeNova SN</span>
+            <span style="margin-left: auto; color: #8b949e; font-size: 10px; cursor: pointer;">✕</span>
+          </div>
+          <div style="height: 4px; background: #21262d; border-radius: 0 0 6px 6px;"></div>
+        </div>
+
+        <!-- Preview 2: Header & Sidebar Brand Mockup -->
+        <div>
+          <div style="font-size: 10.5px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px;">2. SIDEBAR HEADER LOGO</div>
+          <div style="background: var(--bg-tertiary); border: 1px solid var(--border-primary); border-radius: 8px; padding: 10px 14px; display: flex; align-items: center; gap: 10px;">
+            <div style="width: 30px; height: 30px; border-radius: 6px; overflow: hidden; background: #000; border: 1px solid var(--border-primary); display: flex; align-items: center; justify-content: center;">
+              <img id="brandingPreviewHeaderIcon" src="/icons/icon-192.png" width="30" height="30" style="object-fit: cover;">
+            </div>
+            <span id="brandingPreviewBrandText" style="font-size: 14px; font-weight: 800; color: var(--text-heading); letter-spacing: 0.4px;">TradeNova</span>
+            <span class="badge" style="background: rgba(212,175,55,0.2); color: #d4af37; font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 4px;">ADMIN</span>
+          </div>
+        </div>
+
+        <!-- Preview 3: Mobile Phone Homescreen App Icon -->
+        <div>
+          <div style="font-size: 10.5px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px;">3. ANDROID & iOS APP ICON</div>
+          <div style="background: radial-gradient(circle at center, #1e2638 0%, #0c1017 100%); border: 1px solid var(--border-primary); border-radius: 10px; padding: 18px; text-align: center;">
+            <div style="display: inline-block; position: relative;">
+              <div style="width: 60px; height: 60px; border-radius: 14px; overflow: hidden; background: #000; box-shadow: 0 8px 24px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                <img id="brandingPreviewMobileIcon" src="/icons/icon-192.png" width="60" height="60" style="object-fit: cover;">
+              </div>
+              <div id="brandingPreviewShortName" style="font-size: 11px; font-weight: 600; color: #ffffff; text-align: center; margin-top: 6px; text-shadow: 0 1px 3px rgba(0,0,0,0.8);">TradeNova</div>
+            </div>
+            <div style="font-size: 10px; color: var(--text-muted); margin-top: 10px;">Native Launcher Badge & PWA Manifest</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Footer Actions -->
+    <div style="display: flex; align-items: center; justify-content: flex-end; gap: 12px; padding-top: 14px; border-top: 1px solid var(--border-primary);">
+      <button class="btn btn-secondary" onclick="App.closeBrandingModal()" style="padding: 9px 18px; font-size: 13px;">Cancel</button>
+      <button class="btn btn-primary" id="btnSaveBranding" onclick="App.saveBranding()" style="padding: 9px 22px; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px;">
+        ✔ Save & Apply Everywhere
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ═══ MOBILE PWA INSTALL PROMPT BANNER ═══ -->
+<div class="mobile-install-banner" id="mobileInstallBanner" style="display: none;">
+  <div class="mib-icon">
+    <img src="/icons/icon-192.png" alt="TradeNova App" width="40" height="40" style="border-radius: 10px; display: block;">
+  </div>
+  <div class="mib-content">
+    <div class="mib-title">Install TradeNova App</div>
+    <div class="mib-desc">Fast 1-tap mobile trading & live ticks</div>
+  </div>
+  <div class="mib-actions">
+    <button class="btn btn-sm btn-primary mib-install-btn" id="btnInstallPwa" onclick="App.installPwa()">Install</button>
+    <button class="mib-close-btn" onclick="App.dismissInstallBanner()" title="Close">✕</button>
+  </div>
+</div>
+
+<!-- iOS Add to Home Screen Instructions Modal -->
+<div class="modal-overlay" id="iosInstallModal">
+  <div class="modal" style="max-width: 380px; text-align: center; padding: 24px 20px;">
+    <img src="/icons/icon-192.png" width="60" height="60" style="border-radius: 14px; margin-bottom: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.4);" />
+    <h3 style="margin: 0 0 8px; font-size: 16px; color: var(--text-heading);">Install TradeNova on iOS</h3>
+    <p style="font-size: 12.5px; color: var(--text-muted); line-height: 1.5; margin: 0 0 16px;">
+      Install this app on your iPhone or iPad home screen for an immersive full-screen native trading experience:
+    </p>
+    <div style="background: var(--bg-card-solid); border: 1px solid var(--border-primary); border-radius: 10px; padding: 12px 14px; text-align: left; font-size: 12px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px;">
+      <div style="margin-bottom: 8px;">1. Tap the <strong>Share</strong> button <span style="font-size: 15px;">⎋</span> at the bottom of Safari.</div>
+      <div>2. Scroll down and tap <strong>Add to Home Screen ⊕</strong>.</div>
+    </div>
+    <button class="btn btn-primary" onclick="document.getElementById('iosInstallModal').classList.remove('active')" style="width: 100%; padding: 10px;">Got It</button>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/icons.js?v=4.4"></script>
+<script src="/js/audio.js?v=4.4"></script>
+<script src="/js/chart.js?v=4.4"></script>
+<script src="/js/app.js?v=5.1"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').then((reg) => {
+        console.log('[PWA] Service Worker registered:', reg.scope);
+      }).catch((err) => {
+        console.warn('[PWA] Service Worker registration failed:', err);
+      });
+    });
+  }
+</script>
+</body>
+</html>

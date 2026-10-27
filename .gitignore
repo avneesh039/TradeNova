@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+tradenova-mobile/node_modules/
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+
+# Build outputs and temporary archives
+tradenova_deploy.tar.gz
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Android build files and SDK paths
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+android/.idea/
+android/*.iml
+android/captures/
+
+# React Native Android & iOS builds
+tradenova-mobile/android/.gradle/
+tradenova-mobile/android/build/
+tradenova-mobile/android/app/build/
+tradenova-mobile/android/local.properties
+tradenova-mobile/android/.idea/
+tradenova-mobile/ios/Pods/
+tradenova-mobile/ios/build/
+
+# Capacitor iOS builds
+ios/App/Pods/
+ios/App/build/
+
+# OS specific files
+.DS_Store
+Thumbs.db
+desktop.ini

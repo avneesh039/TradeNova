@@ -1,0 +1,23 @@
+{
+  "appId": "com.tradenova.terminal",
+  "appName": "TradeNova SN",
+  "webDir": "public",
+  "bundledWebRuntime": false,
+  "server": {
+    "url": "https://ciggymart.shop",
+    "cleartext": true
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 1500,
+      "backgroundColor": "#080b13",
+      "showSpinner": false,
+      "androidSplashResourceName": "splash",
+      "iosSplashResourceName": "Default"
+    },
+    "StatusBar": {
+      "backgroundColor": "#080b13",
+      "style": "DARK"
+    }
+  }
+}

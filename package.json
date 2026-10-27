@@ -1,0 +1,34 @@
+{
+  "name": "tradenova-sn",
+  "version": "2.0.0",
+  "description": "TradeNova SN — Premium Indian Stock Market Paper Trading Portal",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "mobile:sync": "cap sync",
+    "mobile:android": "cap open android",
+    "mobile:ios": "cap open ios",
+    "rn:start": "npm --prefix tradenova-mobile start",
+    "rn:android": "npm --prefix tradenova-mobile run android",
+    "rn:ios": "npm --prefix tradenova-mobile run ios"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/cli": "^8.5.3",
+    "@capacitor/core": "^8.5.3",
+    "@capacitor/ios": "^8.5.3",
+    "@open-wa/wa-automate": "^5.6.7",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^18.0.9",
+    "express": "^4.21.0",
+    "express-session": "^1.18.0",
+    "kiteconnect": "^5.3.0",
+    "mysql2": "^3.24.6",
+    "qrcode": "^1.5.4",
+    "socket.io": "^4.8.0"
+  },
+  "devDependencies": {
+    "ssh2": "^1.17.0"
+  }
+}

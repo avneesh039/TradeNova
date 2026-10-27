@@ -1,0 +1,25 @@
+[Unit]
+Description=TradeNova SN — MySQL Paper Trading & Market Feed Engine
+Documentation=https://github.com/tradenova
+After=network.target mysql.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/var/www/tradenova
+ExecStart=/usr/bin/node server.js
+Restart=always
+RestartSec=5
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=tradenova
+
+# Security Sandboxing
+Environment=NODE_ENV=production
+Environment=PORT=3000
+
+# Resource Limits
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target
